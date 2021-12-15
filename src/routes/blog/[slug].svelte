@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-  export async function load({ page, fetch, session, stuff }) {
+  export async function load({ page, fetch }) {
     const url = `/blog/${page.params.slug}.json`;
     const response = await fetch(url);
 
