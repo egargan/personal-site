@@ -1,4 +1,5 @@
 import { Mongo } from '$lib/mongo';
+import { PostsDao } from '$lib/PostsDao';
 
 // Create promise for a successfully initialised MongoDB connection.
 // For dev builds, this init will only run on the first request. In prod,
@@ -10,7 +11,7 @@ import { Mongo } from '$lib/mongo';
 const initialised: Promise<Mongo> = (async () => {
   try {
     console.info('Connecting to MongoDB...');
-    return await new Mongo({ url: process.env['MONGODB_URL'] }).connect();
+    return new Mongo({ url: process.env['MONGODB_URL'] }).connect();
   } catch (err) {
     console.error(err);
     process.exit(1);
@@ -19,7 +20,14 @@ const initialised: Promise<Mongo> = (async () => {
 
 export async function handle({ request, resolve }) {
   let mongo: Mongo = await initialised;
-  request.locals.db = mongo.getDb();
+  const posts = new PostsDao(mongo.getDb());
+
+  request.locals.db = {
+    // Endpoints should really use DAOs to access the db, but provide the
+    // handle for the time being
+    handle: mongo,
+    posts,
+  }
 
   console.log(`${request.method} ${request.host} ${request.path}`);
 

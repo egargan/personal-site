@@ -64,6 +64,12 @@ export class Mongo {
   }
 }
 
+export class DbError extends AppError {
+  constructor(message: string, err?: MongoError) {
+    super(message, { err });
+  }
+}
+
 export class ConnectionError extends AppError {
   constructor(error: MongoError) {
     super(`failed to connect to MongoDB`, { cause: error });
