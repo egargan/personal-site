@@ -19,18 +19,29 @@
 </script>
 
 <script lang="ts">
-  export let posts;
+  import type { Post } from '$lib/PostsDao';
+  import { formatDateLong } from '$lib/time';
 
-  console.log(posts);
+  export let posts: Post[];
 </script>
 
-<h2>Posts</h2>
 <ul>
   {#each posts as post}
-    <li>
-      <a href="{`blog/${post.slug}`}"><h3>{post.title}</h3></a>
-      <h4>{post.created}</h4>
-      <p>{post.tags.join(', ')}</p>
-    </li>
+    <div class="mb-12">
+      <article>
+        <h2>
+          <a class="text-black" href="{`blog/${post.slug}`}">
+            {post.title}
+          </a>
+        </h2>
+        <h4 class="mb-2">{post.header}</h4>
+        <div class="mb-2 text-grey">
+          <h4 class="inline-block mr-1">{formatDateLong(new Date(post.created))}</h4>
+          <div class="inline-block mr-1">·</div>
+          <h4 class="inline-block">{post.readTimeMins} minute read</h4>
+        </div>
+        <h4 class="text-red">{post.tags.join(', ')}</h4>
+      </article>
+    </div>
   {/each}
 </ul>

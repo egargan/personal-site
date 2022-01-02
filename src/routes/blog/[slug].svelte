@@ -21,12 +21,22 @@
 <script lang="ts">
   import MarkdownIt from 'markdown-it';
 
+  import type { Post } from '$lib/PostsDao';
+  import { formatDateLong } from '$lib/time';
+
   const renderer = new MarkdownIt();
 
-  export let post;
+  export let post: Post;
 </script>
 
-<h2>{post.title}</h2>
-<h3>{post.created}</h3>
-<p>{post.tags.join(', ')}</p>
-<p>{@html renderer.render(post.content)}</p>
+<article>
+  <header class="mb-4">
+    <h1>{post.title}</h1>
+    <div class="mb-2 text-grey">
+      <h3 class="inline-block mr-1">{formatDateLong(new Date(post.created))}</h3>
+      <div class="inline-block mr-1">·</div>
+      <h3 class="inline-block">{post.readTimeMins} minute read</h3>
+    </div>
+    <h3 class="text-red">{post.tags.join(', ')}</h3>
+  </header>
+</article>

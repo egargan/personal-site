@@ -3,7 +3,7 @@
   import NavElement from './NavElement.svelte';
 </script>
 
-<nav class="pt-8 pb-4">
+<nav class="pt-10 pb-6">
   <ul class="flex justify-end">
     <li class="mr-10">
       <NavElement

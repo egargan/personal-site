@@ -4,7 +4,7 @@
   export let isCurrentPage: boolean;
 </script>
 
-<a class:text-red={isCurrentPage} href={path}>
+<a class="no-underline {isCurrentPage ? 'text-red' : 'text-black'}" href={path}>
   {text}
 </a>
 {#if isCurrentPage}
