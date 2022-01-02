@@ -29,14 +29,17 @@
   export let post: Post;
 </script>
 
-<article>
-  <header class="mb-4">
-    <h1>{post.title}</h1>
-    <div class="mb-2 text-grey">
-      <h3 class="inline-block mr-1">{formatDateLong(new Date(post.created))}</h3>
-      <div class="inline-block mr-1">·</div>
-      <h3 class="inline-block">{post.readTimeMins} minute read</h3>
-    </div>
-    <h3 class="text-red">{post.tags.join(', ')}</h3>
+<article class="pb-16">
+  <header class="mb-6">
+    <h1 class="text-2xl font-heading mb-6">{post.title}</h1>
+    <p class="mb-2 text-grey">
+      <span class="inline-block mr-1">{formatDateLong(new Date(post.created))}</span>
+      <span class="inline-block mr-1">·</span>
+      <span class="inline-block">{post.readTimeMins} minute read</span>
+    </p>
+    <p class="text-red">{post.tags.join(', ')}</p>
   </header>
+  <div class="post-content">
+    {@html renderer.render(post.content)}
+  </div>
 </article>
