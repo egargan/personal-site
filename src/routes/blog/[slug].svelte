@@ -20,18 +20,23 @@
 
 <script lang="ts">
   import MarkdownIt from 'markdown-it';
+  import MarkdownItAnchor from 'markdown-it-anchor';
+  import MarkdownItAttrs from 'markdown-it-attrs';
 
   import type { Post } from '$lib/PostsDao';
   import { formatDateLong } from '$lib/time';
 
-  const renderer = new MarkdownIt();
-
   export let post: Post;
+
+  // TODO: abstract this init? move into $lib file?
+  const renderer = new MarkdownIt()
+    .use(MarkdownItAttrs)
+    .use(MarkdownItAnchor);
 </script>
 
 <article class="pb-16">
-  <header class="mb-6">
-    <h1 class="text-2xl font-heading mb-6">{post.title}</h1>
+  <header class="mb-10">
+    <h1 class="text-3xl font-heading mb-6">{post.title}</h1>
     <p class="mb-2 text-grey">
       <span class="inline-block mr-1">{formatDateLong(new Date(post.created))}</span>
       <span class="inline-block mr-1">·</span>

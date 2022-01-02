@@ -29,7 +29,7 @@
   {#each posts as post}
     <div class="mb-12">
       <article>
-        <h2 class="font-heading text-xl pb-2">
+        <h2 class="font-heading text-2xl pb-2">
           <a class="text-black underline decoration-grey-light" href="{`blog/${post.slug}`}">
             {post.title}
           </a>
