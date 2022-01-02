@@ -5,6 +5,8 @@ import { DbError } from '$lib/mongo';
 export interface Post {
   content: string,
   created: string,
+  header: string,
+  readTimeMins: number,
   slug: string,
   tags: string[],
   title: string,
