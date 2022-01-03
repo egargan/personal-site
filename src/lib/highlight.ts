@@ -7,8 +7,8 @@ import typescript from 'highlight.js/lib/languages/typescript';
 // Stylesheet use to colour the code blocks
 import 'highlight.js/styles/nord.css';
 
-// TODO: type me
 export function initialiseHighlightJs(): any {
   hljs.registerLanguage('typescript', typescript);
+
   return hljs;
 }
