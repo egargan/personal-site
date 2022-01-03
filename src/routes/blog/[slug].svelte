@@ -19,14 +19,25 @@
 </script>
 
 <script lang="ts">
+  import { onMount } from 'svelte';
+
   import MarkdownIt from 'markdown-it';
   import MarkdownItAnchor from 'markdown-it-anchor';
   import MarkdownItAttrs from 'markdown-it-attrs';
 
   import type { Post } from '$lib/PostsDao';
   import { formatDateLong } from '$lib/time';
+  import { initialiseHighlightJs } from '$lib/highlight';
 
   export let post: Post;
+
+  // TODO: type me
+  const highlightJs: any = initialiseHighlightJs();
+
+  onMount(() => {
+    // Apply highlighting to all <pre><code>... elements
+    highlightJs.highlightAll();
+  });
 
   // TODO: abstract this init? move into $lib file?
   const renderer = new MarkdownIt()
