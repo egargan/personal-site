@@ -29,18 +29,20 @@
   {#each posts as post}
     <div class="mb-12">
       <article>
-        <h2 class="font-heading text-2xl pb-2">
-          <a class="text-black underline decoration-grey-light" href="{`blog/${post.slug}`}">
+        <h2 class="font-heading text-2xl pb-3">
+          <a class="text-black transition-colors duration-[50ms] hover:text-red" href="{`blog/${post.slug}`}">
             {post.title}
           </a>
         </h2>
-        <p class="mb-2">{post.header}</p>
-        <p class="mb-2 text-grey">
+        <p class="mb-3">{post.header}</p>
+        <p class="mb-3 text-grey">
           <span class="inline-block mr-1">{formatDateLong(new Date(post.created))}</span>
           <span class="inline-block mr-1">·</span>
           <span class="inline-block">{post.readTimeMins} minute read</span>
         </p>
-        <p class="text-red">{post.tags.join(', ')}</p>
+        {#each post.tags as tag}
+          <span class="bg-pink-light text-red text-sm px-1.5 mr-1 rounded-sm">{tag}</span>
+        {/each}
       </article>
     </div>
   {/each}

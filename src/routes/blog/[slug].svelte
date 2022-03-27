@@ -40,13 +40,15 @@
 
 <article class="pb-16">
   <header class="mb-10">
-    <h1 class="text-3xl font-heading mb-6">{post.title}</h1>
-    <p class="mb-2 text-grey">
+    <h1 class="text-3xl font-heading mb-4">{post.title}</h1>
+    <p class="mb-4 text-grey">
       <span class="inline-block mr-1">{formatDateLong(new Date(post.created))}</span>
       <span class="inline-block mr-1">·</span>
       <span class="inline-block">{post.readTimeMins} minute read</span>
     </p>
-    <p class="text-red">{post.tags.join(', ')}</p>
+    {#each post.tags as tag}
+      <span class="bg-pink-light text-red text-sm px-1.5 mr-1 rounded-sm">{tag}</span>
+    {/each}
   </header>
   <div class="post-content">
     {@html renderer.render(post.content)}

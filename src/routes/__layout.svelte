@@ -7,9 +7,9 @@
 
 <!-- Apply Noto Sans as default font -->
 <div class="flex flex-col items-center font-noto-sans text-base">
-  <div class="w-[800px] px-2">
+  <div class="w-[820px] px-2">
     <Nav/>
-    <main class="pt-16">
+    <main class="pt-20">
       <slot />
     </main>
   </div>
