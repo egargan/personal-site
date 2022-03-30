@@ -1,10 +1,19 @@
-import type { PostsDao, Post } from "$lib/PostsDao";
+import { getPostProperties, PostProperties } from '$lib/notion/page';
+import type { Client } from '@notionhq/client';
 
 export async function get({ params, locals }) {
-  const postsDao: PostsDao = locals.db?.posts;
-  const posts: Post[] = await postsDao.getAllPosts();
+  const notion: Client = locals.notion;
+
+  // TODO:
+  // * error handling
+  // * create DAO around notion client
+  const response = await notion.databases.query({
+    database_id: process.env['NOTION_POSTS_DB_ID'],
+  });
+
+  const pages: PostProperties[] = response.results.map(getPostProperties);
 
   return {
-    body: posts,
+    body: pages,
   };
 }

@@ -19,10 +19,10 @@
 </script>
 
 <script lang="ts">
-  import type { Post } from '$lib/PostsDao';
+  import type { PostProperties } from '$lib/notion/page';
   import { formatDateLong } from '$lib/time';
 
-  export let posts: Post[];
+  export let posts: PostProperties[];
 </script>
 
 <ul>
@@ -34,7 +34,7 @@
             {post.title}
           </a>
         </h2>
-        <p class="mb-3">{post.header}</p>
+        <p class="mb-3">{post.intro}</p>
         <p class="mb-3 text-grey">
           <span class="inline-block mr-1">{formatDateLong(new Date(post.created))}</span>
           <span class="inline-block mr-1">·</span>

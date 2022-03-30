@@ -52,7 +52,7 @@
   .underline-grow a:before,
   .post-content a:before {
     @apply bg-red box-content bottom-[2px] z-[-1] absolute h-[1px] w-full content-[''];
-    transition: background-color 80ms linear, height 70ms ease-in-out;
+    transition: background-color 50ms linear, height 40ms linear;
   }
   .underline-grow a:hover:before,
   .post-content a:hover:before {
