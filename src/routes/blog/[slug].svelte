@@ -49,7 +49,7 @@
       <span class="inline-block">{post.properties.readTimeMins} minute read</span>
     </p>
     {#each post.properties.tags as tag}
-      <span class="bg-pink-light text-red text-sm px-1.5 mr-1 rounded-sm">{tag}</span>
+      <span class="bg-red-light text-red text-sm px-1.5 mr-1 rounded-sm">{tag}</span>
     {/each}
   </header>
   <div class="post-content">

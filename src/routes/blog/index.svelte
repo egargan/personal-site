@@ -41,7 +41,7 @@
           <span class="inline-block">{post.readTimeMins} minute read</span>
         </p>
         {#each post.tags as tag}
-          <span class="bg-pink-light text-red text-sm px-1.5 mr-1 rounded-sm">{tag}</span>
+          <span class="bg-red-light text-red text-sm px-1.5 mr-1 rounded-sm">{tag}</span>
         {/each}
       </article>
     </div>
