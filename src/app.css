@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    @apply text-black bg-white;
+  }
+
   @font-face {
     font-family: 'Lato';
     src: url('/fonts/lato-bold.woff2') format('woff2'),
