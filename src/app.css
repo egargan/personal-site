@@ -49,13 +49,9 @@
   .post-content p {
     @apply text-base mb-2;
   }
-
   .post-content a {
     @apply text-red underline relative decoration-red;
     text-decoration-skip-ink: none;
-  }
-  .post-content a:hover {
-    @apply decoration-red-light;
   }
 
   .post-content pre code {
@@ -69,6 +65,16 @@
 
   .post-content img {
     @apply my-6 rounded mx-auto max-w-xl max-h-[40rem] shadow;
+  }
+
+  .post-content blockquote {
+    @apply py-5 px-6 my-2 bg-grey-light rounded-sm;
+  }
+  .post-content blockquote code {
+    @apply bg-grey-light-overlay;
+  }
+  .post-content blockquote p {
+    @apply my-0;
   }
 }
 
