@@ -2,11 +2,13 @@
   import type { Project } from '$lib/labs';
 
   import flipboard from './flipboard/project';
+  import handshake from './handshake/project';
+  import recordStack from './record-stack/project';
 
   const projects: Project[] = [
+    recordStack,
     flipboard,
-    flipboard,
-    flipboard,
+    handshake,
   ];
 </script>
 
@@ -14,7 +16,10 @@
   {#each projects as project}
     <div>
       <article>
-        <img src="{project.image}" alt="A demonstration of the Flipboard project"/>
+        <video autoplay loop muted>
+          <source src="{project.image}" type="video/webm">
+          <!-- TODO: add fallback markup! -->
+        </video>
         <h2 class="font-heading text-xl pb-3">
           <a class="text-black transition-colors duration-[50ms] hover:text-red"
             href="{`blog/${project.slug}`}">
