@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { PostProperties } from '$lib/notion/page';
   import { formatDateLong } from '$lib/time';
+  import { COLOR_TRANS_DURATION_MILLIS as transDur } from '$constants/ui';
 
   export let post: PostProperties;
 
@@ -14,7 +15,7 @@
     href="{`blog/${post.slug}`}"
   >
     <h2
-      class="font-heading text-2xl mb-2 transition-colors duration-[40ms]"
+      class="font-heading text-2xl mb-2 hover-color-transition"
       class:text-red={isHovering}
       class:text-black={!isHovering}
     >

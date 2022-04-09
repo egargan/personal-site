@@ -1,6 +1,8 @@
 <script lang="ts">
-  import type { Project } from '$lib/labs';
   import { fade } from 'svelte/transition';
+
+  import type { Project } from '$lib/labs';
+  import { COLOR_TRANS_DURATION_MILLIS as transDur } from '$constants/ui';
 
   export let project: Project;
 
@@ -20,12 +22,12 @@
       </video>
       {#if isHovering}
         <div
-          transition:fade="{{ duration: 40 }}"
+          transition:fade="{{ duration: transDur }}"
           class="absolute inset-0 rounded-sm opacity-[15%] bg-red"/>
       {/if}
     </div>
     <h2
-      class="font-heading text-xl mb-2 transition-colors duration-[40ms]"
+      class="font-heading text-xl mb-2 hover-color-transition"
       class:text-red={isHovering}
       class:text-black={!isHovering}
     >

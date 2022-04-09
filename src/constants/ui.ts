@@ -1,0 +1,1 @@
+export let COLOR_TRANS_DURATION_MILLIS = 50;

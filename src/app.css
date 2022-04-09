@@ -82,4 +82,9 @@
   .font-heading {
     @apply font-lato font-bold;
   }
+
+  .hover-color-transition {
+    @apply transition-colors;
+    transition-duration: 50ms;
+  }
 }
