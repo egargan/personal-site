@@ -10,6 +10,7 @@ module.exports = {
       green: '#2E8A70',
       'red-light': '#EF767A',
       'pink-light': '#FAE6E5',
+      'pink': '#FAE6E5',
     },
     fontFamily: {
       lato: 'Lato, sans-serif',
