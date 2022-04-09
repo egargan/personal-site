@@ -11,15 +11,15 @@
 <ul class="project-grid">
   <!-- TODO: make this responsive! we'll probably need a component -->
   <div class="col-start-1 flex flex-col">
-    <li>
+    <li class="translate-y-[-8px] translate-x-[-4px]">
       <ProjectPreview project={recordStack}/>
     </li>
   </div>
   <div class="col-start-2 flex flex-col gap-y-3">
-    <li>
+    <li class="translate-y-[-3px] translate-x-[3px]">
       <ProjectPreview project={flipboard}/>
     </li>
-    <li>
+    <li class="translate-y-[4px] translate-x-[-12px]">
       <ProjectPreview project={handshake}/>
     </li>
   </div>
