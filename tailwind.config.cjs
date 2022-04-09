@@ -24,8 +24,8 @@ module.exports = {
       'base': ['16px', { lineHeight: '22px', letterSpacing: '-0.02em' }],
       'lg': ['18px', { lineHeight: '27px', letterSpacing: '-0.014em' }],
       'xl': ['22px', { lineHeight: '28px', letterSpacing: '-0.008em' }],
-      '2xl': ['28px', { lineHeight: '36px', letterSpacing: '-0.006em' }],
-      '3xl': ['36px', { lineHeight: '42px', letterSpacing: '-0.004em' }],
+      '2xl': ['26px', { lineHeight: '36px', letterSpacing: '-0.006em' }],
+      '3xl': ['32px', { lineHeight: '42px', letterSpacing: '-0.004em' }],
       '4xl': ['42px', { lineHeight: '48px', letterSpacing: '-0.004em' }],
     },
   }
