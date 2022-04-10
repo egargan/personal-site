@@ -32,15 +32,19 @@
 
   export let post: Post;
 
+  const renderer: MarkdownIt = initialiseRenderer();
+
   onMount(() => {
     // Apply highlighting to all <pre><code>... elements
     initialisePrism().highlightAll();
   });
 
-  const renderer: MarkdownIt = initialiseRenderer();
+  function backToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 </script>
 
-<article class="pb-16">
+<article class="pb-96">
   <header class="mb-10">
     <h1 class="text-3xl font-heading mb-4">{post.properties.title}</h1>
     <p class="mb-4 text-grey">
@@ -55,4 +59,11 @@
   <div class="post-content">
     {@html renderer.render(post.content)}
   </div>
+  <footer class="w-full mt-16 flex justify-between text-grey text-sm">
+    <p>Thanks for reading!</p>
+    <div class="flex gap-x-6 whitespace-nowrap">
+      <a class="underline" href="/me">Talk to Me</a>
+      <button class="underline" on:click={backToTop}>Back to Top</button>
+    </div>
+  </footer>
 </article>
