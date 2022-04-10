@@ -54,11 +54,13 @@
     text-decoration-skip-ink: none;
   }
 
-  .post-content pre code {
-    /* Padding is important here to override hljs' rules */
-    @apply !py-6 !px-8 my-6 rounded shadow;
+  .post-content pre {
+    /* Important syles here ensure we're overwriting PrismJS theme */
+    @apply !py-5 !px-6 my-4 !bg-grey-light rounded-sm text-sm !border-none;
   }
-  /* TODO: we can't flat text-sm this, it's sometimes used in headings! */
+  .post-content pre code {
+    tab-size: 2;
+  }
   .post-content :not(pre) code {
     @apply relative bg-grey-light p-1 rounded-sm text-red text-[90%] mx-[2px];
   }
@@ -68,7 +70,7 @@
   }
 
   .post-content blockquote {
-    @apply py-5 px-6 my-2 bg-grey-light rounded-sm;
+    @apply py-5 px-6 my-4 bg-grey-light rounded-sm;
   }
   .post-content blockquote code {
     @apply bg-grey-light-overlay;

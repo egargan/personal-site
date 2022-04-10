@@ -27,14 +27,14 @@
 
   import type { Post } from '$lib/notion/page';
   import { formatDateLong } from '$lib/time';
-  import { initialiseHighlightJs } from '$lib/highlight';
+  import { initialisePrism } from '$lib/highlight/prism';
   import { initialiseRenderer } from '$lib/markdown';
 
   export let post: Post;
 
   onMount(() => {
     // Apply highlighting to all <pre><code>... elements
-    initialiseHighlightJs().highlightAll();
+    initialisePrism().highlightAll();
   });
 
   const renderer: MarkdownIt = initialiseRenderer();

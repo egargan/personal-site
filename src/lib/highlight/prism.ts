@@ -6,9 +6,9 @@ import 'prismjs/components/prism-markup';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-typescript';
 import 'prism-svelte';
-import 'prismjs/themes/prism-tomorrow.css';
-import './prism-github.css';
 
+// Import the styles that colour the Prism-formatted code blocks
+import './prism-github-theme.css';
 
 export function initialisePrism(): any {
   return prism;
