@@ -50,8 +50,7 @@
     @apply text-base mb-2;
   }
   .post-content a {
-    @apply text-red underline relative decoration-red;
-    text-decoration-skip-ink: none;
+    @apply text-red underline relative decoration-red underline-skip-ink;
   }
 
   .post-content pre {
@@ -88,5 +87,9 @@
   .hover-color-transition {
     @apply transition-colors;
     transition-duration: 50ms;
+  }
+
+  .underline-skip-ink {
+    text-decoration-skip-ink: none;
   }
 }

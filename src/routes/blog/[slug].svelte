@@ -62,7 +62,7 @@
   <footer class="w-full mt-16 flex justify-between text-grey text-sm">
     <p>Thanks for reading!</p>
     <div class="flex gap-x-6 whitespace-nowrap">
-      <a class="underline" href="/me">Talk to Me</a>
+      <a class="underline" href="/about">Talk to Me</a>
       <button class="underline" on:click={backToTop}>Back to Top</button>
     </div>
   </footer>

@@ -31,6 +31,7 @@
   "dependencies": {
     "@notionhq/client": "^1.0.4",
     "@sveltejs/adapter-node": "^1.0.0-next.56",
+    "@types/clipboard": "^2.0.7",
     "@types/highlightjs": "^9.12.2",
     "@types/markdown-it": "^12.2.3",
     "@types/markdown-it-anchor": "^7.0.0",
@@ -38,6 +39,7 @@
     "@types/mongodb": "^4.0.7",
     "@types/prismjs": "^1.26.0",
     "@types/tailwindcss": "^3.0.0",
+    "clipboard": "^2.0.10",
     "markdown-it": "^12.3.0",
     "markdown-it-anchor": "^8.4.1",
     "markdown-it-attrs": "^4.1.3",

@@ -28,9 +28,9 @@
     </li>
     <li>
       <NavElement
-        text="Me"
-        path="/me"
-        isCurrentPage={$page.path.startsWith('/me')}
+        text="About"
+        path="/about"
+        isCurrentPage={$page.path.startsWith('/about')}
       />
     </li>
   </ul>
