@@ -22,12 +22,14 @@
   import type { PostProperties } from '$lib/notion/page';
   import PostListItem from './_PostListItem.svelte';
 
+  import { fly } from 'svelte/transition';
+
   export let posts: PostProperties[];
 </script>
 
 <ul>
-  {#each posts as post}
-    <li>
+  {#each posts as post, i}
+    <li in:fly={{ y: 15, delay: i * 30 }}>
       <PostListItem {post}/>
     </li>
   {/each}

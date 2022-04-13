@@ -1,8 +1,10 @@
 <script lang="ts">
+  import { fly } from 'svelte/transition';
+
   import CopyOnClickLink from "./_CopyOnClickLink.svelte";
 </script>
 
-<article class="flex mb-24 mt-14">
+<article class="flex mb-24 mt-14" in:fly={{ y: 15 }}>
   <div class="bg-grey-light h-30 w-44 flex-initial ml-2 mr-12"/>
   <div class="flex-1 text-lg translate-x-[8px]">
     <p class="mb-3">
@@ -24,7 +26,7 @@
   </div>
 </article>
 
-<div class="flex gap-x-20">
+<div class="flex gap-x-20" in:fly={{ y: 15, delay: 40 }}>
   <section class="w-1/2">
     <h1 class="text-lg font-heading mb-4">Skills & Approach</h1>
     <p class="mb-2">

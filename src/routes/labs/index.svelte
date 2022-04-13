@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { fly } from 'svelte/transition';
+
   import ProjectPreview from './_ProjectPreview.svelte';
 
   import type { Project } from '$lib/labs';
@@ -11,15 +13,15 @@
 <ul class="project-grid">
   <!-- TODO: make this responsive! we'll probably need a component -->
   <div class="col-start-1 flex flex-col">
-    <li class="translate-y-[-8px] translate-x-[-4px]">
+    <li class="translate-y-[-8px] translate-x-[-4px]" in:fly={{ y: 15 }}>
       <ProjectPreview project={recordStack}/>
     </li>
   </div>
   <div class="col-start-2 flex flex-col gap-y-3">
-    <li class="translate-y-[-3px] translate-x-[3px]">
+    <li class="translate-y-[-3px] translate-x-[3px]" in:fly={{ y: 15, delay: 30 }}>
       <ProjectPreview project={flipboard}/>
     </li>
-    <li class="translate-y-[4px] translate-x-[-12px]">
+    <li class="translate-y-[4px] translate-x-[-12px]" in:fly={{ y: 15, delay: 60 }}>
       <ProjectPreview project={handshake}/>
     </li>
   </div>
