@@ -28,5 +28,10 @@ module.exports = {
       '3xl': ['32px', { lineHeight: '42px', letterSpacing: '-0.004em' }],
       '4xl': ['42px', { lineHeight: '48px', letterSpacing: '-0.004em' }],
     },
+    extend: {
+      screens: {
+        container: '840px',
+      }
+    }
   }
 }

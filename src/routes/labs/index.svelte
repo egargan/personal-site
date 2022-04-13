@@ -8,29 +8,24 @@
   import flipboard from './flipboard/project';
   import handshake from './handshake/project';
   import recordStack from './record-stack/project';
+
+  //<li class="translate-y-[-8px] translate-x-[-4px]" in:fly={{ y: 15 }}>
 </script>
 
-<ul class="project-grid">
+<ul class="grid grid-cols-1 md:grid-cols-[11fr_9fr] gap-x-10 gap-y-6 md:gap-y-4 px-4 sm:pr-32 md:px-0">
   <!-- TODO: make this responsive! we'll probably need a component -->
-  <div class="col-start-1 flex flex-col">
-    <li class="translate-y-[-8px] translate-x-[-4px]" in:fly={{ y: 15 }}>
+  <div class="md:col-start-1 flex flex-col gap-y-12 md:gap-y-6">
+    <li in:fly={{ y: 15 }}>
       <ProjectPreview project={recordStack}/>
     </li>
   </div>
-  <div class="col-start-2 flex flex-col gap-y-3">
-    <li class="translate-y-[-3px] translate-x-[3px]" in:fly={{ y: 15, delay: 30 }}>
+  <div class="md:col-start-2 flex flex-col gap-y-12 md:gap-y-6">
+    <li in:fly={{ y: 15, delay: 30 }}>
       <ProjectPreview project={flipboard}/>
     </li>
-    <li class="translate-y-[4px] translate-x-[-12px]" in:fly={{ y: 15, delay: 60 }}>
+    <li in:fly={{ y: 15, delay: 60 }}>
       <ProjectPreview project={handshake}/>
     </li>
   </div>
 </ul>
 
-<style>
-  .project-grid {
-    display: grid;
-    grid-template-columns: 55fr 45fr;
-    grid-gap: 3em;
-  }
-</style>

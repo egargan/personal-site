@@ -4,9 +4,9 @@
   import CopyOnClickLink from "./_CopyOnClickLink.svelte";
 </script>
 
-<article class="flex mb-24 mt-14" in:fly={{ y: 15 }}>
-  <div class="bg-grey-light h-30 w-44 flex-initial ml-2 mr-12"/>
-  <div class="flex-1 text-lg translate-x-[8px]">
+<article class="flex flex-col md:flex-row mb-12 md:mb-24" in:fly={{ y: 15 }}>
+  <div class="flex-initial h-32 w-44 md:ml-2 md:mr-12 mb-12 md:mb-0 self-center bg-grey-light"/>
+  <div class="md:flex-1 text-lg md:translate-x-[8px]">
     <p class="mb-3">
       Hey! I’m Ed, a full stack software engineer living in London, building web apps and tools
       with the lovely folk at F-Secure.
@@ -26,8 +26,8 @@
   </div>
 </article>
 
-<div class="flex gap-x-20" in:fly={{ y: 15, delay: 40 }}>
-  <section class="w-1/2">
+<div class="md:flex gap-x-20 pb-8" in:fly={{ y: 15, delay: 40 }}>
+  <section class="md:w-1/2 mb-8">
     <h1 class="text-lg font-heading mb-4">Skills & Approach</h1>
     <p class="mb-2">
       I get the most out of engineering when I’m building something visual. Websites, code doodles, even CLIs.
@@ -43,16 +43,18 @@
 
   <section>
     <h1 class="text-lg font-heading mb-4">Experience</h1>
-    <div class="mb-4">
-      <h2>Full Stack Engineer at F-Secure</h2>
-      <p><i>2020 to present</i></p>
-      <p>Web app dev</p>
-    </div>
-    <div class="mb-4">
-      <h2>Engineer at Netcraft</h2>
-      <p><i>2018 to 2020</i></p>
-      <p>Android dev, mobile automation</p>
-    </div>
+    <ul class="grid grid-cols-1 gap-y-4 mb-4">
+      <li>
+        <h2>Full Stack Engineer at F-Secure</h2>
+        <p><i>2020 to present</i></p>
+        <p>Web app dev</p>
+      </li>
+      <li>
+        <h2>Software Engineer at Netcraft</h2>
+        <p><i>2018 to 2020</i></p>
+        <p>Android dev, mobile automation</p>
+      </li>
+    </ul>
     <p class="text-grey mt-4">
       After more?
       <a class="underline" href="https://www.linkedin.com/in/edward-gargan-7a0016130">Here's my CV</a>.

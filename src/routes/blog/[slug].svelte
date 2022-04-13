@@ -44,7 +44,7 @@
   }
 </script>
 
-<article class="pb-96">
+<article class="md:pb-80 pb-16">
   <header class="mb-10">
     <h1 class="text-3xl font-heading mb-4">{post.properties.title}</h1>
     <p class="mb-4 text-grey">
@@ -56,7 +56,7 @@
       <span class="bg-red-light text-red text-sm px-1.5 mr-1 rounded-sm">{tag}</span>
     {/each}
   </header>
-  <div class="post-content">
+  <div class="post-content w-full">
     {@html renderer.render(post.content)}
   </div>
   <footer class="w-full mt-16 flex justify-between text-grey text-sm">

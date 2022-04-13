@@ -33,6 +33,6 @@
     >
       {project.title}
     </h2>
-    <p class="mb-3 text-sm">{project.description}</p>
+    <p class="mb-3 text-base md:text-sm">{project.description}</p>
   </a>
 </article>
