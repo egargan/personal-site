@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
-    "@sveltejs/kit": "next",
+    "@sveltejs/kit": "^1.0.0-next.315",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
     "autoprefixer": "^10.4.0",
@@ -31,7 +31,7 @@
   "type": "module",
   "dependencies": {
     "@notionhq/client": "^1.0.4",
-    "@sveltejs/adapter-node": "^1.0.0-next.56",
+    "@sveltejs/adapter-node": "^1.0.0-next.73",
     "@types/clipboard": "^2.0.7",
     "@types/highlightjs": "^9.12.2",
     "@types/markdown-it": "^12.2.3",

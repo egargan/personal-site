@@ -9,28 +9,28 @@
       <NavElement
         text="Home"
         path="/"
-        isCurrentPage={$page.path === '/'}
+        isCurrentPage={$page.url.pathname === '/'}
       />
     </li>
     <li class="mr-10">
       <NavElement
         text="Blog"
         path="/blog"
-        isCurrentPage={$page.path.startsWith('/blog')}
+        isCurrentPage={$page.url.pathname.startsWith('/blog')}
       />
     </li>
     <li class="mr-10">
       <NavElement
         text="Labs"
         path="/labs"
-        isCurrentPage={$page.path.startsWith('/labs')}
+        isCurrentPage={$page.url.pathname.startsWith('/labs')}
       />
     </li>
     <li>
       <NavElement
         text="About"
         path="/about"
-        isCurrentPage={$page.path.startsWith('/about')}
+        isCurrentPage={$page.url.pathname.startsWith('/about')}
       />
     </li>
   </ul>

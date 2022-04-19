@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
-  export async function load({ page, fetch }) {
-    const url = `/blog/${page.params.slug}.json`;
+  export async function load({ params, fetch }) {
+    const url = `/blog/${params.slug}.json`;
     const response = await fetch(url);
 
     const post = await response.json();
