@@ -40,6 +40,16 @@
     font-style: normal;
   }
 
+  p {
+    @apply mb-3;
+  }
+  ul, ol {
+    @apply pl-4 list-outside;
+  }
+  li {
+    @apply mb-3;
+  }
+
   .post-content h1 {
     @apply text-2xl font-lato font-bold pb-2 pt-4 first:pt-0;
   }
@@ -52,7 +62,6 @@
   .post-content a {
     @apply text-red underline relative decoration-red underline-skip-ink;
   }
-
   .post-content pre {
     /* Important syles here ensure we're overwriting PrismJS theme */
     @apply !py-5 !px-6 my-4 !bg-grey-light rounded-sm text-sm !border-none w-full !font-mono;
@@ -63,11 +72,9 @@
   .post-content :not(pre) code {
     @apply relative bg-grey-light p-1 rounded-sm text-red text-[90%] mx-[2px];
   }
-
   .post-content img {
     @apply my-6 rounded mx-auto max-w-xl max-h-[40rem] shadow;
   }
-
   .post-content blockquote {
     @apply py-5 px-6 my-4 bg-grey-light rounded-sm;
   }

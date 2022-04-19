@@ -13,7 +13,7 @@
   <a
     on:mouseenter={() => { isHovering = true }}
     on:mouseleave={() => { isHovering = false }}
-    href="{`blog/${project.slug}`}"
+    href="{`labs/${project.slug}`}"
   >
     <div class="relative mb-4">
       <video autoplay loop muted class="rounded-sm">

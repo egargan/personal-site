@@ -9,7 +9,8 @@
     "preview": "svelte-kit preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
-    "lint": "eslint --ignore-path .gitignore ."
+    "lint": "eslint --ignore-path .gitignore .",
+    "postintall": "bash scripts/collectAssets.sh"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
@@ -40,6 +41,7 @@
     "@types/prismjs": "^1.26.0",
     "@types/tailwindcss": "^3.0.0",
     "clipboard": "^2.0.10",
+    "handshake": "github:egargan/handshake",
     "markdown-it": "^12.3.0",
     "markdown-it-anchor": "^8.4.1",
     "markdown-it-attrs": "^4.1.3",
