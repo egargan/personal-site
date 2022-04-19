@@ -55,7 +55,7 @@
 
   .post-content pre {
     /* Important syles here ensure we're overwriting PrismJS theme */
-    @apply !py-5 !px-6 my-4 !bg-grey-light rounded-sm text-sm !border-none w-full;
+    @apply !py-5 !px-6 my-4 !bg-grey-light rounded-sm text-sm !border-none w-full !font-mono;
   }
   .post-content pre code {
     tab-size: 2;

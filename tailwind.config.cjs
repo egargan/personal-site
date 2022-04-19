@@ -18,6 +18,7 @@ module.exports = {
     fontFamily: {
       lato: 'Lato, sans-serif',
       'noto-sans': 'Noto Sans, sans-serif',
+      mono: 'Consolas, Menlo, Courier, monospace',
     },
     fontSize: {
       'sm': ['14px', { lineHeight: '21px', letterSpacing: '-0.02em' }],
