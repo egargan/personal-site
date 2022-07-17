@@ -1,4 +1,5 @@
-import { getPostProperties, PostProperties } from '$lib/notion/page';
+import { getPostProperties } from '$lib/notion/page';
+import type { PostProperties } from '$lib/notion/page';
 import type { Client } from '@notionhq/client';
 
 export async function get({ params, locals }) {
