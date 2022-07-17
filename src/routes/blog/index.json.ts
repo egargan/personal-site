@@ -2,7 +2,7 @@ import { getPostProperties } from '$lib/notion/page';
 import type { PostProperties } from '$lib/notion/page';
 import type { Client } from '@notionhq/client';
 
-export async function get({ params, locals }) {
+export async function GET({ params, locals }) {
   const notion: Client = locals.notion;
 
   // TODO:

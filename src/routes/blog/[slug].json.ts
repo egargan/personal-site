@@ -3,7 +3,7 @@ import { getPostProperties } from '$lib/notion/page';
 import type { Client } from '@notionhq/client';
 import { NotionToMarkdown } from 'notion-to-md';
 
-export async function get({ params, locals }) {
+export async function GET({ params, locals }) {
   const notion: Client = locals.notion;
 
   // TODO:
@@ -36,8 +36,6 @@ export async function get({ params, locals }) {
 
   const properties: PostProperties = getPostProperties(queryResponse.results[0]);
   const content = mdBlocks.join('\n\n');
-
-  debugger;
 
   // const pages: PostProperties[] = response.results.map(getPostProperties);
 
