@@ -1,3 +1,6 @@
+import { json } from '@sveltejs/kit';
+
+// @migration task: Check imports
 import { getPostProperties } from '$lib/notion/page';
 import type { PostProperties } from '$lib/notion/page';
 import type { Client } from '@notionhq/client';
@@ -14,7 +17,5 @@ export async function GET({ params, locals }) {
 
   const pages: PostProperties[] = response.results.map(getPostProperties);
 
-  return {
-    body: pages,
-  };
+  return json({ body: pages });
 }

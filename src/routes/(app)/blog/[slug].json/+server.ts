@@ -1,9 +1,10 @@
+import { json } from '@sveltejs/kit';
 import type { PostProperties } from '$lib/notion/page';
 import { getPostProperties } from '$lib/notion/page';
 import type { Client } from '@notionhq/client';
 import { NotionToMarkdown } from 'notion-to-md';
 
-export async function GET({ params, locals }) {
+export async function GET({ params, locals }): Promise<Response> {
   const notion: Client = locals.notion;
 
   // TODO:
@@ -39,10 +40,5 @@ export async function GET({ params, locals }) {
 
   // const pages: PostProperties[] = response.results.map(getPostProperties);
 
-  return {
-    body: {
-      properties,
-      content,
-    }
-  };
+  return json({ properties, content });
 }
