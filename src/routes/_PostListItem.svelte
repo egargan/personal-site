@@ -18,7 +18,7 @@
     href={`blog/${post.slug}`}
   >
     <h2
-      class="font-noto-sans text-xl mb-3 hover-color-transition"
+      class="font-noto-sans text-xl mb-3 hover-color-transition font-medium"
       class:text-red={isHovering}
       class:text-black={!isHovering}
     >
