@@ -12,13 +12,15 @@
 
   <p>
     I’m a full-stack engineer living in London, working with the lovely folk at
-    the Financial Times.
+    the <a class="text-red underline" href="https://ft.com">Financial Times</a>.
   </p>
 
   <p>
-    I’ve spent the last six or so years of my life writing code and building
-    things. Have a look at my GitHub for a feel of the things I like to write,
-    or read my ramblings below.
+    I’ve spent the last six or so years of my life building things with code.
+    Have a look at
+    <a class="text-red underline" href="https://github.com/egargan">my GitHub</a
+    > for a feel of the things I like to write in my spare time, or read my posts
+    below.
   </p>
 
   <p>
@@ -34,7 +36,7 @@
   <h1 class="font-lato font-bold text-2xl mb-6">Posts</h1>
 
   <ul class="list-outside px-0">
-    {#each data.posts as post, i}
+    {#each data.posts as post}
       <li>
         <PostListItem {post} />
       </li>
