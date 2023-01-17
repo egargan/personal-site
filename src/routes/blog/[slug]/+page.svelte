@@ -3,6 +3,7 @@
 
   import type MarkdownIt from "markdown-it";
 
+  import ArrowIcon from "$lib/ArrowIcon.svelte";
   import { formatDateLong } from "$lib/time";
   import { initialisePrism } from "$lib/highlight/prism";
   import { initialiseRenderer } from "$lib/markdown";
@@ -22,9 +23,13 @@
   }
 </script>
 
-<article class="md:pb-80 pb-16 mt-40">
+<article class="md:pb-80 pb-16 mt-32">
   <header class="mb-10">
-    <h1 class="text-3xl font-heading mb-4">{data.properties.title}</h1>
+    <a href="/" class="text-red font-medium stroke-red flex gap-x-1">
+      <ArrowIcon />
+      Home
+    </a>
+    <h1 class="text-3xl font-heading mb-4 mt-8">{data.properties.title}</h1>
     <p class="mb-4 text-grey">
       <span class="inline-block mr-1"
         >{formatDateLong(new Date(data.properties.created))}</span
@@ -44,10 +49,10 @@
     {@html renderer.render(data.content)}
   </div>
   <footer class="w-full mt-16 flex justify-between text-grey text-sm">
-    <p>Thanks for reading!</p>
+    <p class="my-0">Thanks for reading!</p>
     <div class="flex gap-x-6 whitespace-nowrap">
-      <a class="underline" href="/about">Talk to Me</a>
       <button class="underline" on:click={backToTop}>Back to Top</button>
+      <a class="underline" href="/">Back Home</a>
     </div>
   </footer>
 </article>
