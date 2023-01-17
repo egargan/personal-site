@@ -6,7 +6,7 @@
   export let data: PageData;
 </script>
 
-<section class="text-lg mt-40">
+<section class="text-lg mt-32 md:mt-56">
   <h1 class="font-lato font-bold text-2xl mb-8">Hi, I'm Ed 👋</h1>
 
   <p>
@@ -23,7 +23,7 @@
   <p>Say hello@edwardgargan.com, or reach me on LinkedIn.</p>
 </section>
 
-<section class="mt-20">
+<section class="mt-20 pb-20">
   <h1 class="font-lato font-bold text-2xl mb-6">Posts</h1>
 
   <ul class="list-outside px-0">
