@@ -1,5 +1,6 @@
 <script lang="ts">
   import PostListItem from "./_PostListItem.svelte";
+  import CopyOnClickLink from "$lib/CopyOnClickLink.svelte";
 
   import type { PageData } from "./$types";
 
@@ -20,7 +21,13 @@
     or read my ramblings below.
   </p>
 
-  <p>Say hello@edwardgargan.com, or reach me on LinkedIn.</p>
+  <p>
+    Say <CopyOnClickLink text="hello@edwardgargan" />, or reach me on
+    <a
+      class="text-red underline"
+      href="https://linkedin.com/in/edward-gargan-7a0016130">LinkedIn</a
+    >.
+  </p>
 </section>
 
 <section class="mt-20 pb-20">
