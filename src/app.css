@@ -12,7 +12,7 @@
     src: url('/fonts/lato-bold.woff2') format('woff2'),
       url('/fonts/lato-bold.woff') format('woff');
     font-weight: 700;
-    font-display: swap;
+    font-display: fallback;
     font-style: normal;
   }
   @font-face {
@@ -20,7 +20,7 @@
     src: url('/fonts/noto-sans.woff2') format('woff2'),
       url('/fonts/noto-sans.woff') format('woff');
     font-weight: 400;
-    font-display: swap;
+    font-display: fallback;
     font-style: normal;
   }
   @font-face {
@@ -28,7 +28,7 @@
     src: url('/fonts/noto-sans-italic.woff2') format('woff2'),
       url('/fonts/noto-sans-italic.woff') format('woff');
     font-weight: 400;
-    font-display: swap;
+    font-display: fallback;
     font-style: italic;
   }
   @font-face {
@@ -36,7 +36,7 @@
     src: url('/fonts/noto-sans-medium.woff2') format('woff2'),
       url('/fonts/noto-sans-medium.woff') format('woff');
     font-weight: 500;
-    font-display: swap;
+    font-display: fallback;
     font-style: normal;
   }
   @font-face {
@@ -44,7 +44,7 @@
     src: url('/fonts/noto-sans-bold.woff2') format('woff2'),
       url('/fonts/noto-sans-bold.woff') format('woff');
     font-weight: 700;
-    font-display: swap;
+    font-display: fallback;
     font-style: normal;
   }
 
