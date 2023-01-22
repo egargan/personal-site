@@ -11,6 +11,12 @@ export async function load({ locals }) {
   // * create DAO around notion client
   const response = await notion.databases.query({
     database_id: process.env["NOTION_POSTS_DB_ID"],
+    filter: {
+      property: "Status",
+      select: {
+        equals: "Live",
+      },
+    },
   });
 
   const posts: PostProperties[] = response.results.map(getPostProperties);
