@@ -39,9 +39,5 @@ export async function load({ params, locals }) {
   );
   const content = mdBlocks.join("\n\n");
 
-  console.log({ properties, content });
-
-  // const pages: PostProperties[] = response.results.map(getPostProperties);
-
   return { properties, content };
 }
