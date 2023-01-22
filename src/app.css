@@ -76,6 +76,7 @@
   }
   .post-content pre code {
     tab-size: 2;
+    @apply !font-mono;
   }
   .post-content :not(pre) code {
     @apply relative bg-grey-light p-1 rounded-sm text-red text-[90%] mx-[2px];
