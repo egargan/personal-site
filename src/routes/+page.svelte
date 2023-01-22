@@ -4,9 +4,6 @@
 
   import type { PageData } from "./$types";
   import InlineLink from "$lib/InlineLink.svelte";
-  import GitHubIcon from "$lib/GitHubIcon.svelte";
-  import LinkedInIcon from "$lib/LinkedInIcon.svelte";
-  import MailIcon from "$lib/MailIcon.svelte";
 
   export let data: PageData;
 </script>
@@ -30,25 +27,8 @@
     tech, <InlineLink href="https://github.com/egargan/flipboard">like this</InlineLink>.
   </p>
 
-  <ul class="px-0 mt-5">
-    <li class="flex gap-x-2 items-center">
-      <MailIcon class="fill-red scale-90" />
-      <CopyOnClick text="hello@edwardgargan.com">
-        hello@edwardgargan.com
-      </CopyOnClick>
-    </li>
-    <li class="flex gap-x-2 items-center">
-      <GitHubIcon class="fill-black mr-0.5 scale-90" />
-      <InlineLink href="https://github.com/egargan">egargan</InlineLink>
-    </li>
-    <li class="flex gap-x-2 items-center">
-      <LinkedInIcon class="fill-[#4466bb] scale-[0.89]" />
-      <InlineLink href="https://www.linkedin.com/in/edward-gargan-7a0016130/"
-        >Edward Gargan</InlineLink
-      >
-    </li>
-    <li />
-  </ul>
+    <p>Say <CopyOnClick text="hello@edwardgargan.com"/>, or find me on <InlineLink
+    href="https://github.com/egargan">GitHub</InlineLink> or <InlineLink href="https://www.linkedin.com/in/edward-gargan-7a0016130/">LinkedIn</InlineLink>.</p>
 </section>
 
 <section class="mt-16 pb-20">

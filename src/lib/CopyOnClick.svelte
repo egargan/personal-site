@@ -31,6 +31,11 @@
     data-clipboard-text={text}
     on:click={emailClick}
   >
+    {#if $$slots.default}
+      <slot/>
+    {:else}
+      {text}
+    {/if}
     <slot />
   </button>
   {#if isTooltipVisible}
