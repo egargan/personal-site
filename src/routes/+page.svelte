@@ -3,6 +3,7 @@
   import CopyOnClickLink from "$lib/CopyOnClickLink.svelte";
 
   import type { PageData } from "./$types";
+  import InlineLink from "$lib/InlineLink.svelte";
 
   export let data: PageData;
 </script>
@@ -12,23 +13,19 @@
 
   <p>
     I’m a full-stack engineer living in London, working with the lovely folk at
-    the <a class="text-red underline" href="https://ft.com">Financial Times</a>.
+    the <InlineLink href="https://ft.com">Financial Times</InlineLink>.
   </p>
 
   <p>
     I’ve spent the last six or so years of my life building things with code.
     Have a look at
-    <a class="text-red underline" href="https://github.com/egargan">my GitHub</a
-    > for a feel of the things I like to write in my spare time, or read my posts
-    below.
+    <InlineLink href="https://github.com/egargan">my GitHub</InlineLink>
+    for a feel of the things I like to write in my spare time, or read my posts below.
   </p>
 
   <p>
     Say <CopyOnClickLink text="hello@edwardgargan" />, or reach me on
-    <a
-      class="text-red underline"
-      href="https://linkedin.com/in/edward-gargan-7a0016130">LinkedIn</a
-    >.
+    <InlineLink href="https://linkedin.com/in/edward-gargan-7a0016130">LinkedIn</InlineLink>.
   </p>
 </section>
 
