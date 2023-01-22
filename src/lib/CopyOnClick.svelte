@@ -31,14 +31,14 @@
     data-clipboard-text={text}
     on:click={emailClick}
   >
-    {text}
+    <slot />
   </button>
   {#if isTooltipVisible}
     <span
       in:fly={{ y: 10, duration: 120, opacity: 0.3 }}
       out:fade={{ duration: 60 }}
       class="py-1 px-5 absolute bottom-[115%] rounded bg-black text-white text-sm
-      select-none"
+      select-none text-center"
     >
       Copied to clipboard!
     </span>

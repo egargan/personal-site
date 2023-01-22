@@ -1,9 +1,13 @@
 <script lang="ts">
   import PostListItem from "./_PostListItem.svelte";
-  import CopyOnClickLink from "$lib/CopyOnClickLink.svelte";
+  import CopyOnClick from "$lib/CopyOnClick.svelte";
+
+  import MailIcon from "$lib/MailIcon.svelte";
 
   import type { PageData } from "./$types";
   import InlineLink from "$lib/InlineLink.svelte";
+  import GitHubIcon from "$lib/GitHubIcon.svelte";
+  import LinkedInIcon from "$lib/LinkedInIcon.svelte";
 
   export let data: PageData;
 </script>
@@ -22,21 +26,34 @@
   </p>
 
   <p>
-    I’ve spent the last six or so years of my life building things with code.
-    Have a look at
-    <InlineLink href="https://github.com/egargan">my GitHub</InlineLink>
-    for a feel of the things I like to write in my spare time, or read my posts below.
+    I've found my zen in web (❤️ <InlineLink href="https://kit.svelte.dev/"
+      >SvelteKit</InlineLink
+    >), but I've done a lot of Android development, mobile automation, and
+    backend building in Rust.
   </p>
 
-  <p>
-    Say <CopyOnClickLink text="hello@edwardgargan" />, or reach me on
-    <InlineLink href="https://linkedin.com/in/edward-gargan-7a0016130"
-      >LinkedIn</InlineLink
-    >.
-  </p>
+  <ul class="px-0 mt-5">
+    <li class="flex gap-x-2 items-center">
+      ✉️
+      <CopyOnClick text="hello@edwardgargan.com">
+        hello@edwardgargan.com
+      </CopyOnClick>
+    </li>
+    <li class="flex gap-x-2 items-center">
+      <GitHubIcon class="fill-black mr-0.5 scale-90" />
+      <InlineLink href="https://github.com/egargan">egargan</InlineLink>
+    </li>
+    <li class="flex gap-x-2 items-center">
+      <LinkedInIcon class="fill-[#4466bb] scale-[0.89]" />
+      <InlineLink href="https://www.linkedin.com/in/edward-gargan-7a0016130/"
+        >Edward Gargan</InlineLink
+      >
+    </li>
+    <li />
+  </ul>
 </section>
 
-<section class="mt-20 pb-20">
+<section class="mt-16 pb-20">
   <h1 class="font-lato font-bold text-2xl mb-6">Posts</h1>
 
   <ul class="list-outside px-0">
