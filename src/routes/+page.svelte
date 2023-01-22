@@ -2,12 +2,11 @@
   import PostListItem from "./_PostListItem.svelte";
   import CopyOnClick from "$lib/CopyOnClick.svelte";
 
-  import MailIcon from "$lib/MailIcon.svelte";
-
   import type { PageData } from "./$types";
   import InlineLink from "$lib/InlineLink.svelte";
   import GitHubIcon from "$lib/GitHubIcon.svelte";
   import LinkedInIcon from "$lib/LinkedInIcon.svelte";
+  import MailIcon from "$lib/MailIcon.svelte";
 
   export let data: PageData;
 </script>
@@ -22,19 +21,18 @@
 
   <p>
     I’m a full-stack engineer living in London, working with the lovely folk at
-    the <InlineLink href="https://ft.com">Financial Times</InlineLink>.
+    the <InlineLink href="https://ft.com">Financial Times</InlineLink> on shiny new Enterprise features.
   </p>
 
   <p>
-    I've found my zen in web (❤️ <InlineLink href="https://kit.svelte.dev/"
-      >SvelteKit</InlineLink
-    >), but I've done a lot of Android development, mobile automation, and
-    backend building in Rust.
+    These days I'm focused on web development, but in the past I've spent lots of time with Android,
+    mobile automation, and building backends in Rust. In my spare time I like to doodle with web
+    tech, <InlineLink href="https://github.com/egargan/flipboard">like this</InlineLink>.
   </p>
 
   <ul class="px-0 mt-5">
     <li class="flex gap-x-2 items-center">
-      ✉️
+      <MailIcon class="fill-red scale-90" />
       <CopyOnClick text="hello@edwardgargan.com">
         hello@edwardgargan.com
       </CopyOnClick>
