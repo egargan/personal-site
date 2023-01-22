@@ -13,7 +13,7 @@
   <meta name="description" content="Personal website and blog for Ed Gargan" />
 </svelte:head>
 
-<section class="text-lg mt-32 md:mt-56">
+<section class="text-lg mt-24 md:mt-36">
   <h1 class="font-lato font-bold text-2xl mb-8">Hi, I'm Ed 👋</h1>
 
   <p>

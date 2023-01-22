@@ -28,7 +28,7 @@
   <meta name="description" content={data.properties.intro}>
 </svelte:head>
 
-<article class="md:pb-80 pb-16 mt-32">
+<article class="md:pb-80 pb-16 mt-16 sm:mt-32">
   <header class="mb-10">
     <a href="/" class="text-red font-medium stroke-red flex gap-x-1">
       <ArrowIcon />
