@@ -11,8 +11,6 @@
 
   export let data: PageData;
 
-  const renderer: MarkdownIt = initialiseRenderer();
-
   onMount(() => {
     // Apply highlighting to all <pre><code>... elements
     initialisePrism().highlightAll();
@@ -51,7 +49,7 @@
     {/each}
   </header>
   <div class="post-content w-full">
-    {@html renderer.render(data.content)}
+    {@html data.content}
   </div>
   <footer class="w-full mt-16 flex justify-between text-grey text-sm">
     <p class="my-0">Thanks for reading!</p>

@@ -2,6 +2,9 @@ import type { Client } from "@notionhq/client";
 import type { PostProperties } from "$lib/notion/page";
 import { NotionToMarkdown } from "notion-to-md";
 import { getPostProperties } from "$lib/notion/page";
+import { initialiseRenderer } from "$lib/markdown";
+
+const renderer = initialiseRenderer();
 
 export async function load({ params, locals }) {
   const notion: Client = locals.notion;
@@ -37,7 +40,8 @@ export async function load({ params, locals }) {
   const properties: PostProperties = getPostProperties(
     queryResponse.results[0]
   );
-  const content = mdBlocks.join("\n\n");
+
+  const content = renderer.render(mdBlocks.join("\n\n"));
 
   return { properties, content };
 }
