@@ -3,7 +3,7 @@
   export let openInSameTab = false;
 </script>
 
-{#if openInSameTab}
+{#if !openInSameTab}
   <a class="text-red underline" target="_blank" rel="noreferrer" {href}>
     <slot />
   </a>
