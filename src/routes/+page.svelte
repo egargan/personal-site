@@ -8,6 +8,11 @@
   export let data: PageData;
 </script>
 
+<svelte:head>
+  <title>Ed Gargan</title>
+  <meta name="description" content="Personal website and blog for Ed Gargan" />
+</svelte:head>
+
 <section class="text-lg mt-32 md:mt-56">
   <h1 class="font-lato font-bold text-2xl mb-8">Hi, I'm Ed 👋</h1>
 
@@ -25,7 +30,9 @@
 
   <p>
     Say <CopyOnClickLink text="hello@edwardgargan" />, or reach me on
-    <InlineLink href="https://linkedin.com/in/edward-gargan-7a0016130">LinkedIn</InlineLink>.
+    <InlineLink href="https://linkedin.com/in/edward-gargan-7a0016130"
+      >LinkedIn</InlineLink
+    >.
   </p>
 </section>
 
