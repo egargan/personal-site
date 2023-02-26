@@ -9,7 +9,12 @@ const config = {
     csp: {
       directives: {
         "default-src": ["self"],
-        "connect-src": ["self", "vitals.vercel-insights.com", "vitals.vercel-analytics.com"],
+        "connect-src": [
+          "self",
+          "vitals.vercel-insights.com",
+          "vitals.vercel-analytics.com",
+        ],
+        "style-src": ["self", "unsafe-inline"],
       },
     },
   },
