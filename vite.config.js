@@ -8,6 +8,9 @@ const config = {
       $constants: resolve("./src/constants"),
     },
   },
+  define: {
+    'import.meta.env.VERCEL_ANALYTICS_ID': JSON.stringify(process.env.VERCEL_ANALYTICS_ID)
+  },
   plugins: [sveltekit()],
 };
 
