@@ -27,7 +27,7 @@
     tech, <InlineLink href="https://github.com/egargan/flipboard">like this</InlineLink>.
   </p>
 
-    <p>Say <CopyOnClick text="hello@edwardgargan.com"/>, or find me on <InlineLink
+    <p>Say hi at <CopyOnClick text="edwgargan@gmail.com"/>, or find me on <InlineLink
     href="https://github.com/egargan">GitHub</InlineLink> or <InlineLink href="https://www.linkedin.com/in/edward-gargan-7a0016130/">LinkedIn</InlineLink>.</p>
 </section>
 
