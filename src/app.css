@@ -64,6 +64,9 @@
   .post-content h2 {
     @apply text-xl font-lato font-bold pb-2 pt-4 first:pt-0;
   }
+  .post-content h3 {
+    @apply text-lg font-lato font-bold pb-2 pt-4 first:pt-0;
+  }
   .post-content p {
     @apply text-base mb-2;
   }
