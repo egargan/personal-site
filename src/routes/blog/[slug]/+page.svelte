@@ -1,19 +1,16 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
-  import type MarkdownIt from "markdown-it";
-
   import ArrowIcon from "$lib/ArrowIcon.svelte";
   import { formatDateLong } from "$lib/time";
-  import { initialisePrism } from "$lib/highlight/prism";
-  import { initialiseRenderer } from "$lib/markdown";
+  // import { initialisePrism } from "$lib/highlight/prism";
   import type { PageData } from "./$types";
 
   export let data: PageData;
 
   onMount(() => {
     // Apply highlighting to all <pre><code>... elements
-    initialisePrism().highlightAll();
+    // initialisePrism().highlightAll();
   });
 
   function backToTop(): void {
@@ -23,7 +20,7 @@
 
 <svelte:head>
   <title>{data.properties.title}</title>
-  <meta name="description" content={data.properties.intro}>
+  <meta name="description" content={data.properties.intro} />
 </svelte:head>
 
 <article class="md:pb-80 pb-16 mt-16 sm:mt-32">

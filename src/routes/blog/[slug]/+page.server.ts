@@ -1,10 +1,7 @@
 import type { Client } from "@notionhq/client";
-import type { PostProperties } from "$lib/notion/page";
-import { NotionToMarkdown } from "notion-to-md";
-import { getPostProperties } from "$lib/notion/page";
-import { initialiseRenderer } from "$lib/markdown";
-
-const renderer = initialiseRenderer();
+import type { PostProperties } from "$lib/blog/pageHeaders";
+import { getPostProperties } from "$lib/blog/pageHeaders";
+import { notionHtmlTransform, } from "$lib/blog/pageContent";
 
 export async function load({ params, locals }) {
   const notion: Client = locals.notion;
@@ -22,26 +19,18 @@ export async function load({ params, locals }) {
     },
   });
 
-  const pageId = queryResponse.results[0]?.id;
-
-  const pageResponse = await notion.blocks.children.list({
-    block_id: pageId,
-    page_size: 100,
-  });
-
-  const n2m = new NotionToMarkdown({ notionClient: notion });
-
-  const mdBlocks = [];
-
-  for (const block of pageResponse.results) {
-    mdBlocks.push(await n2m.blockToMarkdown(block));
-  }
-
   const properties: PostProperties = getPostProperties(
     queryResponse.results[0]
   );
 
-  const content = renderer.render(mdBlocks.join("\n\n"));
+  const pageId = queryResponse.results[0]?.id;
+
+  const pageBlocksResponse = await notion.blocks.children.list({
+    block_id: pageId,
+    page_size: 100,
+  });
+
+  const content = await notionHtmlTransform(notion, pageBlocksResponse);
 
   return { properties, content };
 }

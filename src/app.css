@@ -73,17 +73,30 @@
   .post-content a {
     @apply text-red underline relative decoration-red underline-skip-ink;
   }
-  .post-content pre {
-    /* Important syles here ensure we're overwriting PrismJS theme */
-    @apply !py-5 !px-6 my-4 !bg-grey-light rounded-sm text-sm !border-none w-full !font-mono;
-  }
-  .post-content pre code {
-    tab-size: 2;
-    @apply !font-mono;
-  }
-  .post-content :not(pre) code {
+
+  .post-content code:not(pre *) {
     @apply relative bg-grey-light p-1 rounded-sm text-red text-[90%] mx-[2px];
   }
+  .post-content pre code {
+    @apply grid !bg-grey-light rounded-sm text-xs !border-none w-full !font-mono py-5 my-5;
+    tab-size: 2;
+    counter-reset: line;
+  }
+  .post-content pre code[data-line-numbers] > .line::before {
+    @apply inline-block w-9 mr-6 text-right text-grey;
+    counter-increment: line;
+    content: counter(line);
+  }
+  .post-content pre code:not([data-line-numbers]) > .line {
+    @apply px-7;
+  }
+  .post-content pre code > .line.highlighted {
+    @apply bg-yellow-light/[.55];
+  }
+  .post-content pre code > .line.highlighted::before {
+    @apply border-yellow border-l-[3px] font-bold;
+  }
+
   .post-content img {
     @apply my-6 rounded mx-auto max-w-xl max-h-[40rem] shadow;
   }
@@ -96,7 +109,9 @@
   .post-content blockquote p {
     @apply my-0;
   }
+
 }
+
 
 @layer utilities {
   .font-heading {

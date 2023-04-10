@@ -1,6 +1,6 @@
 // @migration task: Check imports
-import { getPostProperties } from "$lib/notion/page";
-import type { PostProperties } from "$lib/notion/page";
+import { getPostProperties } from "$lib/blog/pageHeaders";
+import type { PostProperties } from "$lib/blog/pageHeaders";
 import type { Client } from "@notionhq/client";
 
 export async function load({ locals }) {

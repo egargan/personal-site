@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { PostProperties } from "$lib/notion/page";
+  import type { PostProperties } from "$lib/blog/pageHeaders";
   import { formatDateLong } from "$lib/time";
 
   export let post: PostProperties;

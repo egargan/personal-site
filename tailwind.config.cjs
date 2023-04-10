@@ -9,6 +9,8 @@ module.exports = {
       red: "#DB504A",
       "red-mid": "#EDA19F",
       "red-light": "#FBEAEA",
+      yellow: "#FFD166",
+      "yellow-light": "#FFE7AD",
       "grey-overlay": "#9292A0",
       grey: "#9D9DAA",
       "grey-light-overlay": "#DFDFE2",
@@ -21,6 +23,7 @@ module.exports = {
       mono: "Consolas, Roboto, Menlo, monospace",
     },
     fontSize: {
+      xs: ["13px", { lineHeight: "20px", letterSpacing: "-0.02em" }],
       sm: ["14px", { lineHeight: "21px", letterSpacing: "-0.02em" }],
       base: ["16px", { lineHeight: "23px", letterSpacing: "-0.012em" }],
       lg: ["18px", { lineHeight: "27px", letterSpacing: "-0.01em" }],
