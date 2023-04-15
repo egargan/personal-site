@@ -1,9 +1,9 @@
 <script lang="ts">
   import PostListItem from "./_PostListItem.svelte";
-  import CopyOnClick from "$lib/CopyOnClick.svelte";
+  import CopyOnClick from "$lib/components/CopyOnClick.svelte";
 
   import type { PageData } from "./$types";
-  import InlineLink from "$lib/InlineLink.svelte";
+  import InlineLink from "$lib/components/InlineLink.svelte";
 
   export let data: PageData;
 </script>

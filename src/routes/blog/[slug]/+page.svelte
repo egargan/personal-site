@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
-  import ArrowIcon from "$lib/ArrowIcon.svelte";
+  import ArrowIcon from "$lib/components/ArrowIcon.svelte";
   import { formatDateLong } from "$lib/time";
   // import { initialisePrism } from "$lib/highlight/prism";
   import type { PageData } from "./$types";

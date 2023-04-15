@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import ArrowIcon from "$lib/ArrowIcon.svelte";
+  import ArrowIcon from "$lib/components/ArrowIcon.svelte";
 
   let errorMessage: string;
 
