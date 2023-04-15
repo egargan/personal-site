@@ -110,6 +110,15 @@
     @apply my-0;
   }
 
+  .post-content h2 a, .post-content h3 a {
+    @apply text-black no-underline;
+  }
+  .post-content h2 a::before, .post-content h3 a::before {
+    @apply content-['#'] pr-2 absolute right-full text-grey-light-overlay;
+  }
+  .post-content h2 a:hover::before, .post-content h3 a:hover::before {
+    @apply text-red;
+  }
 }
 
 

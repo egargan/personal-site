@@ -7,6 +7,8 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import rehypePrettyCode from "rehype-pretty-code";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeSlug from "rehype-slug";
 
 export async function notionHtmlTransform(
   notionClient: NotionClient,
@@ -64,15 +66,25 @@ export function initNotionBlockMarkdownTransformer(
 }
 
 export function composeUnifiedPipeline(): Processor {
-  return unified()
-    .use(remarkParse)
-    .use(remarkRehype)
-    .use(rehypePrettyCode, {
-      theme: "github-light",
-      onVisitHighlightedLine(node) {
-        // Add 'highlighted' class to selected code block lines
-        node.properties.className.push("highlighted");
-      },
-    })
-    .use(rehypeStringify);
+  return (
+    unified()
+      // Parse markdown
+      .use(remarkParse)
+      // Translate unified markdown to unified HTML
+      .use(remarkRehype)
+      // Prettify code blocks
+      .use(rehypePrettyCode, {
+        theme: "github-light",
+        onVisitHighlightedLine(node) {
+          // Add 'highlighted' class to selected code block lines
+          node.properties.className.push("highlighted");
+        },
+      })
+      // Add ids to headings using their text
+      .use(rehypeSlug)
+      // Wrap headings in anchor links
+      .use(rehypeAutolinkHeadings, { behaviour: "wrap" })
+      // Stringify HTML
+      .use(rehypeStringify)
+  );
 }
