@@ -59,13 +59,13 @@
   }
 
   .post-content h1 {
-    @apply text-2xl font-lato font-bold pb-2 pt-4 first:pt-0;
+    @apply text-2xl font-lato font-bold pb-8 pt-10 first:pt-0;
   }
   .post-content h2 {
-    @apply text-xl font-lato font-bold pb-2 pt-4 first:pt-0;
+    @apply text-2xl font-lato font-bold pb-4 pt-9 first:pt-0;
   }
   .post-content h3 {
-    @apply text-lg font-lato font-bold pb-2 pt-4 first:pt-0;
+    @apply text-xl font-lato font-bold pb-4 pt-8 first:pt-0;
   }
   .post-content p {
     @apply text-base mb-2;
