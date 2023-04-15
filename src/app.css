@@ -78,7 +78,7 @@
     @apply relative bg-grey-light p-1 rounded-sm text-red text-[90%] mx-[2px];
   }
   .post-content pre code {
-    @apply grid !bg-grey-light rounded-sm text-xs !border-none w-full !font-mono py-5 my-5;
+    @apply grid !bg-grey-light rounded-sm text-xs !border-none w-full !font-mono py-5 my-5 overflow-x-scroll;
     tab-size: 2;
     counter-reset: line;
   }
