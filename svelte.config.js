@@ -13,6 +13,7 @@ const config = {
           "self",
           "vitals.vercel-insights.com",
           "vitals.vercel-analytics.com",
+          "cdn.vercel-insights.com",
         ],
         "style-src": ["self", "unsafe-inline"],
       },
