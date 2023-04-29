@@ -114,7 +114,7 @@
     @apply text-black no-underline;
   }
   .post-content h2 a::before, .post-content h3 a::before {
-    @apply content-['#'] pr-2 absolute right-full text-grey-light-overlay;
+    @apply content-['#'] pr-1 sm:pr-2 absolute right-full text-grey-light-overlay text-[0.8em] sm:text-[1em];
   }
   .post-content h2 a:hover::before, .post-content h3 a:hover::before {
     @apply text-red;
