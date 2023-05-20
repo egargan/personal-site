@@ -6,6 +6,7 @@
   import InlineLink from "$lib/components/InlineLink.svelte";
 
   import type { PageData } from "./$types";
+  import ArrowIcon from "$lib/components/ArrowIcon.svelte";
 
   export let data: PageData;
 
@@ -50,12 +51,16 @@
 </section>
 
 <section class="mt-16 pb-20">
-  <h1
-    in:fly={{ y: 15, delay: delayUnitMs * 3 }}
-    class="font-lato font-bold text-2xl mb-6"
-  >
-    Recent Posts
-  </h1>
+  <div in:fly={{ y: 15, delay: delayUnitMs * 3 }} class="flex mb-6 gap-x-10">
+    <h1 class="font-lato font-bold text-2xl">Recent Posts</h1>
+    <a
+      href="/blog"
+      class="text-red font-medium text-md stroke-red flex gap-x-1 items-center"
+    >
+      See All
+      <ArrowIcon class="scale-90" points="right" />
+    </a>
+  </div>
 
   <ul class="list-outside px-0">
     {#each data.posts as post, i}
