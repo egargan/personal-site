@@ -23,11 +23,11 @@
   <meta name="description" content={data.properties.intro} />
 </svelte:head>
 
-<article class="md:pb-80 pb-16 mt-16 sm:mt-32">
+<article class="md:pb-80 pb-16 mt-12 sm:mt-18">
   <header class="mb-10">
-    <a href="/" class="text-red font-medium stroke-red flex gap-x-1">
+    <a href="/blog" class="text-red font-medium stroke-red flex gap-x-1">
       <ArrowIcon />
-      Home
+      All Posts
     </a>
     <h1 class="text-3xl font-heading mb-4 mt-8">{data.properties.title}</h1>
     <p class="mb-4 text-grey">
