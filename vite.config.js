@@ -6,6 +6,7 @@ const config = {
   resolve: {
     alias: {
       $constants: resolve("./src/constants"),
+      $components: resolve("./src/lib/components"),
     },
   },
   define: {

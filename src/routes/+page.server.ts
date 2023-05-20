@@ -1,4 +1,3 @@
-// @migration task: Check imports
 import { getPostProperties } from "$lib/blog/pageHeaders";
 import type { PostProperties } from "$lib/blog/pageHeaders";
 import type { Client } from "@notionhq/client";
@@ -17,6 +16,7 @@ export async function load({ locals }) {
         equals: "Live",
       },
     },
+    page_size: 2,
   });
 
   const posts: PostProperties[] = response.results.map(getPostProperties);

@@ -18,7 +18,8 @@
     "paths": {
       "$lib": ["src/lib"],
       "$lib/*": ["src/lib/*"],
-      "$constants/*": ["src/constants/*"]
+      "$constants/*": ["src/constants/*"],
+      "$components/*": ["src/lib/components/*"]
     }
   },
   "include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"]
