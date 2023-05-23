@@ -7,6 +7,11 @@
 
   import type { PageData } from "./$types";
   import ArrowIcon from "$lib/components/ArrowIcon.svelte";
+  import ProjectPreview from "./labs/ProjectPreview.svelte";
+
+  import flipboard from "./labs/flipboard/project";
+  import handshake from "./labs/handshake/project";
+  import recordStack from "./labs/record-stack/project";
 
   export let data: PageData;
 
@@ -50,7 +55,7 @@
   </p>
 </section>
 
-<section class="mt-16 pb-20">
+<section class="mt-16">
   <div in:fly={{ y: 15, delay: delayUnitMs * 3 }} class="flex mb-6 gap-x-10">
     <h1 class="font-lato font-bold text-2xl">Recent Posts</h1>
     <a
@@ -68,5 +73,29 @@
         <PostListItem {post} />
       </li>
     {/each}
+  </ul>
+</section>
+
+<section class="mt-16 pb-20">
+  <div in:fly={{ y: 15, delay: delayUnitMs * 3 }} class="flex mb-6 gap-x-10">
+    <h1 class="font-lato font-bold text-2xl">Featured Labs</h1>
+    <a
+      href="/labs"
+      class="text-red font-medium text-md stroke-red flex gap-x-1 items-center"
+    >
+      See All
+      <ArrowIcon class="scale-90" points="right" />
+    </a>
+  </div>
+
+  <ul
+    class="flex flex-col sm:flex-row list-outside px-0 gap-x-10 lg:-mx-6 pr-16 sm:pr-0 gap-y-5"
+  >
+    <li in:fly={{ y: 15, delay: 60 }}>
+      <ProjectPreview project={handshake} />
+    </li>
+    <li class="translate-y-[-5px]" in:fly={{ y: 15, delay: 30 }}>
+      <ProjectPreview project={flipboard} />
+    </li>
   </ul>
 </section>
