@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { PostProperties } from "$lib/blog/pageHeaders";
-  import { formatDateLong } from "$lib/time";
+  import { formatDateLong } from "$lib/utils/time";
 
   export let post: PostProperties;
 

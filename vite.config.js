@@ -15,6 +15,8 @@ const config = {
     alias: {
       $constants: resolve("./src/constants"),
       $components: resolve("./src/lib/components"),
+      $lib: resolve("./src/lib"),
+      "@": resolve("./"),
     },
   },
   define: {
@@ -22,13 +24,12 @@ const config = {
       process.env.VERCEL_ANALYTICS_ID
     ),
   },
-    plugins: [
+  plugins: [
     viteStaticCopy({
-      targets: [ ...labsAssetsCopyTargets ],
+      targets: [...labsAssetsCopyTargets],
     }),
-    sveltekit()
-  ]
-
+    sveltekit(),
+  ],
 };
 
 export default config;

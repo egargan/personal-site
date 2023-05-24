@@ -74,6 +74,13 @@
     @apply text-red underline relative decoration-red underline-skip-ink;
   }
 
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    -moz-appearance: textfield !important;
+  }
+
   .post-content code:not(pre *) {
     @apply relative bg-grey-light p-1 rounded-sm text-red text-[90%] mx-[2px];
   }
