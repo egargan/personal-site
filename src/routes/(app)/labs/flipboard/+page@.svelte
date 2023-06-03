@@ -6,6 +6,7 @@
   import DemoFlipboard from "./DemoFlipboard.svelte";
   import RowIcon from "$lib/components/RowIcon.svelte";
   import ColumnIcon from "$lib/components/ColumnIcon.svelte";
+  import LabFooter from "$lib/components/LabFooter.svelte";
 
   let numRows = 6;
   let numCols = 6;
@@ -60,30 +61,6 @@
       </div>
     </div>
 
-    <div
-      class="flex flex-col md:flex-row md:items-center pt-4 pb-8 px-8 w-full justify-between
-    gap-x-4 gap-y-6 bg-white shadow-[0_0_3px_3px_white]"
-    >
-      <h1>
-        <strong>Flipboard</strong> — animated image slideshow using SVG panels and
-        CSS animation
-      </h1>
-      <div class="flex gap-x-4">
-        <a
-          class="whitespace-nowrap rounded border-grey border-2 px-6 py-1.5 text-grey text-sm"
-          href="/labs"
-        >
-          Back to Labs
-        </a>
-        <a
-          class="whitespace-nowrap rounded border-grey border-2 px-6 py-1.5 text-grey text-sm"
-          target="_blank"
-          rel="noreferrer"
-          href="https://github.com/egargan/flipboard"
-        >
-          Source on GitHub
-        </a>
-      </div>
-    </div>
+    <LabFooter dropShadow title="Flipboard" heading="animated image slideshow using SVG panels and CSS animation" />
   </div>
 </section>
