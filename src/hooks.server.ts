@@ -1,7 +1,10 @@
-import { Client } from '@notionhq/client';
+import NotionBlogClient from "$lib/blog/notion/NotionBlogClient";
+import { Client } from "@notionhq/client";
 
-// Initialise Notion API client
-const notion = new Client({ auth: process.env['NOTION_SECRET'] });
+const notion = new NotionBlogClient(
+  new Client({ auth: process.env["NOTION_SECRET"] }),
+  process.env["NOTION_POSTS_DB_ID"]
+);
 
 export async function handle({ event, resolve }) {
   event.locals.notion = notion;
