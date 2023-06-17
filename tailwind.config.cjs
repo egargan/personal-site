@@ -16,6 +16,7 @@ module.exports = {
       "grey-light-overlay": "#DFDFE2",
       "grey-light": "#F2F2F4",
       white: "#FEFFFC",
+      transparent: "transparent",
     },
     fontFamily: {
       lato: "Lato, sans-serif",
