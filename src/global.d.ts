@@ -10,6 +10,8 @@ declare module "handshake" {
     ): void;
     reset(): void;
     confirm(): boolean;
+    pauseInput(): void;
+    resumeInput(): void;
   };
 
   export default function run(

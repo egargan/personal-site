@@ -10,23 +10,13 @@
   import TokenIcon from "./TokenIcon.svelte";
   import cx from "$lib/utils/cx";
 
-  import run from "handshake";
+  import run, { type HandshakeController } from "handshake";
 
   let container: HTMLElement;
   let password = readable([]);
   let submitState = writable<"idle" | "success" | "fail">("idle");
 
-  // TODO: can we move this type to global.d.ts?
-  let controller: {
-    setPassword(password: string[]): void;
-    onPasswordChanged(
-      callback: (newPassword: string[], newToken: string) => void
-    ): void;
-    reset(): void;
-    confirm(): boolean;
-    pauseInput(): void;
-    resumeInput(): void;
-  };
+  let controller: HandshakeController;
 
   onMount(() => {
     // This path tells the handshake stuff where it should look for its assets, which have been

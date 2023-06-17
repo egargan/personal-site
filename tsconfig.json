@@ -20,7 +20,12 @@
       "$constants/*": ["src/constants/*"],
       "$components/*": ["src/lib/components/*"],
       "@/*": ["./*"]
-    }
+    },
+    "typeRoots": [
+      "src/global.d.ts",
+      "node_modules/@types",
+      ".svelte-kit/types"
+    ]
   },
   "include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"]
 }
