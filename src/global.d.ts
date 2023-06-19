@@ -12,11 +12,12 @@ declare module "handshake" {
     confirm(): boolean;
     pauseInput(): void;
     resumeInput(): void;
+    toggleDebugView(): void;
   };
 
   export default function run(
     container: HTMLElement,
     assetsPath: string,
     debug?: boolean
-  ): HandshakeController;
+  ): [HandshakeController, () => void];
 }
