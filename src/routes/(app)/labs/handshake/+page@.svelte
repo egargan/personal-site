@@ -71,10 +71,15 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <section class="flex items-center justify-center h-full w-full">
-  <div class="mx-auto mb-32 md:mb-36 scale-[120%]" bind:this={container} />
+  <div
+    class="mx-auto mb-52 md:mb-36 scale-[75%] min-[520px]:scale-100 md:scale-[120%]"
+    bind:this={container}
+  />
 
   <div class="absolute bottom-0 w-full z-20">
-    <div class="relative max-w-lg -top-12 mx-auto flex gap-x-4 items-center">
+    <div
+      class="relative max-w-lg -top-12 mx-auto flex gap-x-4 items-center px-4"
+    >
       <ul
         class="flex flex-wrap px-0 flex-1 rounded-md border-[3px] transition-colors duration-[50ms]
         {cx($submitState === 'idle', 'border-transparent')}
@@ -105,12 +110,9 @@
       </div>
     </div>
 
-    <div class="flex gap-x-8 items-center justify-center mb-4">
-      <div class="flex gap-x-3 items-center">
-        <span class="font-bold">Reset</span>
-        <!-- TODO: use a componenly icon for these? -->
-        <img src="/labs/handshake/backspace-key.svg" alt="Backspace key" />
-      </div>
+    <div
+      class="flex gap-x-8 items-center justify-start mb-4 flex-wrap gap-y-4 w-fit mx-auto px-6"
+    >
       <div
         class="flex gap-x-3 items-center {cx(
           !$enteredPassword.length,
@@ -119,6 +121,11 @@
       >
         <span class="font-bold">Confirm</span>
         <img src="/labs/handshake/enter-key.svg" alt="Backspace key" />
+      </div>
+      <div class="flex gap-x-3 items-center">
+        <span class="font-bold">Reset</span>
+        <!-- TODO: use a componenly icon for these? -->
+        <img src="/labs/handshake/backspace-key.svg" alt="Backspace key" />
       </div>
       <div class="flex gap-x-3 items-center">
         <span class="font-bold">Debug</span>

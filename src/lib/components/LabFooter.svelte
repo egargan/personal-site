@@ -6,7 +6,7 @@
 
 <div class="w-full @container">
 	<div
-		class="flex flex-col @4xl:flex-row @4xl:items-center p-8 w-full justify-between
+		class="flex flex-col @4xl:flex-row @4xl:items-center p-6 sm:p-8 w-full justify-between
     gap-x-4 gap-y-6 bg-white {dropShadow ? 'shadow-[0_0_3px_3px_white]' : ''}"
 	>
 		<h1>
