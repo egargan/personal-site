@@ -39,7 +39,7 @@
       composer,
     });
 
-    const cycler = new Cycler(flipboard, 3, [
+    const cycler = new Cycler(flipboard, 2.5, [
       "flipboard/arches.png",
       "flipboard/bronze.jpeg",
       "flipboard/girder.jpeg",
