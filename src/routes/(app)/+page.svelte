@@ -49,6 +49,7 @@
     Say hi at <CopyOnClick text="edwgargan@gmail.com" />, or find me on <InlineLink
       href="https://github.com/egargan">GitHub</InlineLink
     >
+    and
     <InlineLink href="https://www.linkedin.com/in/edward-gargan-7a0016130/"
       >LinkedIn</InlineLink
     >.
