@@ -35,11 +35,10 @@ module.exports = {
     },
     extend: {
       screens: {
+        xs: "520px",
         container: "840px",
       },
     },
   },
-  plugins: [
-    require("@tailwindcss/container-queries"),
-  ],
+  plugins: [require("@tailwindcss/container-queries")],
 };
