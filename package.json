@@ -43,6 +43,7 @@
     "clipboard": "^2.0.10",
     "flipboard": "github:egargan/flipboard",
     "handshake": "github:egargan/handshake",
+    "parliament-chart": "github:egargan/parliament-chart",
     "install": "^0.13.0",
     "notion-to-md": "^2.3.2",
     "npm": "^9.6.7",
