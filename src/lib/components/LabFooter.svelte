@@ -1,6 +1,7 @@
 <script lang="ts">
 	export let title: string;
 	export let heading: string;
+	export let repoUrl: string;
 	export let dropShadow = false;
 </script>
 
@@ -23,7 +24,7 @@
 				class="whitespace-nowrap rounded border-grey border-2 px-6 py-1.5 text-grey text-sm"
 				target="_blank"
 				rel="noreferrer"
-				href="https://github.com/egargan/flipboard"
+				href={repoUrl}
 			>
 				Source on GitHub
 			</a>
