@@ -17,6 +17,7 @@
     <LabFooter
       title="Record Stack"
       heading="a list component that's interacted with like a box of records"
+      repoUrl="https://github.com/egargan/record-stack"
     />
   </div>
 </section>

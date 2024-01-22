@@ -61,6 +61,11 @@
       </div>
     </div>
 
-    <LabFooter dropShadow title="Flipboard" heading="animated image slideshow using SVG panels and CSS animation" />
+    <LabFooter
+      dropShadow
+      title="Flipboard"
+      heading="animated image slideshow using SVG panels and CSS animation"
+      repoUrl="https://github.com/egargan/flipboard"
+    />
   </div>
 </section>

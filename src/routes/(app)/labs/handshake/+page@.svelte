@@ -116,7 +116,7 @@
       <div
         class="flex gap-x-3 items-center {cx(
           !$enteredPassword.length,
-          'opacity-50'
+          'opacity-50',
         )}"
       >
         <span class="font-bold">Confirm</span>
@@ -136,6 +136,7 @@
     <LabFooter
       title="Handshake"
       heading="a questionably useful interactive authentication method using secret handshakes as passphrases"
+      repoUrl="https://github.com/egargan/handshake"
     />
   </div>
 </section>
