@@ -142,4 +142,14 @@
   .underline-skip-ink {
     text-decoration-skip-ink: none;
   }
+
+  .h-screen {
+    @supports (height: 100dvh) {
+      height: 100dvh;
+    }
+
+    @supports not (height: 100dvh) {
+      height: 100vh;
+    }
+  }
 }
