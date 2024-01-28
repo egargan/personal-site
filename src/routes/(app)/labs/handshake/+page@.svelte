@@ -70,7 +70,7 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<section class="flex items-center justify-center h-full w-full">
+<section class="flex items-center justify-center h-full w-full overflow-hidden">
   <div
     class="mx-auto mb-52 md:mb-36 scale-[75%] min-[520px]:scale-100 md:scale-[120%]"
     bind:this={container}
