@@ -11,7 +11,7 @@
 
 <ul
   class="grid grid-cols-1 sm:grid-cols-[11fr_9fr] lg:grid-cols-[10fr_9fr_10fr] gap-x-11 gap-y-6
-  md:gap-y-4 px-4 pr-20 sm:px-6 mt-8 md:mt-12 lg:mx-[-120px] xl:mx-[-160px] pb-20"
+  md:gap-y-4 px-4 pr-10 xs:pr-20 sm:px-6 mt-8 md:mt-12 lg:mx-[-120px] xl:mx-[-160px] pb-20"
 >
   <div class="md:col-start-1 flex flex-col gap-y-3 sm:gap-y-3 items-end">
     <li class="sm:translate-y-[-8px]" in:fly={{ y: 15 }}>
