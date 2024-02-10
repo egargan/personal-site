@@ -12,7 +12,7 @@ import rehypeSlug from "rehype-slug";
 
 export async function notionHtmlTransform(
   notionClient: NotionClient,
-  pageBlocks: ListBlockChildrenResponse
+  pageBlocks: ListBlockChildrenResponse,
 ): Promise<string> {
   const pageMarkdown = await notionMarkdownTransform(notionClient, pageBlocks);
   const pageHtml = await composeUnifiedPipeline().process(pageMarkdown);
@@ -21,7 +21,7 @@ export async function notionHtmlTransform(
 
 export async function notionMarkdownTransform(
   notionClient: NotionClient,
-  pageBlocks: ListBlockChildrenResponse
+  pageBlocks: ListBlockChildrenResponse,
 ): Promise<string> {
   const notionMdTransformer = initNotionBlockMarkdownTransformer(notionClient);
 
@@ -35,7 +35,7 @@ export async function notionMarkdownTransform(
 }
 
 export function initNotionBlockMarkdownTransformer(
-  notionClient: NotionClient
+  notionClient: NotionClient,
 ): NotionToMarkdown {
   const transformer = new NotionToMarkdown({ notionClient });
 

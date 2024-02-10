@@ -11,7 +11,7 @@
   <meta name="description" content="Blog posts written by Ed Gargan" />
 </svelte:head>
 
-<section class="pb-20 mt-14 md:mt-20">
+<section class="mt-14 pb-20 md:mt-20">
   <ul class="list-outside px-0">
     {#each data.posts as post, i}
       <li in:fly={{ y: 15, delay: i * 30 }}>

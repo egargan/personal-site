@@ -44,7 +44,7 @@
 
 <div class={getRandomColor()}>
   <heading>
-    <h1 class="m-0 py-8 px-4 font-bold" data-title>
+    <h1 class="m-0 px-4 py-8 font-bold" data-title>
       {getRandomTitle()}
     </h1>
     <p class="m-0 p-4" data-preview>

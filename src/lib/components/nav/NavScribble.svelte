@@ -3,13 +3,14 @@
 </script>
 
 <svg
-  width="{8 * scale}"
-  height="{6 * scale}"
+  width={8 * scale}
+  height={6 * scale}
   viewBox="0 0 {8 * scale} {6 * scale}"
   fill="none"
-  xmlns="http://www.w3.org/2000/svg">
+  xmlns="http://www.w3.org/2000/svg"
+>
   <path
-    class="stroke-red squiggle"
+    class="squiggle stroke-red"
     d="M1.23865 3.48102C0.945782 4.41974 0.791461 4.68687 1.57265 3.88608C2.47792 2.95809 3.63548 1.55807 4.75948 1.03378C5.77824 0.55857 2.65754 5.26298 3.67401 4.78059C5.40046 3.96127 6.31604 2.51149 7 5"
     stroke-linecap="round"
     transform="scale({scale})"

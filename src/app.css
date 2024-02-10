@@ -4,45 +4,50 @@
 
 @layer base {
   html {
-    @apply text-black bg-white;
+    @apply bg-white text-black;
   }
 
   @font-face {
-    font-family: 'Lato';
-    src: url('/fonts/lato-bold.woff2') format('woff2'),
-      url('/fonts/lato-bold.woff') format('woff');
+    font-family: "Lato";
+    src:
+      url("/fonts/lato-bold.woff2") format("woff2"),
+      url("/fonts/lato-bold.woff") format("woff");
     font-weight: 700;
     font-display: fallback;
     font-style: normal;
   }
   @font-face {
-    font-family: 'Noto Sans';
-    src: url('/fonts/noto-sans.woff2') format('woff2'),
-      url('/fonts/noto-sans.woff') format('woff');
+    font-family: "Noto Sans";
+    src:
+      url("/fonts/noto-sans.woff2") format("woff2"),
+      url("/fonts/noto-sans.woff") format("woff");
     font-weight: 400;
     font-display: fallback;
     font-style: normal;
   }
   @font-face {
-    font-family: 'Noto Sans';
-    src: url('/fonts/noto-sans-italic.woff2') format('woff2'),
-      url('/fonts/noto-sans-italic.woff') format('woff');
+    font-family: "Noto Sans";
+    src:
+      url("/fonts/noto-sans-italic.woff2") format("woff2"),
+      url("/fonts/noto-sans-italic.woff") format("woff");
     font-weight: 400;
     font-display: fallback;
     font-style: italic;
   }
   @font-face {
-    font-family: 'Noto Sans';
-    src: url('/fonts/noto-sans-medium.woff2') format('woff2'),
-      url('/fonts/noto-sans-medium.woff') format('woff');
+    font-family: "Noto Sans";
+    src:
+      url("/fonts/noto-sans-medium.woff2") format("woff2"),
+      url("/fonts/noto-sans-medium.woff") format("woff");
     font-weight: 500;
     font-display: fallback;
     font-style: normal;
   }
   @font-face {
-    font-family: 'Noto Sans';
-    src: url('/fonts/noto-sans-bold.woff2') format('woff2'),
-      url('/fonts/noto-sans-bold.woff') format('woff');
+    font-family: "Noto Sans";
+    src:
+      url("/fonts/noto-sans-bold.woff2") format("woff2"),
+      url("/fonts/noto-sans-bold.woff") format("woff");
     font-weight: 700;
     font-display: fallback;
     font-style: normal;
@@ -51,27 +56,28 @@
   p {
     @apply mb-3;
   }
-  ul, ol {
-    @apply pl-4 list-outside;
+  ul,
+  ol {
+    @apply list-outside pl-4;
   }
   li {
     @apply mb-3;
   }
 
   .post-content h1 {
-    @apply text-2xl font-lato font-bold pb-8 pt-10 first:pt-0;
+    @apply pb-8 pt-10 font-lato text-2xl font-bold first:pt-0;
   }
   .post-content h2 {
-    @apply text-2xl font-lato font-bold pb-4 pt-9 first:pt-0;
+    @apply pb-4 pt-9 font-lato text-2xl font-bold first:pt-0;
   }
   .post-content h3 {
-    @apply text-xl font-lato font-bold pb-4 pt-8 first:pt-0;
+    @apply pb-4 pt-8 font-lato text-xl font-bold first:pt-0;
   }
   .post-content p {
-    @apply text-base mb-2;
+    @apply mb-2 text-base;
   }
   .post-content a {
-    @apply text-red underline relative decoration-red underline-skip-ink;
+    @apply underline-skip-ink relative text-red underline decoration-red;
   }
 
   input[type="number"]::-webkit-inner-spin-button,
@@ -82,15 +88,15 @@
   }
 
   .post-content code:not(pre *) {
-    @apply relative bg-grey-light p-1 rounded-sm text-red text-[90%] mx-[2px];
+    @apply relative mx-[2px] rounded-sm bg-grey-light p-1 text-[90%] text-red;
   }
   .post-content pre code {
-    @apply grid !bg-grey-light rounded-sm text-xs !border-none w-full !font-mono py-5 my-5 overflow-x-auto;
+    @apply my-5 grid w-full overflow-x-auto rounded-sm !border-none !bg-grey-light py-5 !font-mono text-xs;
     tab-size: 2;
     counter-reset: line;
   }
   .post-content pre code[data-line-numbers] > .line::before {
-    @apply inline-block w-9 mr-6 text-right text-grey;
+    @apply mr-6 inline-block w-9 text-right text-grey;
     counter-increment: line;
     content: counter(line);
   }
@@ -101,14 +107,14 @@
     @apply bg-yellow-light/[.55];
   }
   .post-content pre code > .line.highlighted::before {
-    @apply border-yellow border-l-[3px] font-bold;
+    @apply border-l-[3px] border-yellow font-bold;
   }
 
   .post-content img {
-    @apply my-6 rounded mx-auto max-w-xl max-h-[40rem] shadow;
+    @apply mx-auto my-6 max-h-[40rem] max-w-xl rounded shadow;
   }
   .post-content blockquote {
-    @apply py-5 px-6 my-4 bg-grey-light rounded-sm;
+    @apply my-4 rounded-sm bg-grey-light px-6 py-5;
   }
   .post-content blockquote code {
     @apply bg-grey-light-overlay;
@@ -117,17 +123,19 @@
     @apply my-0;
   }
 
-  .post-content h2 a, .post-content h3 a {
+  .post-content h2 a,
+  .post-content h3 a {
     @apply text-black no-underline;
   }
-  .post-content h2 a::before, .post-content h3 a::before {
-    @apply content-['#'] pr-1 sm:pr-2 absolute right-full text-grey-light-overlay text-[0.8em] sm:text-[1em];
+  .post-content h2 a::before,
+  .post-content h3 a::before {
+    @apply absolute right-full pr-1 text-[0.8em] text-grey-light-overlay content-['#'] sm:pr-2 sm:text-[1em];
   }
-  .post-content h2 a:hover::before, .post-content h3 a:hover::before {
+  .post-content h2 a:hover::before,
+  .post-content h3 a:hover::before {
     @apply text-red;
   }
 }
-
 
 @layer utilities {
   .font-heading {

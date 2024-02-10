@@ -16,22 +16,22 @@
   }
 </script>
 
-<div class="flex bg-red text-white w-24 rounded overflow-clip">
+<div class="flex w-24 overflow-clip rounded bg-red text-white">
   <button
     disabled={min && number <= max}
-    class="bg-red pl-3.5 pr-3 py-2 hover:brightness-95"
+    class="bg-red py-2 pl-3.5 pr-3 hover:brightness-95"
     on:click={decrement}>–</button
   >
   <input
     tabindex="-1"
-    class="bg-red text-center w-full block focus:outline-0"
+    class="block w-full bg-red text-center focus:outline-0"
     type="number"
     readonly
     value={number}
   />
   <button
     disabled={max && number >= max}
-    class="bg-red pr-3.5 pl-3 py-2 hover:brightness-95"
+    class="bg-red py-2 pl-3 pr-3.5 hover:brightness-95"
     on:click={increment}>+</button
   >
 </div>

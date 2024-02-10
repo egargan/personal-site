@@ -11,12 +11,12 @@
   }
 </script>
 
-<div class="h-full flex flex-col justify-center pb-48">
-  <h1 class="font-heading text-4xl mb-4">{$page.status} 🙁</h1>
-  <h2 class="text-2xl mb-4">{errorMessage}</h2>
+<div class="flex h-full flex-col justify-center pb-48">
+  <h1 class="font-heading mb-4 text-4xl">{$page.status} 🙁</h1>
+  <h2 class="mb-4 text-2xl">{errorMessage}</h2>
   <a
     href="/"
-    class="text-red font-medium text-lg stroke-red flex gap-x-1 mt-4 items-center"
+    class="mt-4 flex items-center gap-x-1 stroke-red text-lg font-medium text-red"
   >
     <ArrowIcon />
     Go Home

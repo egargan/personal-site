@@ -21,7 +21,7 @@ const config = {
   },
   define: {
     "import.meta.env.VERCEL_ANALYTICS_ID": JSON.stringify(
-      process.env.VERCEL_ANALYTICS_ID
+      process.env.VERCEL_ANALYTICS_ID,
     ),
   },
   plugins: [

@@ -3,7 +3,7 @@ import { Client } from "@notionhq/client";
 
 const notion = new NotionBlogClient(
   new Client({ auth: process.env["NOTION_SECRET"] }),
-  process.env["NOTION_POSTS_DB_ID"]
+  process.env["NOTION_POSTS_DB_ID"],
 );
 
 export async function handle({ event, resolve }) {

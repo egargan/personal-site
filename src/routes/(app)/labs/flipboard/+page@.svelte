@@ -28,7 +28,7 @@
 
 <svelte:window on:resize={debounce(onWindowResize, 100)} />
 
-<section class="flex items-center justify-center h-full w-full">
+<section class="flex h-full w-full items-center justify-center">
   {#key [windowIsSmall, numRows, numCols]}
     <DemoFlipboard
       class="pb-44 sm:pb-32"
@@ -38,11 +38,11 @@
     />
   {/key}
 
-  <div class="absolute bottom-0 w-full z-20">
+  <div class="absolute bottom-0 z-20 w-full">
     <div
-      class="bg-white py-4 px-6 flex gap-x-8 shadow-lg mb-2 sm:mb-8 justify-center w-min mx-auto"
+      class="mx-auto mb-2 flex w-min justify-center gap-x-8 bg-white px-6 py-4 shadow-lg sm:mb-8"
     >
-      <div class="flex gap-x-3 items-center">
+      <div class="flex items-center gap-x-3">
         {#if windowIsSmall}
           <RowIcon class="w-8 fill-black" />
         {:else}
@@ -51,7 +51,7 @@
         <RockerNumberInput max={8} bind:number={numRows} />
       </div>
 
-      <div class="flex gap-x-3 items-center">
+      <div class="flex items-center gap-x-3">
         {#if windowIsSmall}
           <ColumnIcon class="w-8 fill-black" />
         {:else}

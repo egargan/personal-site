@@ -70,25 +70,25 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<section class="flex items-center justify-center h-full w-full overflow-hidden">
+<section class="flex h-full w-full items-center justify-center overflow-hidden">
   <div
-    class="mx-auto mb-52 md:mb-36 scale-[75%] min-[520px]:scale-100 md:scale-[120%]"
+    class="mx-auto mb-52 scale-[75%] min-[520px]:scale-100 md:mb-36 md:scale-[120%]"
     bind:this={container}
   />
 
-  <div class="absolute bottom-0 w-full z-20">
+  <div class="absolute bottom-0 z-20 w-full">
     <div
-      class="relative max-w-lg -top-12 mx-auto flex gap-x-4 items-center px-4"
+      class="relative -top-12 mx-auto flex max-w-lg items-center gap-x-4 px-4"
     >
       <ul
-        class="flex flex-wrap px-0 flex-1 rounded-md border-[3px] transition-colors duration-[50ms]
+        class="flex flex-1 flex-wrap rounded-md border-[3px] px-0 transition-colors duration-[50ms]
         {cx($submitState === 'idle', 'border-transparent')}
         {cx($submitState === 'success', 'border-green')}
         {cx($submitState === 'fail', 'border-red')}"
       >
         {#each $enteredPassword as token}
           <li
-            class="text-4xl font-bold mb-0
+            class="mb-0 text-4xl font-bold
             {cx($submitState !== 'idle', 'opacity-70')}"
             out:fade={{ duration: 50 }}
           >
@@ -97,7 +97,7 @@
         {/each}
       </ul>
 
-      <div class="w-8 h-8">
+      <div class="h-8 w-8">
         {#if $submitState === "success"}
           <div transition:fade={{ duration: 50 }}>
             <TickIcon />
@@ -111,10 +111,10 @@
     </div>
 
     <div
-      class="flex gap-x-8 items-center justify-start mb-4 flex-wrap gap-y-4 w-fit mx-auto px-6"
+      class="mx-auto mb-4 flex w-fit flex-wrap items-center justify-start gap-x-8 gap-y-4 px-6"
     >
       <div
-        class="flex gap-x-3 items-center {cx(
+        class="flex items-center gap-x-3 {cx(
           !$enteredPassword.length,
           'opacity-50',
         )}"
@@ -122,12 +122,12 @@
         <span class="font-bold">Confirm</span>
         <img src="/labs/handshake/enter-key.svg" alt="Backspace key" />
       </div>
-      <div class="flex gap-x-3 items-center">
+      <div class="flex items-center gap-x-3">
         <span class="font-bold">Reset</span>
         <!-- TODO: use a componenly icon for these? -->
         <img src="/labs/handshake/backspace-key.svg" alt="Backspace key" />
       </div>
-      <div class="flex gap-x-3 items-center">
+      <div class="flex items-center gap-x-3">
         <span class="font-bold">Debug</span>
         <img src="/labs/handshake/d-key.svg" alt="D key" />
       </div>

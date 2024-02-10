@@ -13,14 +13,13 @@
 </script>
 
 <div
-  class="shadow-md grid gap-x-3 gap-y-4 grid-cols-1 xs:grid-cols-2 lg:grid-cols-1 pl-3 pr-4 py-7
-  lg:mr-12 w-full"
+  class="grid w-full grid-cols-1 gap-x-3 gap-y-4 py-7 pl-3 pr-4 shadow-md xs:grid-cols-2 lg:mr-12 lg:grid-cols-1"
 >
   {#each Object.entries(parties) as [id, { name, color }]}
-    <div class="flex items-center justify-center mx-4">
+    <div class="mx-4 flex items-center justify-center">
       <div
         style={`background-color: ${color}`}
-        class="mr-6 mb-1 w-[1.125rem] h-[1.125rem] rounded-full shrink-0"
+        class="mb-1 mr-6 h-[1.125rem] w-[1.125rem] shrink-0 rounded-full"
       ></div>
       <div class="w-full">
         <div class="flex justify-between">
@@ -29,7 +28,7 @@
         </div>
         <input
           id={`slider-${id}`}
-          class="accent-red my-1 w-full"
+          class="my-1 w-full accent-red"
           max="200"
           type="range"
           value={seats[id]}

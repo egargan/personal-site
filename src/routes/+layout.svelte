@@ -22,7 +22,7 @@
 </script>
 
 <div
-  class="flex flex-col items-stretch container:items-center font-noto-sans text-base h-screen"
+  class="flex h-screen flex-col items-stretch font-noto-sans text-base container:items-center"
 >
   <slot />
 </div>

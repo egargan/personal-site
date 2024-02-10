@@ -4,9 +4,9 @@
 </script>
 
 {#if token === "TOP"}
-  <ArrowIcon width={2.5} class="stroke-[#2274A5] w-10 h-10" points="down" />
+  <ArrowIcon width={2.5} class="h-10 w-10 stroke-[#2274A5]" points="down" />
 {:else if token === "BOTTOM"}
-  <ArrowIcon width={2.5} class="stroke-[#CC2936] w-10 h-10" points="up" />
+  <ArrowIcon width={2.5} class="h-10 w-10 stroke-[#CC2936]" points="up" />
 {:else if token === "FRONT"}
-  <ArrowIcon width={2.5} class="stroke-[#03B5AA] w-10 h-10" points="right" />
+  <ArrowIcon width={2.5} class="h-10 w-10 stroke-[#03B5AA]" points="right" />
 {/if}

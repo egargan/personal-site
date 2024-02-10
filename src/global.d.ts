@@ -6,7 +6,7 @@ declare module "handshake" {
   type HandshakeController = {
     setPassword(password: string[]): void;
     onPasswordChanged(
-      callback: (newPassword: Token[], newToken: Token) => void
+      callback: (newPassword: Token[], newToken: Token) => void,
     ): void;
     reset(): void;
     confirm(): boolean;
@@ -18,6 +18,6 @@ declare module "handshake" {
   export default function run(
     container: HTMLElement,
     assetsPath: string,
-    debug?: boolean
+    debug?: boolean,
   ): [HandshakeController, () => void];
 }

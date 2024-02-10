@@ -18,10 +18,10 @@
   <meta name="description" content="Personal website and blog for Ed Gargan" />
 </svelte:head>
 
-<section class="text-lg mt-14 md:mt-20">
+<section class="mt-14 text-lg md:mt-20">
   <h1
     in:fly={{ y: 15, delay: delayUnitMs }}
-    class="font-lato font-bold text-2xl mb-8"
+    class="mb-8 font-lato text-2xl font-bold"
   >
     Hi, I'm Ed 👋
   </h1>
@@ -56,11 +56,11 @@
 </section>
 
 <section class="mt-16 pb-32">
-  <div in:fly={{ y: 15, delay: delayUnitMs * 3 }} class="flex mb-6 gap-x-10">
-    <h1 class="font-lato font-bold text-2xl">Recent Posts</h1>
+  <div in:fly={{ y: 15, delay: delayUnitMs * 3 }} class="mb-6 flex gap-x-10">
+    <h1 class="font-lato text-2xl font-bold">Recent Posts</h1>
     <a
       href="/blog"
-      class="text-red font-medium text-md stroke-red flex gap-x-1 items-center"
+      class="text-md flex items-center gap-x-1 stroke-red font-medium text-red"
     >
       See All
       <ArrowIcon class="scale-90" points="right" />

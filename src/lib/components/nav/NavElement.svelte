@@ -1,5 +1,5 @@
 <script lang="ts">
-  import NavScribble from './NavScribble.svelte';
+  import NavScribble from "./NavScribble.svelte";
 
   export let text: string;
   export let path: string;
@@ -13,6 +13,6 @@
 </a>
 {#if isCurrentPage}
   <div class="flex justify-center">
-    <NavScribble scale={1.8}/>
+    <NavScribble scale={1.8} />
   </div>
 {/if}

@@ -27,7 +27,7 @@
       {#if isHovering}
         <div
           transition:fade={{ duration: transDur }}
-          class="absolute inset-0 rounded-sm opacity-[15%] bg-red"
+          class="absolute inset-0 rounded-sm bg-red opacity-[15%]"
         />
       {/if}
     </div>

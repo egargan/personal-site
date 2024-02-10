@@ -79,7 +79,7 @@ export default class NotionBlogClient {
     } catch (err) {
       throw new NotionClientError(
         `failed to fetch content for post '${slug}'`,
-        { err }
+        { err },
       );
     }
 
@@ -90,7 +90,7 @@ export default class NotionBlogClient {
     } catch (err) {
       throw new NotionClientError(
         `failed to convert content for post '${slug}'`,
-        { err }
+        { err },
       );
     }
 

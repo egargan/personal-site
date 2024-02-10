@@ -27,12 +27,12 @@
 <span class="relative inline-flex justify-center">
   <button
     id="link-button"
-    class="underline underline-skip-ink text-red"
+    class="underline-skip-ink text-red underline"
     data-clipboard-text={text}
     on:click={emailClick}
   >
     {#if $$slots.default}
-      <slot/>
+      <slot />
     {:else}
       {text}
     {/if}
@@ -42,8 +42,8 @@
     <span
       in:fly={{ y: 10, duration: 120, opacity: 0.3 }}
       out:fade={{ duration: 60 }}
-      class="py-1 px-5 absolute bottom-[115%] rounded bg-black text-white text-sm
-      select-none text-center"
+      class="absolute bottom-[115%] select-none rounded bg-black px-5 py-1 text-center
+      text-sm text-white"
     >
       Copied to clipboard!
     </span>

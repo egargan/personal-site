@@ -6,10 +6,10 @@ export class AppError extends Error {
   // for legacy compatibility
   readonly cause: Error;
 
-  constructor(message: string, options?: { cause?: Error, err?: Error }) {
+  constructor(message: string, options?: { cause?: Error; err?: Error }) {
     super(message);
 
-    Object.defineProperty(this, 'name', { value: new.target.name });
+    Object.defineProperty(this, "name", { value: new.target.name });
 
     // Extending Error requires us to set the prototype explicitly, to keep TS
     // happy. This will correct the prototype of any class that extends HutError.
@@ -36,7 +36,10 @@ export function matchErr(error: Error, ...types: (typeof Error)[]): boolean {
  * Returns true if the given error matches any of the given error types,
  * via instanceof checks
  */
-export function matchErrOrThrow(error: Error, ...types: (typeof Error)[]): boolean {
+export function matchErrOrThrow(
+  error: Error,
+  ...types: (typeof Error)[]
+): boolean {
   for (let type of types) {
     if (error instanceof type) {
       return true;
