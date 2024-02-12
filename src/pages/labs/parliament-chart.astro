@@ -1,0 +1,11 @@
+---
+import Base from "$layouts/Base.astro";
+import ParliamentChartLab from "$labs/parliament-chart/index.svelte";
+// TODO: store the copy below in one place
+---
+
+<Base
+  title="Lab — Parliament Chart"
+  description="Donut chart used to visualise things like government composition, built with SVG and JS">
+  <ParliamentChartLab client:load>
+</Base>

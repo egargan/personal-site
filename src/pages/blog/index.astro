@@ -1,0 +1,29 @@
+---
+import Base from "$layouts/Base.astro";
+import PostListItem from "$lib/components/PostListItem.astro";
+import notion from "$context/notion";
+import Nav from "$lib/components/nav/Nav.astro";
+import { flyInVars } from "@/styles/utils";
+
+const posts = await notion.getPostList();
+---
+
+<Base title="Blog" description="Tech and development blog posts">
+  <main class="h-full w-full px-5 sm:px-8 container:w-[840px]">
+    <Nav />
+    <section class="mt-14 pb-20 md:mt-20">
+      <ul class="list-outside px-0">
+        {
+          posts.map((post, i) => (
+            <li
+              style={{ ...flyInVars({ delayMs: 30 * (i + 1) }) }}
+              class="fly-in"
+            >
+              <PostListItem {post} />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+</Base>

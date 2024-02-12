@@ -1,0 +1,59 @@
+---
+import { flyInVars } from "@/styles/utils";
+
+const { text } = Astro.props as { text: string };
+---
+
+<script>
+  import ClipboardJS from "clipboard";
+
+  let tooltipTimeout: ReturnType<typeof setTimeout>;
+
+  document.querySelectorAll("button.copy-button").forEach((button) => {
+    new ClipboardJS(button);
+
+    button.addEventListener("click", () => {
+      const tooltip = button.nextElementSibling as HTMLElement;
+      tooltip.classList.remove("hidden");
+
+      clearTimeout(tooltipTimeout);
+
+      tooltipTimeout = setTimeout(() => {
+        tooltip.classList.add("fade-out");
+      }, 1200);
+
+      tooltip.addEventListener(
+        "transitionend",
+        () => {
+          tooltip.classList.remove("fade-out");
+          tooltip.classList.add("hidden");
+        },
+        false,
+      );
+    });
+  });
+</script>
+
+<span class="relative inline-flex justify-center">
+  <button
+    class="copy-button underline-skip-ink text-red underline"
+    data-clipboard-text={text}
+  >
+    <slot>
+      {text}
+    </slot>
+  </button>
+  <span
+    style={{ ...flyInVars({ durationMs: 120, y: "10px" }) }}
+    class="fly-in absolute bottom-[115%] hidden select-none rounded bg-black px-5 py-1 text-center text-sm text-white transition-opacity"
+  >
+    Copied to clipboard!
+  </span>
+</span>
+
+<style>
+  .fade-out {
+    transition: opacity 60ms linear;
+    opacity: 0;
+  }
+</style>
