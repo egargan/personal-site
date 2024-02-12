@@ -1,5 +1,5 @@
 module.exports = {
-  content: ["./src/**/*.{svelte,html}"],
+  content: ["./src/**/*.{astro,svelte,html,js,jsx,md,mdx,ts,tsx}"],
   theme: {
     colors: {
       black: "#242331",

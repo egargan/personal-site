@@ -1,0 +1,65 @@
+<!DOCTYPE html> <html lang="en"> <head><meta charset="utf-8"><link rel="icon" href="/favicons/favicon-32.png" sizes="32x32"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Astro v4.3.5"><meta name="description" content="Save yourself precious key-presses in Vim with this macro that yanks directly from the FZF results window."><title>Quick-yanking from FZF in Vim</title><link rel="stylesheet" href="/_astro/_slug_.zzi_wTXl.css" /><script type="module">document.getElementById("back-to-top").addEventListener("click",()=>{window.scrollTo({top:0,behavior:"smooth"})});
+</script></head> <body class="flex h-screen flex-col items-stretch font-noto-sans text-base container:items-center">  <main class="h-full w-full px-5 sm:px-8 container:w-[840px]"> <article class="mt-16 pb-16 sm:mt-28 md:pb-80"> <header class="mb-10"> <a href="/blog" class="flex gap-x-1 stroke-red font-medium text-red"> <svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="stroke-red"> <path d="M18.5 12H6m0 0l6-6m-6 6l6 6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+All Posts
+</a> <h1 class="font-heading mb-4 mt-8 text-3xl">Quick-yanking from FZF in Vim</h1> <p class="mb-4 text-grey"> <span class="mr-1 inline-block"> 18 November 2022 </span> <span class="mr-1 inline-block">&#183;</span> <span class="inline-block"> 3 minute read
+</span> </p> <span class="mr-1 rounded-sm bg-red-light px-1.5 text-sm text-red"> vim </span> </header> <div class="post-content w-full"><p>Most of the time I spend using <a href="https://github.com/junegunn/fzf.vim">FZF’s Vim plugin</a>, I’m grepping for a line in a codebase so I can paste it into the file I’m working on.</p>
+<p>I do this so much, that the process of opening the file containing a grep match, yanking the line, then closing the buffer again; started to grate.</p>
+<p>I wanted to a macro for this. One that would let me yank directly from the results window with <code>Ctrl-y</code>.</p>
+<p>To do this, let’s learn about FZF’s <code>--expect</code> option, and “sink functions”.</p>
+<h2 id="completing-fzf"><a href="#completing-fzf">“Completing” FZF</a></h2>
+<p>When you’re looking at FZF’s results window in Vim, hitting Enter tells it “I’ve found what I’m after, take this filename and open it in a new buffer (or whatever the command does)”. In FZF terminology, pressing Enter “completes” the command.</p>
+<p>But we can also hit <code>Ctrl-v</code> to open a file in a split, and <code>Ctrl-t</code> to open in a new tab.</p>
+<p>All of these different keys that “complete” FZF are configured by the Vim plugin, and there’s nothing stopping us adding our own!</p>
+<h2 id="--expect"><a href="#--expect"><code>--expect</code></a></h2>
+<p>The first step is telling FZF which key presses we want it to complete with. We do this with <a href="https://manpages.debian.org/unstable/fzf/fzf.1.en.html#expect=">FZF’s </a><a href="https://manpages.debian.org/unstable/fzf/fzf.1.en.html#expect="><code>--expect</code></a><a href="https://manpages.debian.org/unstable/fzf/fzf.1.en.html#expect="> optio</a>n.</p>
+<p>Starting with <a href="https://github.com/junegunn/fzf.vim/blob/master/doc/fzf-vim.txt#L328">custom Rg command example</a> from the FZF’s Vim plugin’s docs, let’s add an <code>--expect</code> argument.</p>
+<div data-rehype-pretty-code-fragment=""><pre data-language="text" data-theme="default"><code data-line-numbers="" data-language="text" data-theme="default" data-line-numbers-max-digits="1"><span class="line"><span style="color: #24292e">command! -bang -nargs=* Rg</span></span>
+<span class="line"><span style="color: #24292e">  \ call fzf#vim#grep(</span></span>
+<span class="line"><span style="color: #24292e">  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(&lt;q-args>), 1,</span></span>
+<span class="line"><span style="color: #24292e">	\   fzf#vim#with_preview({ 'options': '--expect=ctrl-y' }), &lt;bang>0)</span></span></code></pre></div>
+<p>By default, these <code>--expect</code> keys will perform the default complete action. In this case, taking you to the file containing your search term.</p>
+<p>Running this <code>Rg</code> command, typing in a search term, then hitting <code>Ctrl-y</code>, you’ll see FZF do just that!</p>
+<p>The next step is getting FZF to run a custom completion function for our <code>--expect</code> parameter.</p>
+<h2 id="sink-functions"><a href="#sink-functions">Sink Functions</a></h2>
+<p><a href="https://github.com/junegunn/fzf/blob/master/README-VIM.md#fzfrun">Sink functions</a> are the things that process the results of FZF commands.</p>
+<p>The sink function for the bulit-in <code>Files</code> command handles opening the filename that we pick in the FZF window. <code>Buffers</code>' sink function simply opens the buffer with the chosen name.</p>
+<p>Now that we’ve added a new way to complete our <code>Rg</code> command, we need a new sink function to handle it.</p>
+<div data-rehype-pretty-code-fragment=""><pre data-language="text" data-theme="default"><code data-line-numbers="" data-language="text" data-theme="default" data-line-numbers-max-digits="1"><span class="line"><span style="color: #24292e">function! RgSink(sink_lines)</span></span>
+<span class="line"><span style="color: #24292e">  echo a:sink_lines</span></span>
+<span class="line"><span style="color: #24292e">  " ...</span></span>
+<span class="line"><span style="color: #24292e">endfunction</span></span>
+<span class="line"><span style="color: #24292e"></span></span>
+<span class="line"><span style="color: #24292e">command! -bang -nargs=* Rg</span></span></code></pre></div>
+<p>We use this <code>sink*</code> property to tell FZF to use our custom sink function. At the moment, all it does is echo the the argument that FZF gives it.</p>
+<blockquote>
+<p>💡 This config dictionary can include <code>sink</code> or <code>sink*</code> — the first is for FZF commands that only have one completion key (Enter), the second is for multiple (Enter and <code>Ctrl-y</code>, in our case)</p>
+</blockquote>
+<p>Let’s have a look at what’s <code>echo</code>-ed. Running our command then hitting <code>Ctrl-y</code> on any old result, I see this —</p>
+<div data-rehype-pretty-code-fragment=""><pre data-language="text" data-theme="default"><code data-language="text" data-theme="default"><span class="line"><span style="color: #24292e">['ctrl-y', '.gitconfig:1:1:[color]']</span></span></code></pre></div>
+<p>Running it again and hitting Enter  —</p>
+<div data-rehype-pretty-code-fragment=""><pre data-language="text" data-theme="default"><code data-language="text" data-theme="default"><span class="line"><span style="color: #24292e">['', '.gitconfig:1:1:[color]']</span></span></code></pre></div>
+<p>The first item in this tuple is the completion key, and the second is the result itself.</p>
+<p>So we just need a bit of Vimscript to parse this tuple and either add the line to the unnamed register (the default register for yanking, cutting, and pasting); or open the file.</p>
+<div data-rehype-pretty-code-fragment=""><pre data-language="text" data-theme="default"><code data-line-numbers="" data-language="text" data-theme="default" data-line-numbers-max-digits="2"><span class="line"><span style="color: #24292e">function! RgSink(sink_lines)</span></span>
+<span class="line"><span style="color: #24292e">  let split_lines = split(a:sink_lines[1], ':')</span></span>
+<span class="line"><span style="color: #24292e"></span></span>
+<span class="line"><span style="color: #24292e">  let filename = split_lines[0]</span></span>
+<span class="line"><span style="color: #24292e">  let line_number = split_lines[1]</span></span>
+<span class="line"><span style="color: #24292e">  let line_content = split_lines[3]</span></span>
+<span class="line"><span style="color: #24292e"></span></span>
+<span class="line"><span style="color: #24292e">  if a:sink_lines[0] == 'ctrl-y'</span></span>
+<span class="line"><span style="color: #24292e">    " If completed with ctrl-y, yank the line content</span></span>
+<span class="line"><span style="color: #24292e">    let @" = line_content . "\n"</span></span>
+<span class="line"><span style="color: #24292e">  elseif len(a:sink_lines) > 2</span></span>
+<span class="line"><span style="color: #24292e">    " If multiple lines were selected using tab, open them into a quickfix window</span></span>
+<span class="line"><span style="color: #24292e">    cex a:sink_lines[1:]</span></span>
+<span class="line"><span style="color: #24292e">    copen</span></span>
+<span class="line"><span style="color: #24292e">  elseif a:sink_lines[0] == ''</span></span>
+<span class="line"><span style="color: #24292e">    " Else if completed with enter, open file</span></span>
+<span class="line"><span style="color: #24292e">    silent execute 'edit ' filename</span></span>
+<span class="line"><span style="color: #24292e">    silent execute ': ' line_number</span></span>
+<span class="line"><span style="color: #24292e">  endif</span></span>
+<span class="line"><span style="color: #24292e">endfunction</span></span></code></pre></div>
+<p>That’s all we need!</p>
+<p>That first <code>elseif</code> is there to handle results with multiple lines, selected with tab. As far as I know, we can’t call the sink for the built-in Rg command, so we have to re-implement this stuff ourselves.</p>
+<p>This sink doesn’t handle <code>Ctrl-v</code>, <code>Ctrl-x</code>, and <code>Ctrl-t</code> like the built in commands do, but it wouldn’t be too much work to extend our solution to!</p></div> <footer class="mt-16 flex w-full justify-between text-sm text-grey"> <p class="my-0">Thanks for reading!</p> <div class="flex gap-x-6 whitespace-nowrap"> <button id="back-to-top" class="underline">Back to Top</button> <a class="underline" href="/">Back Home</a> </div> </footer> </article> </main>  </body></html>

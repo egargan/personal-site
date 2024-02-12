@@ -1,0 +1,183 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	html {
+		@apply bg-white text-black;
+	}
+
+	@font-face {
+		font-family: "Lato";
+		src:
+			url("/fonts/lato-bold.woff2") format("woff2"),
+			url("/fonts/lato-bold.woff") format("woff");
+		font-weight: 700;
+		font-display: fallback;
+		font-style: normal;
+	}
+
+	@font-face {
+		font-family: "Noto Sans";
+		src:
+			url("/fonts/noto-sans.woff2") format("woff2"),
+			url("/fonts/noto-sans.woff") format("woff");
+		font-weight: 400;
+		font-display: fallback;
+		font-style: normal;
+	}
+
+	@font-face {
+		font-family: "Noto Sans";
+		src:
+			url("/fonts/noto-sans-italic.woff2") format("woff2"),
+			url("/fonts/noto-sans-italic.woff") format("woff");
+		font-weight: 400;
+		font-display: fallback;
+		font-style: italic;
+	}
+
+	@font-face {
+		font-family: "Noto Sans";
+		src:
+			url("/fonts/noto-sans-medium.woff2") format("woff2"),
+			url("/fonts/noto-sans-medium.woff") format("woff");
+		font-weight: 500;
+		font-display: fallback;
+		font-style: normal;
+	}
+
+	@font-face {
+		font-family: "Noto Sans";
+		src:
+			url("/fonts/noto-sans-bold.woff2") format("woff2"),
+			url("/fonts/noto-sans-bold.woff") format("woff");
+		font-weight: 700;
+		font-display: fallback;
+		font-style: normal;
+	}
+
+	p {
+		@apply mb-3;
+	}
+
+	ul,
+	ol {
+		@apply list-outside pl-4;
+	}
+
+	li {
+		@apply mb-3;
+	}
+
+	.post-content h1 {
+		@apply pb-8 pt-10 font-lato text-2xl font-bold first:pt-0;
+	}
+
+	.post-content h2 {
+		@apply pb-4 pt-9 font-lato text-2xl font-bold first:pt-0;
+	}
+
+	.post-content h3 {
+		@apply pb-4 pt-8 font-lato text-xl font-bold first:pt-0;
+	}
+
+	.post-content p {
+		@apply mb-2 text-base;
+	}
+
+	.post-content a {
+		@apply underline-skip-ink relative text-red underline decoration-red;
+	}
+
+	input[type="number"]::-webkit-inner-spin-button,
+	input[type="number"]::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+		-moz-appearance: textfield !important;
+	}
+
+	.post-content code:not(pre *) {
+		@apply relative mx-[2px] rounded-sm bg-grey-light p-1 text-[90%] text-red;
+	}
+
+	.post-content pre code {
+		@apply my-5 grid w-full overflow-x-auto rounded-sm !border-none !bg-grey-light py-5 !font-mono text-xs;
+		tab-size: 2;
+		counter-reset: line;
+	}
+
+	.post-content pre code[data-line-numbers]>.line::before {
+		@apply mr-6 inline-block w-9 text-right text-grey;
+		counter-increment: line;
+		content: counter(line);
+	}
+
+	.post-content pre code:not([data-line-numbers])>.line {
+		@apply px-7;
+	}
+
+	.post-content pre code>.line.highlighted {
+		@apply bg-yellow-light/[.55];
+	}
+
+	.post-content pre code>.line.highlighted::before {
+		@apply border-l-[3px] border-yellow font-bold;
+	}
+
+	.post-content img {
+		@apply mx-auto my-6 max-h-[40rem] max-w-xl rounded shadow;
+	}
+
+	.post-content blockquote {
+		@apply my-4 rounded-sm bg-grey-light px-6 py-5;
+	}
+
+	.post-content blockquote code {
+		@apply bg-grey-light-overlay;
+	}
+
+	.post-content blockquote p {
+		@apply my-0;
+	}
+
+	.post-content h2 a,
+	.post-content h3 a {
+		@apply text-black no-underline;
+	}
+
+	.post-content h2 a::before,
+	.post-content h3 a::before {
+		@apply absolute right-full pr-1 text-[0.8em] text-grey-light-overlay content-['#'] sm:pr-2 sm:text-[1em];
+	}
+
+	.post-content h2 a:hover::before,
+	.post-content h3 a:hover::before {
+		@apply text-red;
+	}
+}
+
+@layer utilities {
+	.font-heading {
+		@apply font-lato font-bold;
+	}
+
+	.hover-color-transition {
+		@apply transition-colors;
+		transition-duration: 50ms;
+	}
+
+	.underline-skip-ink {
+		text-decoration-skip-ink: none;
+	}
+
+	.h-screen {
+		@supports (height: 100dvh) {
+			height: 100dvh;
+		}
+
+		@supports not (height: 100dvh) {
+			height: 100vh;
+		}
+	}
+}

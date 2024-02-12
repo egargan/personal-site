@@ -1,0 +1,15 @@
+---
+import LabFooter from "$lib/components/LabFooter.svelte";
+
+export async function getStaticPaths() {
+  return [
+    { params: { slug: "handshake" } },
+    { params: { slug: "flipboard" } },
+    { params: { slug: "parliament-chart" } },
+    { params: { slug: "record-stack" } },
+  ];
+}
+---
+
+<div>foo</div>
+<LabFooter title="foo" heading="bar" repoUrl="https://example.com" />

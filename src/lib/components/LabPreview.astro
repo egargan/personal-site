@@ -1,0 +1,23 @@
+---
+import { getEntry, type CollectionEntry } from "astro:content";
+import { COLOR_TRANS_DURATION_MILLIS as transDur } from "$constants/ui";
+
+const { id } = Astro.props as { id: CollectionEntry<"labs">["id"] };
+const lab = await getEntry("labs", id);
+---
+
+<article>
+  <a href={`labs/${lab.data.slug}`} class="group">
+    <div class="relative mb-4">
+      <video autoplay loop muted class="rounded-sm">
+        <source src={lab.data.image} type="video/webm" />
+        <!-- TODO: add fallback logic! -->
+      </video>
+      <div
+        class="absolute inset-0 hidden rounded-sm bg-red opacity-0 transition-opacity
+        group-hover:block group-hover:opacity-[15%]">
+      </div>
+    </div>
+    <p class="mb-3 text-sm md:text-sm">{lab.data.description}</p>
+  </a>
+</article>

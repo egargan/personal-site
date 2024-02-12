@@ -1,0 +1,25 @@
+---
+import NavScribble from "./NavScribble.astro";
+
+const { text, path, isCurrentPage } = Astro.props as {
+  text: string;
+  path: string;
+  isCurrentPage: boolean;
+};
+---
+
+<a
+  class:list={[
+    "no-underline",
+    { "text-red": isCurrentPage, "text-black": !isCurrentPage },
+  ]}
+  href={path}>
+  {text}
+</a>
+{
+  isCurrentPage && (
+    <div class="flex justify-center">
+      <NavScribble scale={1.8} />
+    </div>
+  )
+}

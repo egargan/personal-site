@@ -1,4 +1,7 @@
-export default function debounce(callback, timeMs = 100) {
+export default function debounce(
+  callback: (...args: unknown[]) => unknown,
+  timeMs = 100,
+) {
   let timer: ReturnType<typeof setTimeout>;
 
   return () => {

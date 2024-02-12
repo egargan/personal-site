@@ -1,0 +1,40 @@
+---
+const { text } = Astro.props as { text: string };
+---
+
+<script>
+  import ClipboardJS from "clipboard";
+
+  let tooltipTimeout: ReturnType<typeof setTimeout>;
+
+  document.querySelectorAll("button.copy-button").forEach((button) => {
+    new ClipboardJS(button);
+
+    button.addEventListener("click", () => {
+      const tooltip = button.nextElementSibling as HTMLElement;
+      tooltip.classList.remove('hidden');
+
+      clearTimeout(tooltipTimeout);
+      tooltipTimeout = setTimeout(() => {
+        tooltip.classList.add('hidden');
+      }, 1200);
+    });
+  });
+</script>
+
+<span class="relative inline-flex justify-center">
+  <button
+    class="copy-button underline-skip-ink text-red underline"
+    data-clipboard-text={text}
+  >
+    <slot>
+      {text}
+    </slot>
+  </button>
+  <!-- TODO: add fly-in and fade-out -->
+  <span
+    class="absolute hidden bottom-[115%] select-none rounded bg-black px-5 py-1 text-center text-sm text-white">
+    Copied to clipboard!
+  </span>
+</span>
+
