@@ -16,6 +16,9 @@ export async function notionHtmlTransform(
 ): Promise<string> {
   const pageMarkdown = await notionMarkdownTransform(notionClient, pageBlocks);
   const pageHtml = await composeUnifiedPipeline().process(pageMarkdown);
+
+  debugger;
+
   return pageHtml.value as string;
 }
 
@@ -85,6 +88,10 @@ export function composeUnifiedPipeline(): Processor {
       // Wrap headings in anchor links
       .use(rehypeAutolinkHeadings, { behaviour: "wrap" })
       // Stringify HTML
-      .use(rehypeStringify)
+      .use(rehypeStringify, {
+        characterReferences: {
+          useNamedReferences: true,
+        },
+      })
   );
 }

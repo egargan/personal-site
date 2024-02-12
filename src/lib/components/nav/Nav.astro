@@ -1,0 +1,29 @@
+---
+import NavElement from "./NavElement.astro";
+---
+
+<nav class="pb-6 pr-3 pt-10 sm:pr-5">
+  <ul class="flex justify-end gap-x-10">
+    <li>
+      <NavElement
+        text="Home"
+        path="/"
+        isCurrentPage={Astro.url.pathname === "/"}
+      />
+    </li>
+    <li>
+      <NavElement
+        text="Blog"
+        path="/blog"
+        isCurrentPage={Astro.url.pathname.startsWith("/blog")}
+      />
+    </li>
+    <li>
+      <NavElement
+        text="Labs"
+        path="/labs"
+        isCurrentPage={Astro.url.pathname.startsWith("/labs")}
+      />
+    </li>
+  </ul>
+</nav>

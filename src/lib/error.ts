@@ -6,7 +6,10 @@ export class AppError extends Error {
   // for legacy compatibility
   readonly cause: Error;
 
-  constructor(message: string, options?: { cause?: Error; err?: Error }) {
+  constructor(
+    message: string,
+    options?: { cause?: Error | unknown; err?: Error | unknown },
+  ) {
     super(message);
 
     Object.defineProperty(this, "name", { value: new.target.name });
@@ -15,7 +18,7 @@ export class AppError extends Error {
     // happy. This will correct the prototype of any class that extends HutError.
     Object.setPrototypeOf(this, new.target.prototype);
 
-    this.cause = options?.cause || options?.err;
+    this.cause = (options?.cause || options?.err) as Error;
   }
 }
 

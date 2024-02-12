@@ -5,15 +5,17 @@
   export let points: "left" | "right" | "up" | "down" = "left";
   export let width = 1.5;
 
-  function getArrowRotateClass(): string {
-    if (points === "left") {
-      return "";
-    } else if (points === "right") {
-      return "rotate-180";
-    } else if (points === "up") {
-      return "rotate-90";
-    } else if (points === "down") {
-      return "-rotate-90";
+  function getArrowRotateClass() {
+    switch (points) {
+      case "right":
+        return "rotate-180";
+      case "up":
+        return "rotate-90";
+      case "down":
+        return "-rotate-90";
+      case "left":
+      default:
+        return "";
     }
   }
 </script>
@@ -33,3 +35,5 @@
     stroke-linejoin="round"
   />
 </svg>
+
+

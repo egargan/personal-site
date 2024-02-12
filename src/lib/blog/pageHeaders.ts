@@ -20,7 +20,9 @@ export function getPostProperties(post: any): PostProperties {
   const created = post.properties["Created"].date.start;
   const updated = post.properties["Updated"].last_edited_time;
   const readTimeMins = post.properties["Read Time (Mins)"].number;
-  const tags = post.properties["Tags"].multi_select.map((tag) => tag.name);
+  const tags = post.properties["Tags"].multi_select.map(
+    (page: { name: string }) => page.name,
+  );
   const slug = post.properties["Slug"].rich_text[0].plain_text;
 
   return {

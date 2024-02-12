@@ -1,10 +1,7 @@
 .DS_Store
+.astro
 node_modules
-/build
-/.svelte-kit
+dist
 /package
 .env
-.env.*
-
-# Ignore assets copied from labs projects
-static/labs/**/package
+.vercel

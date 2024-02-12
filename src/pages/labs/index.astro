@@ -1,0 +1,46 @@
+---
+import LabPreview from "$lib/components/LabPreview.astro";
+import Base from "$layouts/Base.astro";
+import Nav from "$lib/components/nav/Nav.astro";
+
+import recordStackInfo from "$labs/record-stack/info";
+import handshakeInfo from "$labs/handshake/info";
+import flipboardInfo from "$labs/flipboard/info";
+import parliamentChartInfo from "$labs/parliament-chart/info";
+import { flyInVars } from "@/styles/utils";
+---
+
+<Base title="Labs" description="Doodles and experiments with web tech">
+  <main class="h-full w-full px-5 sm:px-8 container:w-[840px]">
+    <Nav />
+    <ul
+      class="mt-8 grid grid-cols-1 gap-x-11 gap-y-6 px-4
+      pb-20 pr-10 xs:pr-20 sm:grid-cols-[11fr_9fr] sm:px-6 md:mt-12 md:gap-y-4 lg:mx-[-120px] lg:grid-cols-[10fr_9fr_10fr] xl:mx-[-160px]"
+    >
+      <div class="flex flex-col items-end gap-y-3 sm:gap-y-3 md:col-start-1">
+        <li class="fly-in" style={{ ...flyInVars({ delayMs: 30 }) }}>
+          <LabPreview info={recordStackInfo} />
+        </li>
+        <li class="fly-in sm:w-11/12" style={{ ...flyInVars({ delayMs: 60 }) }}>
+          <LabPreview info={handshakeInfo} />
+        </li>
+      </div>
+
+      <div class="flex flex-col gap-y-12 sm:gap-y-3 md:col-start-2">
+        <li class="fly-in" style={{ ...flyInVars({ delayMs: 30 }) }}>
+          <LabPreview info={flipboardInfo} />
+        </li>
+
+        <li class="fly-in lg:hidden" style={{ ...flyInVars({ delayMs: 30 }) }}>
+          <LabPreview info={parliamentChartInfo} />
+        </li>
+      </div>
+
+      <div class="hidden flex-col gap-y-12 sm:gap-y-3 lg:col-start-3 lg:flex">
+        <li class="fly-in" style={{ ...flyInVars({ delayMs: 30 }) }}>
+          <LabPreview info={parliamentChartInfo} />
+        </li>
+      </div>
+    </ul>
+  </main>
+</Base>
