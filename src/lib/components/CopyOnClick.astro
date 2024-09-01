@@ -1,7 +1,7 @@
 ---
 import { flyInVars } from "@/styles/utils";
 
-const { text } = Astro.props as { text: string };
+const { text, trailer } = Astro.props as { text: string, trailer: string };
 ---
 
 <script>
@@ -40,9 +40,9 @@ const { text } = Astro.props as { text: string };
     data-clipboard-text={text}
   >
     <slot>
-      {text}
+    {text}
     </slot>
-  </button>
+  </button>{trailer}
   <span
     style={{ ...flyInVars({ durationMs: 120, y: "10px" }) }}
     class="fly-in absolute bottom-[115%] hidden select-none rounded bg-black px-5 py-1 text-center text-sm text-white transition-opacity"

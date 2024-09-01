@@ -18,51 +18,47 @@ const posts = await notion.getPostList({ limit: 2 });
     <section class="mt-14 text-lg md:mt-20">
       <h1
         style={{ ...flyInVars({ delayMs: 30 }) }}
-        class="fly-in mb-8 font-lato text-2xl font-bold"
-      >
+        class="fly-in mb-8 font-lato text-2xl font-bold">
         Hi, I'm Ed 👋
       </h1>
 
       <p style={{ ...flyInVars({ delayMs: 30 * 2 }) }} class="fly-in">
-        I’m a full-stack engineer living in London, working with the lovely folk
-        at the <InlineLink href="https://ft.com">Financial Times</InlineLink> on
-        shiny new enterprise features.
+        I'm a software engineer living in London, telling interactive stories
+        with the
+        <InlineLink href="https://www.theguardian.com/interactive">
+          Guardian's visual journalism team</InlineLink
+        >.
       </p>
 
       <p style={{ ...flyInVars({ delayMs: 30 * 2 }) }} class="fly-in">
         These days I'm focused on web development, but in the past I've spent
-        lots of time with Android, mobile automation, and building backends in
+        lots of time with Android, mobile automation, and building backends with
         Rust.
       </p>
 
       <p style={{ ...flyInVars({ delayMs: 30 * 2 }) }} class="fly-in">
         In my spare time I like to doodle with web tech —
-        <InlineLink openInSameTab href="/labs">
-          see my labs projects
-        </InlineLink>.
+        <InlineLink openInSameTab href="/labs">see my labs projects</InlineLink
+        >.
       </p>
 
       <p style={{ ...flyInVars({ delayMs: 30 * 2 }) }} class="fly-in">
-        Say hi at
-        <CopyOnClick text="edwgargan@gmail.com" />, or find me on
-        <InlineLink href="https://github.com/egargan">GitHub</InlineLink>
-        and
+      Say hi at <CopyOnClick text="edwgargan@gmail.com" trailer=","/>or find me on
+        <InlineLink href="https://github.com/egargan">GitHub</InlineLink> and
         <InlineLink href="https://www.linkedin.com/in/edward-gargan-7a0016130/">
-          LinkedIn
-        </InlineLink>.
+          LinkedIn</InlineLink
+        >.
       </p>
     </section>
 
     <section class="mt-16 pb-32">
       <div
         style={{ ...flyInVars({ delayMs: 30 * 3 }) }}
-        class="fly-in mb-6 flex gap-x-10"
-      >
+        class="fly-in mb-6 flex gap-x-10">
         <h1 class="font-lato text-2xl font-bold">Recent Posts</h1>
         <a
           href="/blog"
-          class="text-md flex items-center gap-x-1 stroke-red font-medium text-red"
-        >
+          class="text-md flex items-center gap-x-1 stroke-red font-medium text-red">
           See All
           <ArrowIcon class="scale-90" points="right" />
         </a>
@@ -73,8 +69,7 @@ const posts = await notion.getPostList({ limit: 2 });
           posts.map((post, i) => (
             <li
               style={{ ...flyInVars({ delayMs: 30 * (4 + i) }) }}
-              class="fly-in"
-            >
+              class="fly-in">
               <PostListItem {post} />
             </li>
           ))
