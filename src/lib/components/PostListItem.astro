@@ -1,8 +1,8 @@
 ---
-import type { PostProperties } from "$lib/blog/pageHeaders";
 import { formatDateLong } from "$lib/utils/time";
+import type { CollectionEntry } from "astro:content";
 
-const { post } = Astro.props as { post: PostProperties };
+const { post } = Astro.props as { post: CollectionEntry<"blog"> };
 ---
 
 <article class="mb-10">
@@ -10,19 +10,20 @@ const { post } = Astro.props as { post: PostProperties };
     <!-- TODO: highlight on hover text-red/text-black -->
     <h2
       class="hover-color-transition mb-3 font-noto-sans text-xl font-medium text-black
-      group-hover:text-red">
-      {post.title}
+      group-hover:text-red"
+    >
+      {post.data.title}
     </h2>
-    <p class="mb-3">{post.intro}</p>
+    <p class="mb-3">{post.data.intro}</p>
     <p class="mb-3 text-grey">
       <span class="mr-1 inline-block">
-        {formatDateLong(new Date(post.created))}
+        {formatDateLong(new Date(post.data.created))}
       </span>
       <span class="mr-1 inline-block">·</span>
-      <span class="inline-block">{post.readTimeMins} minute read</span>
+      <span class="inline-block">{post.data.readTimeMins} minute read</span>
     </p>
     {
-      post.tags.map((tag) => (
+      post.data.tags.map((tag) => (
         <span class="mr-1 rounded-sm bg-red-light px-1.5 text-sm text-red">
           {tag}
         </span>

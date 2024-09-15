@@ -1,11 +1,12 @@
 ---
+import { getCollection } from "astro:content";
+
 import Base from "$layouts/Base.astro";
 import PostListItem from "$lib/components/PostListItem.astro";
-import notion from "$context/notion";
 import Nav from "$lib/components/nav/Nav.astro";
 import { flyInVars } from "@/styles/utils";
 
-const posts = await notion.getPostList();
+const posts = await getCollection("blog");
 ---
 
 <Base title="Blog" description="Tech and development blog posts">
