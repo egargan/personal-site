@@ -1,11 +1,7 @@
 ---
-const {
-  class: className,
-  points,
-  width,
-} = {
+const { points, width } = {
   width: 1.5,
-  points: 'left',
+  points: "left",
   ...Astro.props,
 } as {
   class?: string;
@@ -20,18 +16,32 @@ const {
   stroke-width={width}
   viewBox="0 0 24 24"
   xmlns="http://www.w3.org/2000/svg"
-  class:list={[
-    className,
-    'stroke-red',
-    {
-      "rotate-180": points === "right",
-      "rotate-90": points === "up",
-      "-rotate-90": points === "down",
-    },
-  ]}>
+  stroke="var(--red)"
+  data-points={points}
+>
   <path
     d="M18.5 12H6m0 0l6-6m-6 6l6 6"
     stroke-width={width}
     stroke-linecap="round"
-    stroke-linejoin="round">
+    stroke-linejoin="round"
+  >
+  </path>
+
+  <style>
+    svg {
+      transform: rotate(0deg);
+    }
+
+    svg[data-points="right"] {
+      transform: rotate(180deg);
+    }
+
+    svg[data-points="up"] {
+      transform: rotate(90deg);
+    }
+
+    svg[data-points="down"] {
+      transform: rotate(-90deg);
+    }
+  </style>
 </svg>

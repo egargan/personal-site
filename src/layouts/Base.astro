@@ -1,7 +1,7 @@
 ---
 // TODO: remove blog styles from CSS file when not on blog page
 import "@/styles/global.css";
-import SpeedInsights from "@vercel/speed-insights/astro"
+import SpeedInsights from "@vercel/speed-insights/astro";
 
 const { title, description } = Astro.props;
 ---
@@ -17,9 +17,7 @@ const { title, description } = Astro.props;
     <meta name="description" content={description} />
     <title>{title}</title>
   </head>
-  <body
-    class="flex h-screen flex-col items-stretch font-noto-sans text-base container:items-center"
-  >
+  <body>
     <slot />
     <SpeedInsights />
   </body>

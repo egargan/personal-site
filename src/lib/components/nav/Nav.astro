@@ -2,8 +2,8 @@
 import NavElement from "./NavElement.astro";
 ---
 
-<nav class="pb-6 pr-3 pt-10 sm:pr-5">
-  <ul class="flex justify-end gap-x-10">
+<nav>
+  <ul>
     <li>
       <NavElement
         text="Home"
@@ -27,3 +27,23 @@ import NavElement from "./NavElement.astro";
     </li>
   </ul>
 </nav>
+
+<style>
+  nav {
+    padding-bottom: 24px;
+    padding-right: 12px;
+    padding-top: 40px;
+  }
+
+  @media (min-width: 640px)	{
+    nav {
+      padding-right: 20px;
+    }
+  }
+
+  ul {
+    display: flex;
+    justify-content: flex-end;
+    gap: 40px;
+  }
+</style>

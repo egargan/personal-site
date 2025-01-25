@@ -3,20 +3,19 @@ import Base from "$layouts/Base.astro";
 import PostListItem from "$lib/components/PostListItem.astro";
 import notion from "$context/notion";
 import Nav from "$lib/components/nav/Nav.astro";
-import { flyInVars } from "@/styles/utils";
 
 const posts = await notion.getPostList();
 ---
 
 <Base title="Blog" description="Tech and development blog posts">
-  <main class="h-full w-full px-5 sm:px-8 container:w-[840px]">
+  <main>
     <Nav />
-    <section class="mt-14 pb-20 md:mt-20">
-      <ul class="list-outside px-0">
+    <section>
+      <ul>
         {
           posts.map((post, i) => (
             <li
-              style={{ ...flyInVars({ delayMs: 30 * (i + 1) }) }}
+              style={{ "--fly-in-delay": `${30 * (i + 1)}ms` }}
               class="fly-in"
             >
               <PostListItem {post} />
@@ -27,3 +26,38 @@ const posts = await notion.getPostList();
     </section>
   </main>
 </Base>
+
+<style>
+  main {
+    height: 100%;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  section {
+    margin-top: 56px;
+    padding-bottom: 80px;
+  }
+
+  ul {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  @media (min-width: 640px) {
+    main {
+      padding-bottom: 32px;
+    }
+  }
+
+  @media (min-width: 840px) {
+    main {
+      width: 840px;
+    }
+
+    section {
+      margin-top: 80px;
+    }
+  }
+</style>

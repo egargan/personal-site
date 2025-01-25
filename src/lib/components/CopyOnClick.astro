@@ -1,8 +1,20 @@
 ---
-import { flyInVars } from "@/styles/utils";
-
-const { text, trailer } = Astro.props as { text: string, trailer: string };
+const { text, trailer } = Astro.props as { text: string; trailer: string };
 ---
+
+<span class="container">
+  <button class="copy-button" data-clipboard-text={text}>
+    <slot>
+      {text}
+    </slot>
+  </button>{trailer}
+  <span
+    style={{ "--fly-in-duration": "120ms", "--fly-in-y": "10px" }}
+    class="tooltip tooltip-hidden fly-in"
+  >
+    Copied to clipboard!
+  </span>
+</span>
 
 <script>
   import ClipboardJS from "clipboard";
@@ -14,7 +26,7 @@ const { text, trailer } = Astro.props as { text: string, trailer: string };
 
     button.addEventListener("click", () => {
       const tooltip = button.nextElementSibling as HTMLElement;
-      tooltip.classList.remove("hidden");
+      tooltip.classList.remove("tooltip-hidden");
 
       clearTimeout(tooltipTimeout);
 
@@ -26,7 +38,7 @@ const { text, trailer } = Astro.props as { text: string, trailer: string };
         "transitionend",
         () => {
           tooltip.classList.remove("fade-out");
-          tooltip.classList.add("hidden");
+          tooltip.classList.add("tooltip-hidden");
         },
         false,
       );
@@ -34,26 +46,53 @@ const { text, trailer } = Astro.props as { text: string, trailer: string };
   });
 </script>
 
-<span class="relative inline-flex justify-center">
-  <button
-    class="copy-button underline-skip-ink text-red underline"
-    data-clipboard-text={text}
-  >
-    <slot>
-    {text}
-    </slot>
-  </button>{trailer}
-  <span
-    style={{ ...flyInVars({ durationMs: 120, y: "10px" }) }}
-    class="fly-in absolute bottom-[115%] hidden select-none rounded bg-black px-5 py-1 text-center text-sm text-white transition-opacity"
-  >
-    Copied to clipboard!
-  </span>
-</span>
-
 <style>
+  .container {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+  }
+
+  button {
+    background: none;
+    border: none;
+
+    color: var(--red);
+
+    text-decoration-skip-ink: none;
+    text-decoration: underline;
+
+    padding: 0;
+
+    cursor: pointer;
+  }
+
   .fade-out {
     transition: opacity 60ms linear;
     opacity: 0;
+  }
+
+  .tooltip {
+    position: absolute;
+    bottom: 115%;
+
+    padding: 4px 20px;
+
+    user-select: none;
+
+    border-radius: 4px;
+
+    background-color: var(--black);
+    color: var(--white);
+
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    text-align: center;
+
+    transition-property: opacity;
+  }
+
+  :global(.tooltip-hidden) {
+    display: none;
   }
 </style>

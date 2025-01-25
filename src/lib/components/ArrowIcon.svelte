@@ -5,17 +5,17 @@
   export let points: "left" | "right" | "up" | "down" = "left";
   export let width = 1.5;
 
-  function getArrowRotateClass() {
+  function getArrowRotation() {
     switch (points) {
       case "right":
-        return "rotate-180";
+        return 180;
       case "up":
-        return "rotate-90";
+        return 90;
       case "down":
-        return "-rotate-90";
+        return -90;
       case "left":
       default:
-        return "";
+        return 0;
     }
   }
 </script>
@@ -26,7 +26,8 @@
   stroke-width={width}
   viewBox="0 0 24 24"
   xmlns="http://www.w3.org/2000/svg"
-  class={className + ` ${getArrowRotateClass()}`}
+  class={className}
+  style={`transform: rotate(${getArrowRotation()}deg)}`}
 >
   <path
     d="M18.5 12H6m0 0l6-6m-6 6l6 6"

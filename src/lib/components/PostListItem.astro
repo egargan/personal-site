@@ -5,28 +5,67 @@ import { formatDateLong } from "$lib/utils/time";
 const { post } = Astro.props as { post: PostProperties };
 ---
 
-<article class="mb-10">
-  <a href={`/blog/${post.slug}`} class="group">
+<article>
+  <a href={`/blog/${post.slug}`}>
     <!-- TODO: highlight on hover text-red/text-black -->
-    <h2
-      class="hover-color-transition mb-3 font-noto-sans text-xl font-medium text-black
-      group-hover:text-red">
+    <h2>
       {post.title}
     </h2>
-    <p class="mb-3">{post.intro}</p>
-    <p class="mb-3 text-grey">
-      <span class="mr-1 inline-block">
-        {formatDateLong(new Date(post.created))}
-      </span>
-      <span class="mr-1 inline-block">·</span>
-      <span class="inline-block">{post.readTimeMins} minute read</span>
+    <p>{post.intro}</p>
+    <p class="metadata">
+      <span class="date">{formatDateLong(new Date(post.created))}</span>
+      <span>·</span>
+      <span>{post.readTimeMins} minute read</span>
     </p>
-    {
-      post.tags.map((tag) => (
-        <span class="mr-1 rounded-sm bg-red-light px-1.5 text-sm text-red">
-          {tag}
-        </span>
-      ))
-    }
+    {post.tags.map((tag) => <span class="tag">{tag}</span>)}
   </a>
 </article>
+
+<style>
+  article {
+    margin-bottom: 40px;
+  }
+
+  h2 {
+    margin-bottom: 12px;
+
+    font-size: 20px;
+    line-height: 32px;
+    font-weight: 500;
+
+    transition-duration: 50ms;
+  }
+
+  a:hover h2 {
+    color: var(--red);
+  }
+
+  p {
+    margin-bottom: 12px;
+  }
+
+  p.metadata {
+    color: var(--grey);
+  }
+
+  p.metadata > span {
+    display: inline-block;
+  }
+
+  p.metadata > span:not(:last-child) {
+    margin-right: 16px;
+  }
+
+  .tag {
+    margin-right: 4px;
+    padding-left: 6px;
+    padding-right: 6px;
+
+    border-radius: 2px;
+    background-color: var(--red-light);
+    color: var(--red);
+
+    font-size: 14px;
+    line-height: 20px;
+  }
+</style>

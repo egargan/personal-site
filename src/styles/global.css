@@ -1,219 +1,193 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Fonts */
 
-@layer base {
-	html {
-		@apply bg-white text-black;
-	}
+/* TODO: add native fallback with https://screenspan.net/fallback */
+@font-face {
+	font-family: "Inclusive Sans";
+	src: url("/fonts/InclusiveSans-Regular.woff2") format("woff2");
+	font-weight: 400;
+	font-display: fallback;
+	font-style: normal;
+}
 
-	@font-face {
-		font-family: "Lato";
-		src:
-			url("/fonts/lato-bold.woff2") format("woff2"),
-			url("/fonts/lato-bold.woff") format("woff");
-		font-weight: 700;
-		font-display: fallback;
-		font-style: normal;
-	}
+@font-face {
+	font-family: "Inclusive Sans";
+	src: url("/fonts/InclusiveSans-Italic.woff2") format("woff2");
+	font-weight: 400;
+	font-display: fallback;
+	font-style: italic;
+}
 
-	@font-face {
-		font-family: "Noto Sans";
-		src:
-			url("/fonts/noto-sans.woff2") format("woff2"),
-			url("/fonts/noto-sans.woff") format("woff");
-		font-weight: 400;
-		font-display: fallback;
-		font-style: normal;
-	}
+@font-face {
+	font-family: "Inclusive Sans";
+	src: url("/fonts/InclusiveSans-Medium.woff2") format("woff2");
+	font-weight: 500;
+	font-display: fallback;
+	font-style: normal;
+}
 
-	@font-face {
-		font-family: "Noto Sans";
-		src:
-			url("/fonts/noto-sans-italic.woff2") format("woff2"),
-			url("/fonts/noto-sans-italic.woff") format("woff");
-		font-weight: 400;
-		font-display: fallback;
-		font-style: italic;
-	}
+@font-face {
+	font-family: "Inclusive Sans";
+	src: url("/fonts/InclusiveSans-MediumItalic.woff2") format("woff2");
+	font-weight: 500;
+	font-display: fallback;
+	font-style: italic;
+}
 
-	@font-face {
-		font-family: "Noto Sans";
-		src:
-			url("/fonts/noto-sans-medium.woff2") format("woff2"),
-			url("/fonts/noto-sans-medium.woff") format("woff");
-		font-weight: 500;
-		font-display: fallback;
-		font-style: normal;
-	}
+@font-face {
+	font-family: "Inclusive Sans";
+	src: url("/fonts/InclusiveSans-SemiBold.woff2") format("woff2");
+	font-weight: 600;
+	font-display: fallback;
+	font-style: normal;
+}
 
-	@font-face {
-		font-family: "Noto Sans";
-		src:
-			url("/fonts/noto-sans-bold.woff2") format("woff2"),
-			url("/fonts/noto-sans-bold.woff") format("woff");
-		font-weight: 700;
-		font-display: fallback;
-		font-style: normal;
-	}
+/* CSS reset styles */
 
-	p {
-		@apply mb-3;
-	}
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
 
-	ul,
-	ol {
-		@apply list-outside pl-4;
-	}
+* {
+	margin: 0;
+}
 
-	li {
-		@apply mb-3;
-	}
+body {
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+}
 
-	.post-content h1 {
-		@apply pb-8 pt-10 font-lato text-2xl font-bold first:pt-0;
-	}
+img,
+picture,
+video,
+canvas,
+svg {
+	display: block;
+	max-width: 100%;
+}
 
-	.post-content h2 {
-		@apply pb-4 pt-9 font-lato text-2xl font-bold first:pt-0;
-	}
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
 
-	.post-content h3 {
-		@apply pb-4 pt-8 font-lato text-xl font-bold first:pt-0;
-	}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	overflow-wrap: break-word;
+}
 
-	.post-content p {
-		@apply mb-2 text-base;
-	}
+p {
+	text-wrap: pretty;
+}
 
-	.post-content a {
-		@apply underline-skip-ink relative text-red underline decoration-red;
-	}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	text-wrap: balance;
+}
 
-	input[type="number"]::-webkit-inner-spin-button,
-	input[type="number"]::-webkit-outer-spin-button {
-		-webkit-appearance: none;
-		margin: 0;
-		-moz-appearance: textfield !important;
-	}
+#root,
+#__next {
+	/* Create a root stacking context */
+	isolation: isolate;
+}
 
-	.post-content code:not(pre *) {
-		@apply relative mx-[2px] rounded-sm bg-grey-light p-1 text-[90%] text-red;
-	}
+/* Default styles */
 
-	.post-content pre code {
-		@apply my-5 grid w-full overflow-x-auto rounded-sm !border-none !bg-grey-light py-5 !font-mono text-xs;
-		tab-size: 2;
-		counter-reset: line;
-	}
+body {
+	height: 100vh;
 
-	.post-content pre code[data-line-numbers]>.line::before {
-		@apply mr-6 inline-block w-9 text-right text-grey;
-		counter-increment: line;
-		content: counter(line);
-	}
+	display: flex;
+	flex-direction: column;
+	justify-items: stretch;
 
-	.post-content pre code:not([data-line-numbers])>.line {
-		@apply px-7;
-	}
+	font-family: "Inclusive Sans", system-ui, sans-serif;
+}
 
-	.post-content pre code>.line.highlighted {
-		@apply bg-yellow-light/[.55];
-	}
-
-	.post-content pre code>.line.highlighted::before {
-		@apply border-l-[3px] border-yellow font-bold;
-	}
-
-	.post-content img {
-		@apply mx-auto my-6 max-h-[40rem] max-w-xl rounded shadow;
-	}
-
-	.post-content blockquote {
-		@apply my-4 rounded-sm bg-grey-light px-6 py-5;
-	}
-
-	.post-content blockquote code {
-		@apply bg-grey-light-overlay;
-	}
-
-	.post-content blockquote p {
-		@apply my-0;
-	}
-
-	.post-content h2 a,
-	.post-content h3 a {
-		@apply text-black no-underline;
-	}
-
-	.post-content h2 a::before,
-	.post-content h3 a::before {
-		@apply absolute right-full pr-1 text-[0.8em] text-grey-light-overlay content-['#'] sm:pr-2 sm:text-[1em];
-	}
-
-	.post-content h2 a:hover::before,
-	.post-content h3 a:hover::before {
-		@apply text-red;
+@media (min-width: 840px) {
+	body {
+		align-items: center;
 	}
 }
 
-@layer utilities {
-	.fly-in {
-		animation-name: wait-invisible, fly-in;
-		animation-timing-function: linear, var(--fly-in-timing-function);
-		animation-duration: var(--fly-in-delay), var(--fly-in-duration);
-		animation-delay: 0s, var(--fly-in-delay);
+ul,
+ol {
+	list-style-position: outside;
+	list-style-type: none;
+}
+
+p,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: var(--black);
+}
+
+a {
+	text-decoration: none;
+}
+
+/* Utilities */
+
+@keyframes wait-invisible {
+	0% {
+		opacity: 0;
 	}
 
-	@keyframes wait-invisible {
-		0% {
-			opacity: 0;
-		}
+	100% {
+		opacity: 0;
+	}
+}
 
-		100% {
-			opacity: 0;
-		}
+@keyframes fly-in {
+	0% {
+		opacity: 0;
+		transform: translateY(var(--fly-in-y, 15px));
 	}
 
-	@keyframes fly-in {
-		0% {
-			opacity: 0;
-			transform: translateY(var(--fly-in-y));
-		}
-
-		100% {
-			opacity: 1;
-			transform: translateY(0);
-		}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
 	}
+}
 
-	.fly-in {
-		animation-name: wait-invisible, fly-in;
-		animation-timing-function: linear, easy-out;
-		animation-duration: var(--fly-in-delay), var(--fly-in-duration);
-		animation-delay: 0s, var(--fly-in-delay);
-	}
+.fly-in {
+	animation-name: wait-invisible, fly-in;
+	animation-timing-function: linear, var(--fly-in-timing-function, cubic-bezier(0.215, 0.61, 0.355, 1.0));
+	animation-duration: var(--fly-in-delay, 30ms), var(--fly-in-duration, 400ms);
+	animation-delay: 0s, var(--fly-in-delay, 30ms);
+}
 
-	.font-heading {
-		@apply font-lato font-bold;
-	}
+/* Colours */
 
-	.hover-color-transition {
-		@apply transition-colors;
-		transition-duration: 50ms;
-	}
-
-	.underline-skip-ink {
-		text-decoration-skip-ink: none;
-	}
-
-	.h-screen {
-		@supports (height: 100dvh) {
-			height: 100dvh;
-		}
-
-		@supports not (height: 100dvh) {
-			height: 100vh;
-		}
-	}
+:root {
+	--black: #242331;
+	--green: #2e8a70;
+	--green-mid: #7dd7be;
+	--green-light: #dbf4ed;
+	--red: #db504a;
+	--red-mid: #eda19f;
+	--red-light: #fbeaea;
+	--yellow: #ffd166;
+	--yellow-light: #ffe7ad;
+	--grey-overlay: #9292a0;
+	--grey: #9d9daa;
+	--grey-light-overlay: #dfdfe2;
+	--grey-light: #f2f2f4;
+	--white: #fefffc;
 }

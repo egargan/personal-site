@@ -6,44 +6,39 @@ import InlineLink from "$lib/components/InlineLink.astro";
 import PostListItem from "$lib/components/PostListItem.astro";
 import Nav from "$lib/components/nav/Nav.astro";
 import notion from "$context/notion";
-import { flyInVars } from "@/styles/utils";
 
 const posts = await notion.getPostList({ limit: 2 });
 ---
 
 <Base title="Ed Gargan" description="Personal website and blog">
-  <main class="h-full w-full px-5 sm:px-8 container:w-[840px]">
+  <main>
     <Nav />
     <!-- TODO: add fly-in anims for each paragraph -->
-    <section class="mt-14 text-lg md:mt-20">
-      <h1
-        style={{ ...flyInVars({ delayMs: 30 }) }}
-        class="fly-in mb-8 font-lato text-2xl font-bold">
-        Hi, I'm Ed 👋
-      </h1>
+    <section class="greeting">
+      <h1 style={{ "--fly-in-delay": "30ms" }} class="fly-in">Hi, I'm Ed 👋</h1>
 
-      <p style={{ ...flyInVars({ delayMs: 30 * 2 }) }} class="fly-in">
+      <p style={{ "--fly-in-delay": "60ms" }} class="fly-in">
         I'm a software engineer living in London, telling interactive stories
-        with the
-        <InlineLink href="https://www.theguardian.com/interactive">
+        with the <InlineLink href="https://www.theguardian.com/interactive">
           Guardian's visual journalism team</InlineLink
         >.
       </p>
 
-      <p style={{ ...flyInVars({ delayMs: 30 * 2 }) }} class="fly-in">
+      <p style={{ "--fly-in-delay": "60ms" }} class="fly-in">
         These days I'm focused on web development, but in the past I've spent
         lots of time with Android, mobile automation, and building backends with
         Rust.
       </p>
 
-      <p style={{ ...flyInVars({ delayMs: 30 * 2 }) }} class="fly-in">
+      <p style={{ "--fly-in-delay": "60ms" }} class="fly-in">
         In my spare time I like to doodle with web tech —
         <InlineLink openInSameTab href="/labs">see my labs projects</InlineLink
         >.
       </p>
 
-      <p style={{ ...flyInVars({ delayMs: 30 * 2 }) }} class="fly-in">
-      Say hi at <CopyOnClick text="edwgargan@gmail.com" trailer=","/>or find me on
+      <p style={{ "--fly-in-delay": "60ms" }} class="fly-in">
+        Say hi at <CopyOnClick text="edwgargan@gmail.com" trailer="," />or find
+        me on
         <InlineLink href="https://github.com/egargan">GitHub</InlineLink> and
         <InlineLink href="https://www.linkedin.com/in/edward-gargan-7a0016130/">
           LinkedIn</InlineLink
@@ -51,25 +46,23 @@ const posts = await notion.getPostList({ limit: 2 });
       </p>
     </section>
 
-    <section class="mt-16 pb-32">
-      <div
-        style={{ ...flyInVars({ delayMs: 30 * 3 }) }}
-        class="fly-in mb-6 flex gap-x-10">
-        <h1 class="font-lato text-2xl font-bold">Recent Posts</h1>
-        <a
-          href="/blog"
-          class="text-md flex items-center gap-x-1 stroke-red font-medium text-red">
+    <section class="recent-posts">
+      <!-- TODO: why can't we animate the section? -->
+      <div style={{ "--fly-in-delay": "90ms" }} class="fly-in">
+        <h1>Recent Posts</h1>
+        <a href="/blog">
           See All
-          <ArrowIcon class="scale-90" points="right" />
+          <ArrowIcon points="right" />
         </a>
       </div>
 
-      <ul class="list-outside px-0">
+      <ul>
         {
           posts.map((post, i) => (
             <li
-              style={{ ...flyInVars({ delayMs: 30 * (4 + i) }) }}
-              class="fly-in">
+              style={{ "--fly-in-delay": `${30 * (4 + i)}ms` }}}}
+              class="fly-in"
+            >
               <PostListItem {post} />
             </li>
           ))
@@ -79,4 +72,69 @@ const posts = await notion.getPostList({ limit: 2 });
   </main>
 </Base>
 
-<style></style>
+<style>
+  main {
+    height: 100%;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  h1 {
+    font-weight: 600;
+    font-size: 24px;
+  }
+
+  section.greeting h1 {
+    margin-bottom: 32px;
+  }
+
+  section.greeting {
+    margin-top: 56px;
+    text-size: 20px;
+  }
+
+  section.recent-posts {
+    margin-top: 56px;
+    padding-bottom: 80px;
+  }
+
+  section.recent-posts > div {
+    margin-bottom: 24px;
+    display: flex;
+    gap: 40px;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+
+    gap: 4px;
+    font-weight: 500;
+
+    stroke: var(--red);
+    color: var(--red);
+  }
+
+  ul {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  @media (min-width: 640px) {
+    main {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+  }
+
+  @media (min-width: 840px) {
+    main {
+      width: 840px;
+    }
+
+    section {
+      margin-top: 80px;
+    }
+  }
+</style>
