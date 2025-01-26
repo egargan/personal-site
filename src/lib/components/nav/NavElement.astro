@@ -1,6 +1,4 @@
 ---
-import NavScribble from "./NavScribble.astro";
-
 const { text, path, isCurrentPage } = Astro.props as {
   text: string;
   path: string;
@@ -8,26 +6,13 @@ const { text, path, isCurrentPage } = Astro.props as {
 };
 ---
 
-<a
-  class:list={[{ "is-selected": isCurrentPage }]}
-  href={path}>
+<a class:list={[{ "is-selected": isCurrentPage }]} href={path}>
   {text}
 </a>
-{
-  isCurrentPage && (
-    <div class="flex justify-center">
-      <NavScribble scale={1.8} />
-    </div>
-  )
-}
 
 <style>
   a {
     text-decoration-line: none;
-  }
-
-  a.is-selected {
-    color: var(--red);
   }
 
   div {

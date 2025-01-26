@@ -54,17 +54,26 @@ const { text, trailer } = Astro.props as { text: string; trailer: string };
   }
 
   button {
+    padding: 0;
+
+    font-weight: 500;
+
     background: none;
     border: none;
 
-    color: var(--red);
-
-    text-decoration-skip-ink: none;
-    text-decoration: underline;
-
-    padding: 0;
-
     cursor: pointer;
+
+    text-decoration: underline;
+    text-decoration-color: var(--blue);
+    text-decoration-thickness: 3px;
+    text-decoration-skip-ink: none;
+
+    transition: color text-decoration-color;
+    transition-duration: var(--transition-blink);
+  }
+
+  button:hover {
+    text-decoration-color: var(--blue-tertiary);
   }
 
   .fade-out {

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ArrowIcon from "$lib/components/ArrowIcon.svelte";
+  import ArrowIcon from "$lib/components/icons/ArrowIcon.svelte";
   export let token: "TOP" | "BOTTOM" | "FRONT";
 </script>
 

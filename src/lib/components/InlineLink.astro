@@ -6,6 +6,8 @@ const { openInSameTab, href } = {
   openInSameTab: boolean;
   href: string;
 };
+
+// TODO: add 'external link' icon as per josh comeau: https://www.joshwcomeau.com/css/custom-css-reset/
 ---
 
 {
@@ -22,7 +24,18 @@ const { openInSameTab, href } = {
 
 <style>
   a {
-    color: var(--red);
+    font-weight: 500;
+
     text-decoration: underline;
+    text-decoration-color: var(--blue);
+    text-decoration-thickness: 3px;
+    text-decoration-skip-ink: none;
+
+    transition: color text-decoration-color;
+    transition-duration: var(--transition-blink);
+  }
+
+  a:hover {
+    text-decoration-color: var(--blue-tertiary);
   }
 </style>

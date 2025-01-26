@@ -1,0 +1,181 @@
+---
+const { width } = {
+  width: "20px",
+  ...Astro.props,
+} as {
+  class?: string;
+  width: string;
+};
+
+const color = "var(--text)";
+const strokeWidth = "2";
+---
+
+<button id="theme-switch-dark" aria-label="Change theme to dark">
+  <svg
+    width={width}
+    height={width}
+    stroke-width={strokeWidth}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    color={color}
+  >
+    <path
+      d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z"
+      stroke={color}
+      stroke-width={strokeWidth}
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+    </path>
+    <path
+      d="M22 12L23 12"
+      stroke={color}
+      stroke-width={strokeWidth}
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+    </path>
+    <path
+      d="M12 2V1"
+      stroke={color}
+      stroke-width={strokeWidth}
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+    </path>
+    <path
+      d="M12 23V22"
+      stroke={color}
+      stroke-width={strokeWidth}
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+    </path>
+    <path
+      d="M20 20L19 19"
+      stroke={color}
+      stroke-width={strokeWidth}
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+    </path>
+    <path
+      d="M20 4L19 5"
+      stroke={color}
+      stroke-width={strokeWidth}
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+    </path>
+    <path
+      d="M4 20L5 19"
+      stroke={color}
+      stroke-width={strokeWidth}
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+    </path>
+    <path
+      d="M4 4L5 5"
+      stroke={color}
+      stroke-width={strokeWidth}
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+    </path>
+    <path
+      d="M1 12L2 12"
+      stroke={color}
+      stroke-width={strokeWidth}
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+    </path>
+  </svg>
+</button>
+
+<button id="theme-switch-light" aria-label="Change theme to light">
+  <svg
+    width={width}
+    height={width}
+    stroke-width={strokeWidth}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    color={color}
+  >
+    <path
+      d="M3 11.5066C3 16.7497 7.25034 21 12.4934 21C16.2209 21 19.4466 18.8518 21 15.7259C12.4934 15.7259 8.27411 11.5066 8.27411 3C5.14821 4.55344 3 7.77915 3 11.5066Z"
+      stroke={color}
+      stroke-width={strokeWidth}
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+    </path>
+  </svg>
+</button>
+
+<style define:vars={{ width }}>
+  button {
+    width: var(--width);
+    height: var(--width);
+
+    padding: 0;
+
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  html[data-theme="dark"] #theme-switch-dark {
+    display: none;
+  }
+
+  html[data-theme="dark"] #theme-switch-light {
+    display: block;
+  }
+
+  html[data-theme="light"] #theme-switch-dark {
+    display: block;
+  }
+
+  html[data-theme="light"] #theme-switch-light {
+    display: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html:not([data-theme]) #theme-switch-dark {
+      display: none;
+    }
+
+    html:not([data-theme]) #theme-switch-light {
+      display: block;
+    }
+  }
+
+  @media (prefers-color-scheme: light) or (prefers-color-scheme: no-preference) {
+    html:not([data-theme]) #theme-switch-dark {
+      display: block;
+    }
+
+    html:not([data-theme]) #theme-switch-light {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  document
+    .getElementById("theme-switch-light")
+    ?.addEventListener("click", () => {
+      document.documentElement.setAttribute("data-theme", "light");
+    });
+
+  document
+    .getElementById("theme-switch-dark")
+    ?.addEventListener("click", () => {
+      document.documentElement.setAttribute("data-theme", "dark");
+    });
+</script>

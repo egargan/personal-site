@@ -54,7 +54,7 @@
 }
 
 body {
-	line-height: 1.5;
+	line-height: 1.25;
 	-webkit-font-smoothing: antialiased;
 }
 
@@ -113,9 +113,12 @@ body {
 	justify-items: stretch;
 
 	font-family: "Inclusive Sans", system-ui, sans-serif;
+
+	background-color: var(--background);
+	color: var(--text);
 }
 
-@media (min-width: 840px) {
+@media (min-width: 820px) {
 	body {
 		align-items: center;
 	}
@@ -125,6 +128,7 @@ ul,
 ol {
 	list-style-position: outside;
 	list-style-type: none;
+	padding: 0;
 }
 
 p,
@@ -140,6 +144,10 @@ h6 {
 
 a {
 	text-decoration: none;
+}
+
+p {
+	margin-bottom: 0.75em;
 }
 
 /* Utilities */
@@ -173,9 +181,10 @@ a {
 	animation-delay: 0s, var(--fly-in-delay, 30ms);
 }
 
-/* Colours */
+/* Variables */
 
-:root {
+html {
+	/* Old */
 	--black: #242331;
 	--green: #2e8a70;
 	--green-mid: #7dd7be;
@@ -190,4 +199,35 @@ a {
 	--grey-light-overlay: #dfdfe2;
 	--grey-light: #f2f2f4;
 	--white: #fefffc;
+
+	/* New */
+	--background: #fafaff;
+	--background-secondary: #e8e8f4;
+
+	--text: #242331;
+	--text-secondary: #57556c;
+
+	/* TODO: call these darker and lighter? with dark mode? */
+	--blue: #1b98e0;
+	--blue-secondary: #0f6799;
+	--blue-tertiary: #90d4fb;
+
+	--pink: #fc6471;
+	--pink-secondary: #bc5961;
+	--pink-tertiary: #ffafb6;
+
+	--green: #2a7f62;
+
+	--transition-blink: 70ms;
+	--transition-short: 120ms;
+	--transition-med: 180ms;
+	--transition-long: 300ms;
+}
+
+/* html[data-theme="dark"] { */
+/* } */
+
+html[data-theme="light"] {
+	--background: #242331;
+	--background-secondary: #1b1a26;
 }

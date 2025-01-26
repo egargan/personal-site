@@ -1,13 +1,14 @@
 ---
 import Base from "$layouts/Base.astro";
-import ArrowIcon from "$lib/components/ArrowIcon.astro";
+import ArrowIcon from "$lib/components/icons/ArrowIcon.astro";
 import CopyOnClick from "$lib/components/CopyOnClick.astro";
 import InlineLink from "$lib/components/InlineLink.astro";
 import PostListItem from "$lib/components/PostListItem.astro";
 import Nav from "$lib/components/nav/Nav.astro";
 import notion from "$context/notion";
 
-const posts = await notion.getPostList({ limit: 2 });
+// const posts = await notion.getPostList({ limit: 2 });
+const posts = [];
 ---
 
 <Base title="Ed Gargan" description="Personal website and blog">
@@ -50,7 +51,7 @@ const posts = await notion.getPostList({ limit: 2 });
       <!-- TODO: why can't we animate the section? -->
       <div style={{ "--fly-in-delay": "90ms" }} class="fly-in">
         <h1>Recent Posts</h1>
-        <a href="/blog">
+        <a class="arrow-link" href="/posts">
           See All
           <ArrowIcon points="right" />
         </a>
@@ -112,8 +113,14 @@ const posts = await notion.getPostList({ limit: 2 });
     gap: 4px;
     font-weight: 500;
 
-    stroke: var(--red);
-    color: var(--red);
+    text-decoration: underline;
+    text-decoration-color: var(--blue-primary);
+  }
+
+  a.arrow-link {
+    color: var(--blue);
+    stroke: var(--blue);
+    text-decoration: none;
   }
 
   ul {
@@ -128,9 +135,9 @@ const posts = await notion.getPostList({ limit: 2 });
     }
   }
 
-  @media (min-width: 840px) {
+  @media (min-width: 820px) {
     main {
-      width: 840px;
+      width: 820px;
     }
 
     section {

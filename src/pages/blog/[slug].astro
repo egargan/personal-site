@@ -1,7 +1,7 @@
 ---
 import notion from "$context/notion";
 import Base from "$layouts/Base.astro";
-import ArrowIcon from "$lib/components/ArrowIcon.astro";
+import ArrowIcon from "$lib/components/icons/ArrowIcon.astro";
 import { formatDateLong } from "$lib/utils/time";
 
 export async function getStaticPaths() {
@@ -149,9 +149,9 @@ const post = await notion.getPost(slug);
     }
   }
 
-  @media (min-width: 840px) {
+  @media (min-width: 820px) {
     main {
-      width: 840px;
+      width: 820px;
     }
 
     article {

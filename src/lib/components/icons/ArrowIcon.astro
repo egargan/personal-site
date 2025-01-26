@@ -1,12 +1,14 @@
 ---
-const { points, width } = {
+const { points, width, color } = {
   width: 1.5,
   points: "left",
+  color: "var(--blue)",
   ...Astro.props,
 } as {
   class?: string;
   points: "left" | "right" | "up" | "down";
   width: number;
+  color: string;
 };
 ---
 
@@ -16,7 +18,7 @@ const { points, width } = {
   stroke-width={width}
   viewBox="0 0 24 24"
   xmlns="http://www.w3.org/2000/svg"
-  stroke="var(--red)"
+  stroke={color}
   data-points={points}
 >
   <path

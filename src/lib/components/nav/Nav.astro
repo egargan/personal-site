@@ -1,41 +1,49 @@
 ---
 import NavElement from "./NavElement.astro";
+import SoundSwitch from "./SoundSwitch.astro";
+import ThemeSwitch from "./ThemeSwitch.astro";
 ---
 
-<nav>
-  <ul>
+<header>
+  <nav>
+    <ul>
+      <li>
+        <NavElement
+          text="Home"
+          path="/"
+          isCurrentPage={Astro.url.pathname === "/"}
+        />
+      </li>
+      <li>
+        <NavElement
+          text="Posts"
+          path="/posts"
+          isCurrentPage={Astro.url.pathname.startsWith("/posts")}
+        />
+      </li>
+    </ul>
+  </nav>
+
+  <ul class="control-panel">
     <li>
-      <NavElement
-        text="Home"
-        path="/"
-        isCurrentPage={Astro.url.pathname === "/"}
-      />
+      <ThemeSwitch />
     </li>
     <li>
-      <NavElement
-        text="Blog"
-        path="/blog"
-        isCurrentPage={Astro.url.pathname.startsWith("/blog")}
-      />
-    </li>
-    <li>
-      <NavElement
-        text="Labs"
-        path="/labs"
-        isCurrentPage={Astro.url.pathname.startsWith("/labs")}
-      />
+      <SoundSwitch />
     </li>
   </ul>
-</nav>
+</header>
 
 <style>
-  nav {
-    padding-bottom: 24px;
-    padding-right: 12px;
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     padding-top: 40px;
   }
 
-  @media (min-width: 640px)	{
+  @media (min-width: 640px) {
     nav {
       padding-right: 20px;
     }
@@ -43,7 +51,11 @@ import NavElement from "./NavElement.astro";
 
   ul {
     display: flex;
-    justify-content: flex-end;
     gap: 40px;
+  }
+
+  .control-panel {
+    display: flex;
+    gap: 20px;
   }
 </style>
