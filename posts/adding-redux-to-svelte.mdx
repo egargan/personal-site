@@ -1,0 +1,308 @@
+---
+title: Adding Redux to Svelte Apps
+created: "2022-08-03"
+updated: "2022-08-03"
+tags: ["svelte", "web"]
+readTimeMins: 10
+status: live
+intro: Using Redux with Svelte isn’t the most established experience right now. In this post I’ll be exploring how we can help them work together.
+---
+
+Svelte’s state management features only take you so far when your app increases in complexity. Redux solves this, but using it with Svelte isn’t the most established experience right now. In this post I’ll be exploring using the two together.
+
+<blockquote>
+  tl;dr: use the modules in this Gist to interact with Redux in Svelte like you would in React
+</blockquote>
+
+## Managing State Like a Purist
+
+I picked up Svelte about a year ago at work, developing a new customer portal app. Being the new framework on the block, there aren’t reams of articles and StackOverflow answers for the things you try to Google, like “svelte state management how to” or “svelte complex state”.
+
+Most of the results just pointed me at Svelte’s [Context API](https://svelte.dev/tutorial/context-api) and its [Stores](https://svelte.dev/tutorial/writable-stores). As we’ll explore, these tools are powerful primitives for building solutions for managing complicated state, but by themselves, it’s difficult to see how to.
+
+For small-scale state that you want to communicate across your component hierarchy, they’re brilliant. Just create a writable store for one or a few values, and add it to context.
+
+```html
+// ParentComponent.svelte
+
+<script>
+	const trafficLight: Writable<'green' | 'yellow' | 'red'> = writable('red');
+	setContext('trafficLight', trafficLight);
+</script>
+
+// ChildComponent.svelte
+
+<script>
+	const trafficLight: Writable<'green' | 'yellow' | 'red'> = getContext('trafficLight');
+  $: if ($trafficLight === 'green') {
+    // GO!
+  }
+</script>
+```
+
+But this pattern only takes you so far. What do we do when we have multiple traffic lights that need synchronising? What if our traffic lights’ states need to be fetched from an API?
+
+These tools are just too basic for obvious patterns to jump out at you.
+
+## Exploring Redux
+
+Facing this problem, I started looking into Redux. I didn’t know too much about it before this project, only that it’s a big player in frontend state management.
+
+Surfing through the docs, I was surprised to discover how simple it is under the hood.
+
+(*Over-simplification trigger warning.*)
+
+Really, it’s just one huge object containing all of your state, ‘the store’. [You attach listeners to the store](https://redux.js.org/api/store#subscribelistener), that are called whenever any part of it is updated. Using these listeners, you can update whatever you’re using to present the store’s data, whenever it changes. State is changed in pre-defined ways, identified by string keys called [‘actions’](https://redux.js.org/tutorials/fundamentals/part-2-concepts-data-flow#actions), and enacted by functions called [‘reducers’](https://redux.js.org/tutorials/fundamentals/part-2-concepts-data-flow#reducers). You retrieve specific values from it using [’selectors’](https://redux.js.org/usage/deriving-data-selectors).
+
+To people that know and use Redux, there’s much more to the experience than these fundamentals. The shape of your big state object needs to be carefully planned. Extensions called ‘middlewares’ are used to handle asynchronous state operations.
+
+You also need to plug Redux into your frontend framework. Central to using Redux with React, for example, are [the `useSelector` and `useDispatch` hooks](https://react-redux.js.org/tutorials/quick-start#use-redux-state-and-actions-in-react-components), provided by the ‘react-redux’ package.
+
+`useSelector` returns a specific value from the store, that will automatically update whenever it’s changed within the store. These values are typically what you display in your components. `useDispatch` simply lets you dispatch actions to the store, which you’d hook up to a button click or whatever else.
+
+Creating this sort of integration for Svelte is what we’ll be exploring in this post. At the time of writing, I couldn’t find anything out there that gives me what these hooks do.
+
+## Using Redux in Svelte
+
+I’m going to use a dummy to-do app that I’ve thrown together using SvelteKit to demo all of this stuff (see [SvelteKit’s ‘Getting Started’ guide](https://kit.svelte.dev/docs/introduction#introduction-getting-started) if you want to follow along).
+
+Creating a Redux store with a handful of actions is easily done with the helpers provided by [the official `@reduxjs/toolkit` package](https://redux-toolkit.js.org/introduction/getting-started) —
+
+```typescript
+// todos.ts
+
+import { createSlice } from '@reduxjs/toolkit'
+import type { PayloadAction } from '@reduxjs/toolkit'
+
+type Todo = { id: string; text: string; done: boolean };
+type TodosState = { todos: Todo[] };
+
+export default createSlice({
+  name: 'todos',
+  initialState: { todos: [] },
+  reducers: {
+    add(state: TodosState, action: PayloadAction<string>) {
+			// what you'd expect...
+    },
+    remove(state: TodosState, action: PayloadAction<string>) {
+			// what you'd expect...
+    },
+    toggleDone(state: TodosState, action: PayloadAction<string>) {
+			// what you'd expect...
+    },
+  },
+})
+
+// index.svelte
+
+<script>
+  import { configureStore } from '@reduxjs/toolkit';
+  import todosSlice from '../todos';
+
+  const store = configureStore({ reducer: todosSlice.reducer });
+</script>
+
+<!-- ... -->
+```
+
+In this snippet, we’re creating an instance of our Redux store in a component at the root of our app, `index.svelte` (have a read of [SvelteKit’s docs](https://kit.svelte.dev/docs#routing-pages) if you’re scratching your head over this file’s name).
+
+This `createSlice` function is a shortcut for creating a store (specifically, a portion, or ‘slice’, of a store), its initial state, and some actions and reducer functions that operate on that state.
+
+From here, we could just use our store’s `dispatch`, `subscribe`, and `getState` functions to access and update our state. These would be enough to give us a functioning app, but it would mean a lot of boilerplate in our components.
+
+We want to build abstractions on top of these functions with Svelte’s tooling.
+
+## Turning a Redux into store a Svelte store
+
+This [beautiful Svelte REPL](https://svelte.dev/repl/b41141c04f1140b687ce5f1bb3c036b9?version=3.46.4) shows us how we modify our store’s `subscribe` method to meet the Svelte store contract. This means we can use [Svelte’s auto-subscribe syntax](https://svelte.dev/tutorial/auto-subscriptions) to present the store’s data in our components.
+
+We’re using [Redux’s ‘enhancers’ feature](https://redux.js.org/tutorials/fundamentals/part-4-store#creating-a-store-with-enhancers) to achieve this.
+
+```typescript
+export default function svelteStoreEnhancer(
+  createStoreApi: StoreCreator
+): StoreEnhancerStoreCreator {
+  return function (reducer, initialState) {
+    const reduxStore = createStoreApi(reducer, initialState);
+    return {
+      ...reduxStore,
+      subscribe(fn: ((value: any) => void)) {
+        fn(reduxStore.getState());
+        return reduxStore.subscribe(() => {
+          fn(reduxStore.getState());
+        });
+      }
+    }
+  }
+}
+```
+
+Including this enhancer in our configureStore call, gives us a Redux store that we can use like this —
+
+```svelte
+<ul>
+  {#each $store.todos as todo}
+    <li>
+      <span>{todo.text}</span>
+      <input type="checkbox" checked={todo.done}/>
+    </li>
+  {/each}
+</ul>
+```
+
+This is feeling very Svelte-y already!
+
+## Remaking `useSelector`
+
+Of course, we don’t want to be reading data from the store like this. We should be using [selectors](https://redux.js.org/usage/deriving-data-selectors)!
+
+React-Redux’s `useSelector` hook produces a specific value from the store and subscribes it to updates. To recreate this using Svelte technology, we’ll harness the power of [derived stores](https://svelte.dev/tutorial/derived-stores). It’s easiest to just show you what this looks like.
+
+```typescript
+let todos: Readable<Todo[]> = derived(
+  store,
+  ($store: TodosState) => $store.todos,
+);
+```
+
+What we’re asking for here is a new store called `todos`, whose value is *derived* from the parent store through that lambda function. Whenever the parent store changes, `todos` is updated in turn with the new result from the lambda.
+
+This lets us turn that `{#each}` loop above into just —
+
+```svelte
+{#each $todos as todo}
+  <li>
+    <span>{todo.text}</span>
+    <input type="checkbox" checked={todo.done}/>
+  </li>
+{/each}
+```
+
+Using `derived` like this feels very similar to using `useSelector` — we’re providing a selector function, and we’re getting back a reactive variable. We could write a simple wrapper function around this `derived` snippet called `useSelector`, and we’d basically have the same thing.
+
+```typescript
+export type Selector<T, S> = (state: T) => S;
+
+export function useSelector<T, S>(
+  selector: Selector<T, S>,
+  store: Readable<T>,
+): Readable<S> {
+  return derived(store, selector);
+}
+```
+
+But we are having to provide a reference to our Redux store explicitly each time, something React’s `useSelector` doesn’t ask us to do. We can fix this by figuring out how to make our store ‘globally’ available.
+
+## The `<Provider>` Component
+
+In React, we do this using [the `<Provider/>` component](https://react-redux.js.org/introduction/getting-started#provider), which makes its `store` prop available to everything beneath it in a component tree.
+
+Sound familiar? [Svelte’s context API](https://svelte.dev/tutorial/context-api)! This is exactly what it was designed for. With it, we can easily recreate `<Provider/>` in Svelte, like so —
+
+```svelte
+<script lang="ts">
+  import { setContext } from 'svelte';
+  import type { Store } from '@reduxjs/toolkit';
+
+  export let store: Store;
+
+  setContext('STORE', store)
+</script>
+
+<slot/>
+```
+
+(We could just call `setContext(...)` directly in our root component, but let’s go full-React, why not.)
+
+## Remaking `useSelector` Properly
+
+With our store tucked away in context, we can remove our `useSelector` implementation’s store parameter.
+
+```typescript
+export function useSelector<T, S>(
+  selector: Selector<T, S>
+): Readable<S> {
+  const store: Readable<T> = getContext('STORE');
+  return derived(store, selector);
+}
+```
+
+Using this in our to-do list component (I’ve moved the to-do markup into its own component)  —
+
+```svelte
+<script lang="ts">
+  // ...
+  let todos: Readable<Todo[]> = useSelector((store: TodosState) => store.todos);
+</script>
+
+{#each $todos as todo}
+  <Todo {todo}/>
+{/each}
+```
+
+Beautiful!
+
+But we’re ignoring one crucial piece of functionality of React’s `useSelector`: reacting only when the selected value changes.
+
+Without it, any subscriptions for `todos` are going to be fired whenever *any* part of our entire store is updated. Obviously this isn’t a big deal for this example, but in the real world where stores are big and complicated, composed of multiple slices — it is.
+
+> Svelte does a fantastic job of making sure components are only re-rendered when they need to be.
+> In the above example, each `<Todo/>` component is only re-created when the todo value changes, even if the object reference isn’t the same! It’s all a bit magic.
+>
+>Despite this, it’s important that the stores from useSelector only update when the selected value changes. This will minimise the work Svelte’s runtime has to do, and will mean any reactive statements involving these stores aren’t re-run unnecessarily.
+
+Luckily, `derived` lets us give it a lambda function that *conditionally* updates the outputted store. Using this, we can change our `useSelector` function to call the given selector whenever the main store changes, compare the result to the previous value, and only update the derived store if there’s a difference.
+
+```typescript
+export function useSelector<T, S>(
+  selector: Selector<T, S>,
+  equalityFn?: (lhs: S, rhs: S) => boolean,
+): Readable<S> {
+  equalityFn ||= (lhs: S, rhs: S) => lhs === rhs;
+
+  const store: Readable<T> = getContext('STORE');
+  let lastSelectorValue: S;
+
+  return derived(
+    store,
+    ($state: T, set) => {
+      const selectorValue: S = selector($state);
+      if (!equalityFn(selectorValue, lastSelectorValue)) {
+        lastSelectorValue = selectorValue;
+        set(lastSelectorValue);
+      }
+    },
+  );
+}
+```
+
+Here, we’re accepting a `set` function in that lambda, which is what we use to update, or note update, the resultant store.
+
+Just like React’s `useSelector`, ours offers [an optional `equalityFn` parameter](https://react-redux.js.org/api/hooks#equality-comparisons-and-updates) for non-trivial values.
+
+## Remaking `useDispatch` and `useStore`
+
+I haven’t touched on the `useStore` hook yet. It’s just another function provided by the ‘react-redux’ package that lets you access the store directly.
+
+These two hooks are easy to make! All we’re doing is getting the store from context, and returning its `dispatch` property, or the store itself.
+
+```typescript
+export function useDispatch<T>(): Dispatch {
+  const store: Store<T> = getContext('STORE');
+  return store.dispatch;
+}
+
+export function useStore<T>(): Store<T> {
+  const store: Store<T> = getContext('STORE');
+  return store;
+}
+```
+
+## Wrapping Up
+
+That’s all there is to it! These functions could of course be improved to make them friendlier (throwing errors if the store isn’t in context, fancier type-aware default `equalityFn`s, etc.), but they do the job.
+
+Now we’re free to write Svelte applications with Redux like they were made for each other.
+
+[I’ve put all of this code into a Gist](https://gist.github.com/egargan/20267f9d481e9493a9627a8448034b09) if you’re wanting to copy and paste the lot into what you’re working on.

@@ -49,16 +49,16 @@
     </h1>
     <p class="m-0 p-4" data-preview>
       {#each [...Array(randomInt(4, 2))] as _}
-        <div class="line mb-3" />
+        <div class="line mb-3"></div>
       {/each}
     </p>
   </heading>
   <div class="p-4" data-body>
     {#each [...Array(randomInt(40, 25))] as _, i}
       {#if i % 5 == randomInt(5)}
-        <div class="line mb-7 {getRandomLineWidth()}" />
+        <div class="line mb-7 {getRandomLineWidth()}"></div>
       {:else}
-        <div class="line mb-3" />
+        <div class="line mb-3"></div>
       {/if}
     {/each}
   </div>

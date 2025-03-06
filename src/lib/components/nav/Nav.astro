@@ -2,9 +2,11 @@
 import NavElement from "./NavElement.astro";
 import SoundSwitch from "./SoundSwitch.astro";
 import ThemeSwitch from "./ThemeSwitch.astro";
+
+const { class: _class } = Astro.props;
 ---
 
-<header>
+<header class={_class}>
   <nav>
     <ul>
       <li>
@@ -41,6 +43,15 @@ import ThemeSwitch from "./ThemeSwitch.astro";
     justify-content: space-between;
 
     padding-top: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  @media (min-width: 640px) {
+    header {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
   }
 
   @media (min-width: 640px) {

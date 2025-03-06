@@ -11,7 +11,7 @@ const color = "var(--text)";
 const strokeWidth = "2";
 ---
 
-<button id="sound-switch-off" aria-label="Switch sound effects off">
+<button id="sound-switch" aria-label="Toggle sound effects">
   <svg
     width={width}
     height={width}
@@ -20,6 +20,7 @@ const strokeWidth = "2";
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     color={color}
+    id="sound-switch-on-icon"
   >
     <path
       d="M1 13.8571V10.1429C1 9.03829 1.89543 8.14286 3 8.14286H5.9C6.09569 8.14286 6.28708 8.08544 6.45046 7.97772L12.4495 4.02228C13.1144 3.5839 14 4.06075 14 4.85714V19.1429C14 19.9392 13.1144 20.4161 12.4495 19.9777L6.45046 16.0223C6.28708 15.9146 6.09569 15.8571 5.9 15.8571H3C1.89543 15.8571 1 14.9617 1 13.8571Z"
@@ -44,9 +45,7 @@ const strokeWidth = "2";
     >
     </path>
   </svg>
-</button>
 
-<button id="sound-switch-on" aria-label="Switch sound effects on">
   <svg
     width={width}
     height={width}
@@ -55,6 +54,7 @@ const strokeWidth = "2";
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     color={color}
+    id="sound-switch-off-icon"
   >
     <path
       d="M18 14L20.0005 12M22 10L20.0005 12M20.0005 12L18 10M20.0005 12L22 14"
@@ -85,31 +85,41 @@ const strokeWidth = "2";
     cursor: pointer;
   }
 
-  html[data-sound="off"] #sound-switch-off,
-  html:not([data-sound]) #sound-switch-off {
+  html[data-sound="on"] #sound-switch-off-icon,
+  html:not([data-sound]) #sound-switch-off-icon {
     display: none;
   }
 
-  html[data-sound="off"] #sound-switch-on,
-  html:not([data-sound]) #sound-switch-on {
+  html[data-sound="on"] #sound-switch-on-icon,
+  html:not([data-sound]) #sound-switch-on-icon {
     display: block;
   }
 
-  html[data-sound="on"] #sound-switch-off {
+  html[data-sound="off"] #sound-switch-off-icon {
     display: block;
   }
 
-  html[data-sound="on"] #sound-switch-on {
+  html[data-sound="off"] #sound-switch-on-icon {
     display: none;
   }
 </style>
 
 <script>
-  document.getElementById("sound-switch-on")?.addEventListener("click", () => {
-    document.documentElement.setAttribute("data-sound", "on");
-  });
+  const soundSwitch = document.getElementById("sound-switch");
 
-  document.getElementById("sound-switch-off")?.addEventListener("click", () => {
-    document.documentElement.setAttribute("data-sound", "off");
+  // TODO: store this preference somewhere?
+  document.documentElement.setAttribute("data-sound", "on");
+  soundSwitch.setAttribute("aria-label", "Switch sound effects off");
+
+  soundSwitch?.addEventListener("click", () => {
+    const sound = document.documentElement.getAttribute("data-sound");
+
+    if (sound === "on") {
+      document.documentElement.setAttribute("data-sound", "off");
+      soundSwitch.setAttribute("aria-label", "Switch sound effects on");
+    } else {
+      document.documentElement.setAttribute("data-sound", "on");
+      soundSwitch.setAttribute("aria-label", "Switch sound effects off");
+    }
   });
 </script>

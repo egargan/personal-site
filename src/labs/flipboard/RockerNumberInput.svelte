@@ -1,7 +1,11 @@
 <script lang="ts">
-  export let number = 0;
-  export let min: number | null = null;
-  export let max: number | null = null;
+  interface Props {
+    number?: number;
+    min?: number | null;
+    max?: number | null;
+  }
+
+  let { number = $bindable(0), min = null, max = null }: Props = $props();
 
   function increment() {
     if (!max || number < max) {
@@ -20,7 +24,7 @@
   <button
     disabled={!!min && number <= min}
     class="bg-red py-2 pl-3.5 pr-3 hover:brightness-95"
-    on:click={decrement}>–</button
+    onclick={decrement}>–</button
   >
   <input
     tabindex="-1"
@@ -32,6 +36,6 @@
   <button
     disabled={!!max && number >= max}
     class="bg-red py-2 pl-3 pr-3.5 hover:brightness-95"
-    on:click={increment}>+</button
+    onclick={increment}>+</button
   >
 </div>

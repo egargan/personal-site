@@ -1,43 +1,50 @@
 ---
-import type { PostProperties } from "$lib/blog/pageHeaders";
 import { formatDateLong } from "$lib/utils/time";
+import type { CollectionEntry } from "astro:content";
 
-const { post } = Astro.props as { post: PostProperties };
+const { post, bigHeader } = Astro.props as {
+  post: CollectionEntry<"posts">;
+  bigHeader?: boolean;
+};
 ---
 
 <article>
-  <a href={`/blog/${post.slug}`}>
-    <!-- TODO: highlight on hover text-red/text-black -->
+  <a href={`/posts/${post.id}`}>
     <h2>
-      {post.title}
+      {post.data.title}
     </h2>
-    <p>{post.intro}</p>
+    <p>{post.data.intro}</p>
     <p class="metadata">
-      <span class="date">{formatDateLong(new Date(post.created))}</span>
+      <span class="date">{formatDateLong(new Date(post.data.created))}</span>
       <span>·</span>
-      <span>{post.readTimeMins} minute read</span>
+      <span>{post.data.readTimeMins} minute read</span>
     </p>
-    {post.tags.map((tag) => <span class="tag">{tag}</span>)}
   </a>
 </article>
 
-<style>
+<style define:vars={{ "header-size": bigHeader ? "20px" : "18px" }}>
   article {
     margin-bottom: 40px;
   }
 
   h2 {
-    margin-bottom: 12px;
+    margin-bottom: 6px;
 
-    font-size: 20px;
+    font-size: var(--header-size);
     line-height: 32px;
     font-weight: 500;
 
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-skip-ink: none;
+    text-decoration-thickness: 2px;
+
     transition-duration: 50ms;
+    transition: text-decoration-color var(--transition-blink);
   }
 
   a:hover h2 {
-    color: var(--red);
+    text-decoration-color: var(--blue-weak);
   }
 
   p {
@@ -45,7 +52,7 @@ const { post } = Astro.props as { post: PostProperties };
   }
 
   p.metadata {
-    color: var(--grey);
+    color: var(--text-secondary);
   }
 
   p.metadata > span {
@@ -53,19 +60,6 @@ const { post } = Astro.props as { post: PostProperties };
   }
 
   p.metadata > span:not(:last-child) {
-    margin-right: 16px;
-  }
-
-  .tag {
-    margin-right: 4px;
-    padding-left: 6px;
-    padding-right: 6px;
-
-    border-radius: 2px;
-    background-color: var(--red-light);
-    color: var(--red);
-
-    font-size: 14px;
-    line-height: 20px;
+    margin-right: 8px;
   }
 </style>

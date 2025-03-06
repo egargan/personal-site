@@ -9,10 +9,10 @@
   import LabFooter from "$lib/components/LabFooter.svelte";
   import info from "./info.ts";
 
-  let numRows = 6;
-  let numCols = 6;
+  let numRows = $state(6);
+  let numCols = $state(6);
 
-  let windowIsSmall = true;
+  let windowIsSmall = $state(true);
 
   function onWindowResize() {
     if (windowIsSmall && window.innerWidth > 700) {
@@ -27,7 +27,7 @@
   });
 </script>
 
-<svelte:window on:resize={debounce(onWindowResize, 100)} />
+<svelte:window onresize={debounce(onWindowResize, 100)} />
 
 <main class="flex h-full w-full items-center justify-center">
   {#key [windowIsSmall, numRows, numCols]}

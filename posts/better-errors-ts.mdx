@@ -1,0 +1,189 @@
+---
+title: Better Error Handling in Typescript
+created: "2023-02-02"
+updated: "2023-02-02"
+tags: ["typescript"]
+readTimeMins: 5
+status: live
+intro: We don’t get much help from Typescript with error handling, but there are ways we can build on its features to make things easier for ourselves.
+---
+
+Compared to languages like Java and Python, Javascript/Typescript’s error handling features have always felt pretty half-baked to me.
+
+Creating custom error types requires a bit of prototype fiddling, and handling errors in `catch` blocks feels much more primitive than it should be.
+
+With this post I just wanted to share the snippets of code I’ve brought to most of the Typescript projects I’ve worked on, to solve these issues.
+
+> 🏃
+> tl;dr: [see this Gist](https://gist.github.com/egargan-ft/0b54d27dd262740a8533d2d266db1116) for a better `Error` class and two functions to help tidy up your `catch` blocks
+
+## A More Helpful `Error` Class
+
+As you’ll know if you’ve ever wanted to create an `Error` subclass, there’s a bit of boilerplate needed in the constructor to do it “properly”.
+
+We need to set the instance’s `name` property to the name of our error class.
+
+As well, to make Typescript happy with our class, we need to explicitly set its prototype.
+
+```tsx
+export class MyError extends Error {
+  constructor(message: string) {
+    super(message);
+		this.name = "MyError";
+		Object.setPrototypeOf(this, MyError.prototype);
+  }
+}
+```
+
+It’s possible to create a base error class that abstracts all of this boilerplate, meaning its subclasses don’t need to bother, like so —
+
+```tsx
+export class ExtError extends Error {
+  constructor(message: string) {
+    super(message);
+    Object.defineProperty(this, "name", { value: new.target.name });
+    Object.setPrototypeOf(this, new.target.prototype);
+  }
+}
+```
+
+This base error class just covers the basic issues I’ve outlined above.
+
+I’d use a library like [ts-custom-error](https://www.npmjs.com/package/ts-custom-error) if you want to add this to a serious codebase — it does things a bit more officially, and also handles setting the `stack` property properly.
+
+### Error Causes
+
+TC39, the people that maintain the Javascript standard, recently implemented [their proposal to add a `cause` property to the base `Error` type](https://github.com/tc39/proposal-error-cause).
+
+It’s been supported in Node since 16.9, and is implemented in every major browser, [according to MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/cause#browser_compatibility).
+
+This means you’ll be able to give a `cause` property to `Error`'s constructor, like so —
+
+```tsx
+try {
+	somethingBad();
+} catch (err) {
+	throw new Error("something bad happened!", { cause: err });
+}
+```
+
+When running in Node.js at least, we get a nice indented dump of the cause’s error stack.
+
+```
+% npx ts-node index.ts
+/Users/edward.gargan/personal/ts-errors/index.ts:8
+  throw new Error("something bad happened!", { cause: err });
+        ^
+Error: something bad happened!
+    at Object.<anonymous> (/Users/edward.gargan/personal/ts-errors/index.ts:8:9)
+    at Module._compile (node:internal/modules/cjs/loader:1165:14)
+    ...
+  [cause]: Error: ENOENT: no such file or directory, open 'doesnt-exist.txt'
+      at Object.openSync (node:fs:590:3)
+      at readFileSync (node:fs:458:35)
+      at Object.<anonymous> (/Users/edward.gargan/personal/ts-errors/index.ts:5:28)
+     ...
+```
+
+### Adding Causes to Subclasses
+
+To attach a `cause` to subclasses of `Error`, you’d need to make sure to add a `cause` parameter to your subclass’ constructor.
+
+Or, something I’ve found to be a bit cleaner, is to add a method to the base error class that sets the `cause` member after construction.
+
+```tsx
+export class ExtError extends Error {
+  constructor(message: string) {
+    super(message);
+    Object.defineProperty(this, "name", { value: new.target.name });
+    Object.setPrototypeOf(this, new.target.prototype);
+  }
+
+  from(cause: unknown): ExtError {
+    this.cause = cause;
+    return this;
+  }
+}
+```
+
+I’ve not found any issues with this approach versus passing a `cause` to the `super` constructor — assigning `cause` late doesn’t change how it’s handled by Node when it’s dumped out.
+
+Note that you’ll need to set your TS config’s `target` to at least `es2022` to stop it complaining about `this.cause = cause`.
+
+## More Elegantly Handling Errors in `catch` Blocks
+
+Javascript’s `catch` block is pretty boring. You catch an error, you give it a name, that’s all it lets you do.
+
+Whereas in Python, for example, you can write many catch blocks, each dealing with one or a few specific error types.
+
+```python
+try:
+  data = getData(filepath)
+except IOError as err:
+  log.warn("file could not be loaded", err);
+except (ValueError, MissingValueError) as err:
+  log.warn("file is corrupted", err);
+```
+
+We can achieve the same in Javascript with slightly clunkier code, using `instanceof` checks, as follows.
+
+```jsx
+try {
+  data = getData(filepath);
+} catch (err) {
+	if (err instanceof FileError) {
+	  log.warn("file could not be loaded", err);
+	} else if (err instanceof TypeError | err instanceof MissingValueError) {
+	  log.warn("file is corrupted", err);
+	}
+}
+```
+
+Another key feature of Python’s (and many other languages’) error handling is that errors “**bubble up**” if they’re not explicitly caught.
+
+In Javascript, we have to manually re-throw our errors at the end of the *every* `catch` block to get the same behaviour.
+
+```jsx
+try {
+  data = getData(filepath);
+} catch (err) {
+	...
+	} else {
+		throw err;
+	}
+}
+```
+
+These two shortcomings led me to write these little `matchErr` and `matchErrOrThrow` functions that, for me, encourage safer and more thorough error handling.
+
+Here’s how they look —
+
+```jsx
+try {
+  data = getData(filepath)
+} catch (err) {
+	if (matchErr(err, FileError)) {
+	  log.warn("file could not be loaded", err);
+	} else if (matchErrOrThrow(err, TypeError, MissingValueError)) {
+	  log.warn("file is corrupted", err);
+	}
+}
+```
+
+As with `instanceof` checks, these functions will narrow `err` according to the given error types. E.g. within that `else if` block, `err`'s type will be `TypeError | MissingValueError`.
+
+[See this Gist for the implementation of these functions](https://gist.github.com/egargan-ft/0b54d27dd262740a8533d2d266db1116).
+
+## Throwing vs. Returning Error States
+
+Having spent a bit of time with Rust, I quickly fell in love with its `Result` type, a container for either **an error type or a “successful” value type.
+
+In either case, this `Result` is returned **from the function. Errors are never “thrown” and “caught” as they are in Javascript.
+
+Returning errors like this means *every path* through a function — and so your program — is type safe.
+
+Using languages that throw errors, it can be difficult to cover all of the errors states that a function can produce, as you won’t be told if you haven’t handled a particular error (except in Java, which does check that you’ve declared the exceptions that a function throws, and that you’ve handled all of them when you call it).
+
+There are plenty of libraries out there that give you a `Result` type for Typescript code, but without first-class language support for it like Rust has, it’s just not worth it, in my opinion.
+
+Javascript’s error handling features are definitely lacking, but I’d rather use them than fight against the language and force my own patterns onto it.

@@ -11,7 +11,7 @@ const color = "var(--text)";
 const strokeWidth = "2";
 ---
 
-<button id="theme-switch-dark" aria-label="Change theme to dark">
+<button id="theme-switch" aria-label="Toggle theme">
   <svg
     width={width}
     height={width}
@@ -20,6 +20,7 @@ const strokeWidth = "2";
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     color={color}
+    id="theme-switch-dark-icon"
   >
     <path
       d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z"
@@ -94,9 +95,7 @@ const strokeWidth = "2";
     >
     </path>
   </svg>
-</button>
 
-<button id="theme-switch-light" aria-label="Change theme to light">
   <svg
     width={width}
     height={width}
@@ -105,6 +104,7 @@ const strokeWidth = "2";
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     color={color}
+    id="theme-switch-light-icon"
   >
     <path
       d="M3 11.5066C3 16.7497 7.25034 21 12.4934 21C16.2209 21 19.4466 18.8518 21 15.7259C12.4934 15.7259 8.27411 11.5066 8.27411 3C5.14821 4.55344 3 7.77915 3 11.5066Z"
@@ -129,53 +129,65 @@ const strokeWidth = "2";
     cursor: pointer;
   }
 
-  html[data-theme="dark"] #theme-switch-dark {
+  html[data-theme="dark"] #theme-switch-dark-icon {
     display: none;
   }
-
-  html[data-theme="dark"] #theme-switch-light {
+  html[data-theme="dark"] #theme-switch-light-icon {
     display: block;
   }
 
-  html[data-theme="light"] #theme-switch-dark {
+  html[data-theme="light"] #theme-switch-dark-icon {
     display: block;
   }
-
-  html[data-theme="light"] #theme-switch-light {
+  html[data-theme="light"] #theme-switch-light-icon {
     display: none;
   }
 
   @media (prefers-color-scheme: dark) {
-    html:not([data-theme]) #theme-switch-dark {
+    html:not([data-theme]) #theme-switch-dark-icon {
       display: none;
     }
-
-    html:not([data-theme]) #theme-switch-light {
+    html:not([data-theme]) #theme-switch-light-icon {
       display: block;
     }
   }
 
   @media (prefers-color-scheme: light) or (prefers-color-scheme: no-preference) {
-    html:not([data-theme]) #theme-switch-dark {
+    html:not([data-theme]) #theme-switch-dark-icon {
       display: block;
     }
-
-    html:not([data-theme]) #theme-switch-light {
+    html:not([data-theme]) #theme-switch-light-icon {
       display: none;
     }
   }
 </style>
 
 <script>
-  document
-    .getElementById("theme-switch-light")
-    ?.addEventListener("click", () => {
-      document.documentElement.setAttribute("data-theme", "light");
-    });
+  const themeSwitch = document.getElementById("theme-switch");
 
-  document
-    .getElementById("theme-switch-dark")
-    ?.addEventListener("click", () => {
+  // Set initial theme attribute based on media query
+  // TODO: should we do this somewhere further up?
+  // TODO: store this preference somewhere?
+  if (
+    window.matchMedia("(prefers-color-scheme: dark)").matches ||
+    document.documentElement.getAttribute("data-theme") === "dark"
+  ) {
+    themeSwitch.setAttribute("aria-label", "Change theme to light");
+    document.documentElement.setAttribute("data-theme", "dark");
+  } else {
+    themeSwitch.setAttribute("aria-label", "Change theme to dark");
+    document.documentElement.setAttribute("data-theme", "light");
+  }
+
+  themeSwitch?.addEventListener("click", () => {
+    const theme = document.documentElement.getAttribute("data-theme");
+
+    if (theme === "light") {
       document.documentElement.setAttribute("data-theme", "dark");
-    });
+      themeSwitch.setAttribute("aria-label", "Change theme to light");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+      themeSwitch.setAttribute("aria-label", "Change theme to dark");
+    }
+  });
 </script>

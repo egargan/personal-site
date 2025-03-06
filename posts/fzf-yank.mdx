@@ -1,0 +1,123 @@
+---
+title: Quick-yanking from FZF in Vim
+created: "2022-11-18"
+updated: "2022-11-18"
+tags: ["vim"]
+readTimeMins: 3
+status: live
+intro: Save yourself precious key-presses in Vim with this macro that yanks directly from the FZF results window.
+---
+
+Most of the time I spend using [FZF’s Vim plugin](https://github.com/junegunn/fzf.vim), I’m grepping for a line in a codebase so I can paste it into the file I’m working on.
+
+I do this so much, that the process of opening the file containing a grep match, yanking the line, then closing the buffer again; started to grate.
+
+I wanted to a macro for this. One that would let me yank directly from the results window with `Ctrl-y`.
+
+To do this, let’s learn about FZF’s `--expect` option, and “sink functions”.
+
+## “Completing” FZF
+
+When you’re looking at FZF’s results window in Vim, hitting Enter tells it “I’ve found what I’m after, take this filename and open it in a new buffer (or whatever the command does)”. In FZF terminology, pressing Enter “completes” the command.
+
+But we can also hit `Ctrl-v` to open a file in a split, and `Ctrl-t` to open in a new tab.
+
+All of these different keys that “complete” FZF are configured by the Vim plugin, and there’s nothing stopping us adding our own!
+
+## `--expect`
+
+The first step is telling FZF which key presses we want it to complete with. We do this with [FZF’s
+`--expect` option](https://manpages.debian.org/unstable/fzf/fzf.1.en.html#expect=).
+
+Starting with [custom Rg command example](https://github.com/junegunn/fzf.vim/blob/master/doc/fzf-vim.txt#L328) from the FZF’s Vim plugin’s docs, let’s add an `--expect` argument.
+
+```
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+	\   fzf#vim#with_preview({ 'options': '--expect=ctrl-y' }), <bang>0)
+```
+
+By default, these `--expect` keys will perform the default complete action. In this case, taking you to the file containing your search term.
+
+Running this `Rg` command, typing in a search term, then hitting `Ctrl-y`, you’ll see FZF do just that!
+
+The next step is getting FZF to run a custom completion function for our `--expect` parameter.
+
+## Sink Functions
+
+[Sink functions](https://github.com/junegunn/fzf/blob/master/README-VIM.md#fzfrun) are the things that process the results of FZF commands.
+
+The sink function for the bulit-in `Files` command handles opening the filename that we pick in the FZF window. `Buffers`' sink function simply opens the buffer with the chosen name.
+
+Now that we’ve added a new way to complete our `Rg` command, we need a new sink function to handle it.
+
+```
+function! RgSink(sink_lines)
+  echo a:sink_lines
+  " ...
+endfunction
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- ' . shellescape(<q-args>),
+  \   1,
+  \   fzf#vim#with_preview({
+  \     'options': '--expect=ctrl-y',
+  \     'sink*': { sink_lines -> RgSink(sink_lines) }
+  \   }),
+  \   <bang>0
+  \ )
+```
+
+We use this `sink*` property to tell FZF to use our custom sink function. At the moment, all it does is echo the the argument that FZF gives it.
+
+<aside>
+💡 This config dictionary can include `sink` or `sink*` — the first is for FZF commands that only have one completion key (Enter), the second is for multiple (Enter and `Ctrl-y`, in our case)
+
+</aside>
+
+Let’s have a look at what’s `echo`-ed. Running our command then hitting `Ctrl-y` on any old result, I see this —
+
+```
+['ctrl-y', '.gitconfig:1:1:[color]']
+```
+
+Running it again and hitting Enter  —
+
+```
+['', '.gitconfig:1:1:[color]']
+```
+
+The first item in this tuple is the completion key, and the second is the result itself.
+
+So we just need a bit of Vimscript to parse this tuple and either add the line to the unnamed register (the default register for yanking, cutting, and pasting); or open the file.
+
+```
+function! RgSink(sink_lines)
+  let split_lines = split(a:sink_lines[1], ':')
+
+  let filename = split_lines[0]
+  let line_number = split_lines[1]
+  let line_content = split_lines[3]
+
+  if a:sink_lines[0] == 'ctrl-y'
+    " If completed with ctrl-y, yank the line content
+    let @" = line_content . "\n"
+  elseif len(a:sink_lines) > 2
+    " If multiple lines were selected using tab, open them into a quickfix window
+    cex a:sink_lines[1:]
+    copen
+  elseif a:sink_lines[0] == ''
+    " Else if completed with enter, open file
+    silent execute 'edit ' filename
+    silent execute ': ' line_number
+  endif
+endfunction
+```
+
+That’s all we need!
+
+That first `elseif` is there to handle results with multiple lines, selected with tab. As far as I know, we can’t call the sink for the built-in Rg command, so we have to re-implement this stuff ourselves.
+
+This sink doesn’t handle `Ctrl-v`, `Ctrl-x`, and `Ctrl-t` like the built in commands do, but it wouldn’t be too much work to extend our solution to!

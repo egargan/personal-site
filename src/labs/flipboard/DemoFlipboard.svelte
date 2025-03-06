@@ -2,14 +2,23 @@
   import { onMount } from "svelte";
   import { TransitionComposer, Flipboard, Cycler } from "flipboard";
 
-  export let size: "small" | "big" = "big";
-  export let numCols: number;
-  export let numRows: number;
 
-  let className: string;
-  export { className as class };
+  interface Props {
+    size?: "small" | "big";
+    numCols: number;
+    numRows: number;
+    class: string;
+  }
 
-  let flipboardContainer: HTMLElement;
+  let {
+    size = "big",
+    numCols,
+    numRows,
+    class: className
+  }: Props = $props();
+  
+
+  let flipboardContainer: HTMLElement = $state();
 
   const composer = new TransitionComposer({
     numCols,
@@ -52,4 +61,4 @@
   });
 </script>
 
-<div class={className} bind:this={flipboardContainer} />
+<div class={className} bind:this={flipboardContainer}></div>

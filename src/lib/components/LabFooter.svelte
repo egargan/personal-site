@@ -1,8 +1,17 @@
 <script lang="ts">
-  export let title: string;
-  export let heading: string;
-  export let repoUrl: string;
-  export let dropShadow = false;
+  interface Props {
+    title: string;
+    heading: string;
+    repoUrl: string;
+    dropShadow?: boolean;
+  }
+
+  let {
+    title,
+    heading,
+    repoUrl,
+    dropShadow = false
+  }: Props = $props();
 </script>
 
 <div class="container">

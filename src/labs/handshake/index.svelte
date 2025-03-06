@@ -13,8 +13,8 @@
 
   import run, { type HandshakeController, type Token } from "handshake";
 
-  let container: HTMLElement;
-  let enteredPassword = readable([]);
+  let container: HTMLElement = $state();
+  let enteredPassword = $state(readable([]));
   let submitState = writable<"idle" | "success" | "fail">("idle");
 
   let controller: HandshakeController;
@@ -62,13 +62,13 @@
   }
 </script>
 
-<svelte:window on:keydown={handleKeydown} />
+<svelte:window onkeydown={handleKeydown} />
 
 <main class="flex h-full w-full items-center justify-center overflow-hidden">
   <div
     class="mx-auto mb-52 scale-[75%] min-[520px]:scale-100 md:mb-36 md:scale-[120%]"
     bind:this={container}
-  />
+></div>
 
   <div class="absolute bottom-0 z-20 w-full">
     <div

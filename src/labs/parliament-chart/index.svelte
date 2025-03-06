@@ -12,9 +12,9 @@
     yellow: { name: "Yellow Party", initialSeats: 80, color: "#FFC830" },
   };
 
-  let seats = Object.fromEntries(
+  let seats = $state(Object.fromEntries(
     Object.entries(parties).map(([id, { initialSeats }]) => [id, initialSeats]),
-  );
+  ));
 
   function onSeatsChange(event: CustomEvent<{ id: string; value: string }>) {
     if (!(event.detail.id in seats)) return;

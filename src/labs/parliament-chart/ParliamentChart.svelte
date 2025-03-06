@@ -1,8 +1,12 @@
 <script lang="ts">
   import blueprintParliamentChart from "parliament-chart";
 
-  export let seats: Record<string, number>;
-  export let colors: Record<string, { color: string }>;
+  interface Props {
+    seats: Record<string, number>;
+    colors: Record<string, { color: string }>;
+  }
+
+  let { seats, colors }: Props = $props();
 
   const { groups, radius } = blueprintParliamentChart(50, seats);
 </script>

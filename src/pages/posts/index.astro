@@ -1,15 +1,18 @@
 ---
 import Base from "$layouts/Base.astro";
 import PostListItem from "$lib/components/PostListItem.astro";
-import notion from "$context/notion";
 import Nav from "$lib/components/nav/Nav.astro";
+import { getCollection } from "astro:content";
 
-const posts = await notion.getPostList();
+const posts = await getCollection("posts");
 ---
 
-<Base title="Blog" description="Tech and development blog posts">
+<Base
+  title="Blog • Ed Gargan"
+  description="Blog posts, experiments, and doodles for web developers"
+>
+  <Nav />
   <main>
-    <Nav />
     <section>
       <ul>
         {
@@ -18,7 +21,7 @@ const posts = await notion.getPostList();
               style={{ "--fly-in-delay": `${30 * (i + 1)}ms` }}
               class="fly-in"
             >
-              <PostListItem {post} />
+              <PostListItem {post} bigHeader />
             </li>
           ))
         }
@@ -28,13 +31,6 @@ const posts = await notion.getPostList();
 </Base>
 
 <style>
-  main {
-    height: 100%;
-    width: 100%;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
   section {
     margin-top: 56px;
     padding-bottom: 80px;
@@ -45,17 +41,7 @@ const posts = await notion.getPostList();
     padding-right: 0;
   }
 
-  @media (min-width: 640px) {
-    main {
-      padding-bottom: 32px;
-    }
-  }
-
   @media (min-width: 820px) {
-    main {
-      width: 820px;
-    }
-
     section {
       margin-top: 80px;
     }

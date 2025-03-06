@@ -1,19 +1,21 @@
 ---
-import notion from "$context/notion";
 import Base from "$layouts/Base.astro";
 import ArrowIcon from "$lib/components/icons/ArrowIcon.astro";
+import Nav from "$lib/components/nav/Nav.astro";
 import { formatDateLong } from "$lib/utils/time";
+import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
-  const posts = await notion.getPostList();
+  const posts = await getCollection("posts");
 
   return posts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
+    props: { post },
   }));
 }
 
-const { slug } = Astro.params;
-const post = await notion.getPost(slug);
+const { post } = Astro.props;
+const { Content } = await render(post);
 ---
 
 <script>
@@ -22,25 +24,21 @@ const post = await notion.getPost(slug);
   });
 </script>
 
-<Base title={post.properties.title} description={post.properties.intro}>
+<Base title={post.data.title} description={post.data.intro}>
+  <Nav />
   <main>
     <article>
       <header>
-        <a href="/blog" class="all-posts-link">
-          <ArrowIcon />
-          All Posts
-        </a>
-        <h1>{post.properties.title}</h1>
+        <h1>{post.data.title}</h1>
         <p class="metadata">
           <span class="date">
-            {formatDateLong(new Date(post.properties.created))}
+            {formatDateLong(new Date(post.data.created))}
           </span>
           <span>·</span>
-          <span>{post.properties.readTimeMins} minute read</span>
+          <span>{post.data.readTimeMins} minute read</span>
         </p>
-        {post.properties.tags.map((tag) => <span class="tag">{tag}</span>)}
       </header>
-      <div class="post-content" set:html={post.content} />
+      <Content />
       <footer>
         <p>Thanks for reading!</p>
         <div class="footer-links">
@@ -56,7 +54,6 @@ const post = await notion.getPost(slug);
   main {
     border-radius: 4px;
     background-color: var(--white);
-    padding: 8px 16px;
   }
 
   article {
@@ -68,23 +65,14 @@ const post = await notion.getPost(slug);
     margin-bottom: 40px;
   }
 
-  .all-posts-link {
-    display: flex;
-    gap: 4px;
-    stroke: var(--red);
-    font-weight: 500;
-    color: var(--red);
-  }
-
   h1 {
-    font-weight: 600;
     margin-bottom: 16px;
-    margin-top: 32px;
-    font-size: 20px;
+    font-weight: 600;
+    font-size: 24px;
   }
 
   p.metadata {
-    color: var(--grey);
+    color: var(--text-secondary);
   }
 
   p.metadata > span {
@@ -92,24 +80,7 @@ const post = await notion.getPost(slug);
   }
 
   p.metadata > span:not(:last-child) {
-    margin-right: 16px;
-  }
-
-  .tag {
-    margin-right: 4px;
-    padding-left: 6px;
-    padding-right: 6px;
-
-    border-radius: 2px;
-    background-color: var(--red-light);
-    color: var(--red);
-
-    font-size: 14px;
-    line-height: 20px;
-  }
-
-  .post-content {
-    width: 100%;
+    margin-right: 8px;
   }
 
   footer {
@@ -139,23 +110,45 @@ const post = await notion.getPost(slug);
   }
 
   @media (min-width: 640px) {
-    main {
-      padding-left: 32px;
-      padding-right: 32px;
-    }
-
     article {
-      margin-top: 112px;
+      margin-top: 76px;
     }
   }
 
   @media (min-width: 820px) {
-    main {
-      width: 820px;
-    }
-
     article {
       padding-bottom: 320px;
     }
+  }
+
+  /* -- Blog styles ------ */
+
+  .post-content {
+    width: 100%;
+  }
+
+  :global(h2) {
+    margin-top: 32px;
+    margin-bottom: 12px;
+    font-weight: 600;
+    font-size: 20px;
+  }
+
+  :global(h3) {
+    margin-top: 32px;
+    margin-bottom: 12px;
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  :global(pre) {
+    border-radius: 2px;
+
+    background-color: black;
+    padding: 16px;
+
+    margin-bottom: 12px;
+
+    font-size: 15px;
   }
 </style>

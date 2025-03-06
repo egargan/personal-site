@@ -1,9 +1,13 @@
 <script lang="ts">
-  let className = "";
-  export { className as class };
+  
 
-  export let points: "left" | "right" | "up" | "down" = "left";
-  export let width = 1.5;
+  interface Props {
+    class?: string;
+    points?: "left" | "right" | "up" | "down";
+    width?: number;
+  }
+
+  let { class: className = "", points = "left", width = 1.5 }: Props = $props();
 
   function getArrowRotation() {
     switch (points) {

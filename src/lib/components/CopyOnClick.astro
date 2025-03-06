@@ -60,12 +60,13 @@ const { text, trailer } = Astro.props as { text: string; trailer: string };
 
     background: none;
     border: none;
+    color: var(--text-primary);
 
     cursor: pointer;
 
     text-decoration: underline;
     text-decoration-color: var(--blue);
-    text-decoration-thickness: 3px;
+    text-decoration-thickness: 2px;
     text-decoration-skip-ink: none;
 
     transition: color text-decoration-color;
@@ -73,7 +74,7 @@ const { text, trailer } = Astro.props as { text: string; trailer: string };
   }
 
   button:hover {
-    text-decoration-color: var(--blue-tertiary);
+    text-decoration-color: var(--blue-weak);
   }
 
   .fade-out {
@@ -91,8 +92,8 @@ const { text, trailer } = Astro.props as { text: string; trailer: string };
 
     border-radius: 4px;
 
-    background-color: var(--black);
-    color: var(--white);
+    background-color: var(--text);
+    color: var(--background);
 
     font-size: 0.875rem;
     line-height: 1.25rem;

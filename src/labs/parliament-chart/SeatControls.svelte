@@ -2,8 +2,12 @@
   import { createEventDispatcher } from "svelte";
   import type { Parties } from "./types";
 
-  export let parties: Parties;
-  export let seats: Record<string, number>;
+  interface Props {
+    parties: Parties;
+    seats: Record<string, number>;
+  }
+
+  let { parties, seats }: Props = $props();
 
   const dispatch = createEventDispatcher();
 
@@ -32,7 +36,7 @@
           max="200"
           type="range"
           value={seats[id]}
-          on:input={(event) => {
+          oninput={(event) => {
             onSliderChange(id, event.target.value);
           }}
         />

@@ -1,6 +1,10 @@
 <script lang="ts">
   import ArrowIcon from "$lib/components/icons/ArrowIcon.svelte";
-  export let token: "TOP" | "BOTTOM" | "FRONT";
+  interface Props {
+    token: "TOP" | "BOTTOM" | "FRONT";
+  }
+
+  let { token }: Props = $props();
 </script>
 
 {#if token === "TOP"}
