@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
+  // import { createEventDispatcher } from "svelte";
   import type { Parties } from "./types";
 
   interface Props {
@@ -9,10 +9,10 @@
 
   let { parties, seats }: Props = $props();
 
-  const dispatch = createEventDispatcher();
+  // const dispatch = createEventDispatcher();
 
   function onSliderChange(id: string, value: string) {
-    dispatch("change", { id, value });
+    // dispatch("change", { id, value });
   }
 </script>
 
@@ -44,4 +44,3 @@
     </div>
   {/each}
 </div>
-

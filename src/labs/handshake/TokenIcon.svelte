@@ -1,5 +1,6 @@
 <script lang="ts">
   import ArrowIcon from "$lib/components/icons/ArrowIcon.svelte";
+
   interface Props {
     token: "TOP" | "BOTTOM" | "FRONT";
   }

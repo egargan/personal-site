@@ -2,40 +2,64 @@
 
 /* TODO: add native fallback with https://screenspan.net/fallback */
 @font-face {
-	font-family: "Inclusive Sans";
-	src: url("/fonts/InclusiveSans-Regular.woff2") format("woff2");
+	font-family: "Atkinson Hyperlegible";
+	src: url("/fonts/AtkinsonHyperlegibleNext-Regular.woff2") format("woff2");
 	font-weight: 400;
 	font-display: fallback;
 	font-style: normal;
 }
 
 @font-face {
-	font-family: "Inclusive Sans";
-	src: url("/fonts/InclusiveSans-Italic.woff2") format("woff2");
+	font-family: "Atkinson Hyperlegible";
+	src: url("/fonts/AtkinsonHyperlegibleNext-RegularItalic.woff2") format("woff2");
 	font-weight: 400;
 	font-display: fallback;
 	font-style: italic;
 }
 
 @font-face {
-	font-family: "Inclusive Sans";
-	src: url("/fonts/InclusiveSans-Medium.woff2") format("woff2");
+	font-family: "Atkinson Hyperlegible";
+	src: url("/fonts/AtkinsonHyperlegibleNext-Medium.woff2") format("woff2");
 	font-weight: 500;
 	font-display: fallback;
 	font-style: normal;
 }
 
 @font-face {
-	font-family: "Inclusive Sans";
-	src: url("/fonts/InclusiveSans-MediumItalic.woff2") format("woff2");
+	font-family: "Atkinson Hyperlegible";
+	src: url("/fonts/AtkinsonHyperlegibleNext-MediumItalic.woff2") format("woff2");
 	font-weight: 500;
 	font-display: fallback;
 	font-style: italic;
 }
 
 @font-face {
-	font-family: "Inclusive Sans";
-	src: url("/fonts/InclusiveSans-SemiBold.woff2") format("woff2");
+	font-family: "Atkinson Hyperlegible";
+	src: url("/fonts/AtkinsonHyperlegibleNext-SemiBold.woff2") format("woff2");
+	font-weight: 600;
+	font-display: fallback;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Atkinson Hyperlegible Mono";
+	src: url("/fonts/AtkinsonHyperlegibleMono-Regular.woff2") format("woff2");
+	font-weight: 400;
+	font-display: fallback;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Atkinson Hyperlegible Mono";
+	src: url("/fonts/AtkinsonHyperlegibleMono-RegularItalic.woff2") format("woff2");
+	font-weight: 400;
+	font-display: fallback;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "Atkinson Hyperlegible Mono";
+	src: url("/fonts/AtkinsonHyperlegibleMono-SemiBold.woff2") format("woff2");
 	font-weight: 600;
 	font-display: fallback;
 	font-style: normal;
@@ -54,7 +78,7 @@
 }
 
 body {
-	line-height: 1.4;
+	line-height: 1.5;
 	-webkit-font-smoothing: antialiased;
 }
 
@@ -105,13 +129,18 @@ h6 {
 
 /* Default styles */
 
+html {
+	scrollbar-gutter: stable;
+}
+
 body {
 	display: flex;
 	flex-direction: column;
 	justify-items: stretch;
 
-	font-family: "Inclusive Sans", system-ui, sans-serif;
-	font-size: 17px;
+	font-family: "Atkinson Hyperlegible", system-ui, sans-serif;
+	letter-spacing: 0.01em;
+	font-size: 18px;
 
 	background-color: var(--background);
 	color: var(--text);
@@ -172,7 +201,38 @@ a {
 }
 
 p {
-	margin-bottom: 0.75em;
+	margin-bottom: 0.8em;
+}
+
+a:not(.ignore-link-style),
+.link-button {
+	font-weight: 500;
+
+	text-decoration: underline;
+	text-decoration-color: var(--blue);
+	text-decoration-thickness: 2px;
+	text-decoration-skip-ink: none;
+
+	text-decoration-line: underline;
+	text-underline-offset: 2px;
+
+	transition: color text-decoration-color;
+	transition-duration: var(--transition-blink);
+}
+
+a:not(.ignore-link-style):hover,
+.link-button:hover {
+	text-decoration-color: var(--blue-weak);
+}
+
+button {
+	padding: 0;
+
+	background-color: unset;
+	color: var(--text);
+	border: none;
+
+	cursor: pointer;
 }
 
 /* Utilities */
@@ -219,17 +279,21 @@ p {
 /* Variables */
 
 html {
-	/* New */
 	--background: #fafaff;
-	--background-secondary: #d8d8e8;
+	--background-two: #f5f5ff;
+	--background-three: #eaeaf9;
+
+	--outline: #cacae5;
+	--shadow: #c5c5d9;
 
 	--text: #242331;
-	--text-secondary: #57556c;
-	--text-tertiary: #6f6d8a;
+	--text-two: #65657f;
+	--text-three: #71708e;
 
 	--blue: #1b98e0;
 	--blue-strong: #0f6799;
 	--blue-weak: #90d4fb;
+	--blue-background: #90d4fb66;
 
 	--pink: #fc6471;
 	--pink-strong: #bc5961;
@@ -245,36 +309,62 @@ html {
 
 html[data-theme="dark"] {
 	--background: #242331;
-	--background-secondary: #1b1a26;
+	--background-two: #343247;
+	--background-three: #3c3851;
+
+	--outline: #55556b;
+	--shadow: #393951;
 
 	--text: #fafaff;
-	--text-secondary: #b4b4cc;
-	--text-tertiary: #9696b0;
+	--text-two: #b4b4cc;
+	--text-three: #9696b0;
 
 	--blue: #1b98e0;
 	--blue-strong: #90d4fb;
-	--blue-weak: #0f6799;
+	--blue-weak: #2886BC;
+	--blue-background: #2886BC55;
 
 	--pink: #fc6471;
 	--pink-weak: #bc5961;
 	--pink-strong: #ffafb6;
+
+	.astro-code,
+	.astro-code span {
+		color: var(--shiki-dark) !important;
+		font-style: var(--shiki-dark-font-style) !important;
+		font-weight: var(--shiki-dark-font-weight) !important;
+		text-decoration: var(--shiki-dark-text-decoration) !important;
+	}
 }
 
 @media (prefers-color-scheme: dark) {
 	html:not([data-theme="light"]) {
 		--background: #242331;
-		--background-secondary: #1b1a26;
+		--background-two: #2e2c3f;
+		--background-three: #3c3851;
+
+		--outline: #55556b;
+		--shadow: #393951;
 
 		--text: #fafaff;
-		--text-secondary: #b4b4cc;
-		--text-tertiary: #9696b0;
+		--text-two: #b4b4cc;
+		--text-three: #9696b0;
 
 		--blue: #42AEEC;
 		--blue-strong: #99D7FB;
 		--blue-weak: #2886BC;
+		--blue-background: #2886BC55;
 
 		--pink: #fc6471;
 		--pink-weak: #bc5961;
 		--pink-strong: #ffafb6;
+
+		.astro-code,
+		.astro-code span {
+			color: var(--shiki-dark) !important;
+			font-style: var(--shiki-dark-font-style) !important;
+			font-weight: var(--shiki-dark-font-weight) !important;
+			text-decoration: var(--shiki-dark-text-decoration) !important;
+		}
 	}
 }

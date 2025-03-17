@@ -1,21 +1,35 @@
 import { defineConfig } from "astro/config";
-import vercelStatic from "@astrojs/vercel";
+import vercel from "@astrojs/vercel";
 import svelte from "@astrojs/svelte";
 import mdx from "@astrojs/mdx";
+import {
+  transformerMetaHighlight,
+  transformerMetaWordHighlight,
+} from "@shikijs/transformers";
+import { codeHandler } from "./src/lib/remark-rehype";
 
 export default defineConfig({
   integrations: [
     svelte(),
     mdx({
       shikiConfig: {
-        theme: "catppuccin-mocha",
+        themes: {
+          dark: "github-dark",
+          light: "catppuccin-latte",
+        },
+      },
+      remarkRehype: {
+        handlers: {
+          code: codeHandler,
+        },
       },
     }),
   ],
   output: "static",
-  adapter: vercelStatic({
+  adapter: vercel({
     webAnalytics: {
       enabled: true,
     },
   }),
 });
+

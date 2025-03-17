@@ -165,29 +165,17 @@ const strokeWidth = "2";
 <script>
   const themeSwitch = document.getElementById("theme-switch");
 
-  // Set initial theme attribute based on media query
-  // TODO: should we do this somewhere further up?
-  // TODO: store this preference somewhere?
-  if (
-    window.matchMedia("(prefers-color-scheme: dark)").matches ||
-    document.documentElement.getAttribute("data-theme") === "dark"
-  ) {
-    themeSwitch.setAttribute("aria-label", "Change theme to light");
-    document.documentElement.setAttribute("data-theme", "dark");
-  } else {
-    themeSwitch.setAttribute("aria-label", "Change theme to dark");
-    document.documentElement.setAttribute("data-theme", "light");
-  }
-
   themeSwitch?.addEventListener("click", () => {
     const theme = document.documentElement.getAttribute("data-theme");
 
     if (theme === "light") {
       document.documentElement.setAttribute("data-theme", "dark");
       themeSwitch.setAttribute("aria-label", "Change theme to light");
+      localStorage.theme = "dark";
     } else {
       document.documentElement.setAttribute("data-theme", "light");
       themeSwitch.setAttribute("aria-label", "Change theme to dark");
+      localStorage.theme = "light";
     }
   });
 </script>

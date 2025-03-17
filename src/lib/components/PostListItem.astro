@@ -9,7 +9,7 @@ const { post, bigHeader } = Astro.props as {
 ---
 
 <article>
-  <a href={`/posts/${post.id}`}>
+  <a class="ignore-link-style" href={`/posts/${post.id}`}>
     <h2>
       {post.data.title}
     </h2>
@@ -52,7 +52,7 @@ const { post, bigHeader } = Astro.props as {
   }
 
   p.metadata {
-    color: var(--text-secondary);
+    color: var(--text-two);
   }
 
   p.metadata > span {

@@ -14,8 +14,10 @@ Creating custom error types requires a bit of prototype fiddling, and handling e
 
 With this post I just wanted to share the snippets of code I’ve brought to most of the Typescript projects I’ve worked on, to solve these issues.
 
-> 🏃
-> tl;dr: [see this Gist](https://gist.github.com/egargan-ft/0b54d27dd262740a8533d2d266db1116) for a better `Error` class and two functions to help tidy up your `catch` blocks
+<aside>
+  <strong>tl;dr</strong>
+  [See this Gist](https://gist.github.com/egargan-ft/0b54d27dd262740a8533d2d266db1116) for a better `Error` class and two functions to help tidy up your `catch` blocks
+</aside>
 
 ## A More Helpful `Error` Class
 
@@ -25,19 +27,19 @@ We need to set the instance’s `name` property to the name of our error class.
 
 As well, to make Typescript happy with our class, we need to explicitly set its prototype.
 
-```tsx
+```typescript
 export class MyError extends Error {
   constructor(message: string) {
     super(message);
-		this.name = "MyError";
-		Object.setPrototypeOf(this, MyError.prototype);
+    this.name = "MyError";
+    Object.setPrototypeOf(this, MyError.prototype);
   }
 }
 ```
 
 It’s possible to create a base error class that abstracts all of this boilerplate, meaning its subclasses don’t need to bother, like so —
 
-```tsx
+```typescript
 export class ExtError extends Error {
   constructor(message: string) {
     super(message);
@@ -59,11 +61,11 @@ It’s been supported in Node since 16.9, and is implemented in every major brow
 
 This means you’ll be able to give a `cause` property to `Error`'s constructor, like so —
 
-```tsx
+```typescript
 try {
-	somethingBad();
+  somethingBad();
 } catch (err) {
-	throw new Error("something bad happened!", { cause: err });
+  throw new Error("something bad happened!", { cause: err });
 }
 ```
 
@@ -91,7 +93,7 @@ To attach a `cause` to subclasses of `Error`, you’d need to make sure to add a
 
 Or, something I’ve found to be a bit cleaner, is to add a method to the base error class that sets the `cause` member after construction.
 
-```tsx
+```typescript
 export class ExtError extends Error {
   constructor(message: string) {
     super(message);
@@ -127,15 +129,15 @@ except (ValueError, MissingValueError) as err:
 
 We can achieve the same in Javascript with slightly clunkier code, using `instanceof` checks, as follows.
 
-```jsx
+```typescript
 try {
   data = getData(filepath);
 } catch (err) {
-	if (err instanceof FileError) {
-	  log.warn("file could not be loaded", err);
-	} else if (err instanceof TypeError | err instanceof MissingValueError) {
-	  log.warn("file is corrupted", err);
-	}
+  if (err instanceof FileError) {
+    log.warn("file could not be loaded", err);
+  } else if (err instanceof TypeError | err instanceof MissingValueError) {
+    log.warn("file is corrupted", err);
+  }
 }
 ```
 
@@ -143,14 +145,14 @@ Another key feature of Python’s (and many other languages’) error handling i
 
 In Javascript, we have to manually re-throw our errors at the end of the *every* `catch` block to get the same behaviour.
 
-```jsx
+```typescript
 try {
   data = getData(filepath);
 } catch (err) {
-	...
-	} else {
-		throw err;
-	}
+  ...
+  } else {
+    throw err;
+  }
 }
 ```
 
@@ -158,15 +160,15 @@ These two shortcomings led me to write these little `matchErr` and `matchErrOrTh
 
 Here’s how they look —
 
-```jsx
+```typescript
 try {
   data = getData(filepath)
 } catch (err) {
-	if (matchErr(err, FileError)) {
-	  log.warn("file could not be loaded", err);
-	} else if (matchErrOrThrow(err, TypeError, MissingValueError)) {
-	  log.warn("file is corrupted", err);
-	}
+  if (matchErr(err, FileError)) {
+    log.warn("file could not be loaded", err);
+  } else if (matchErrOrThrow(err, TypeError, MissingValueError)) {
+    log.warn("file is corrupted", err);
+  }
 }
 ```
 

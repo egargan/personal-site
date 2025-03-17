@@ -31,7 +31,7 @@ The first step is telling FZF which key presses we want it to complete with. We 
 
 Starting with [custom Rg command example](https://github.com/junegunn/fzf.vim/blob/master/doc/fzf-vim.txt#L328) from the FZF’s Vim plugin’s docs, let’s add an `--expect` argument.
 
-```
+```vimscript {1,3}
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
@@ -47,12 +47,12 @@ The next step is getting FZF to run a custom completion function for our `--expe
 ## Sink Functions
 
 [Sink functions](https://github.com/junegunn/fzf/blob/master/README-VIM.md#fzfrun) are the things that process the results of FZF commands.
-
+C
 The sink function for the bulit-in `Files` command handles opening the filename that we pick in the FZF window. `Buffers`' sink function simply opens the buffer with the chosen name.
 
 Now that we’ve added a new way to complete our `Rg` command, we need a new sink function to handle it.
 
-```
+```vimscript
 function! RgSink(sink_lines)
   echo a:sink_lines
   " ...
@@ -73,19 +73,18 @@ command! -bang -nargs=* Rg
 We use this `sink*` property to tell FZF to use our custom sink function. At the moment, all it does is echo the the argument that FZF gives it.
 
 <aside>
-💡 This config dictionary can include `sink` or `sink*` — the first is for FZF commands that only have one completion key (Enter), the second is for multiple (Enter and `Ctrl-y`, in our case)
-
+This config dictionary can include `sink` or `sink*` — the first is for FZF commands that only have one completion key (Enter), the second is for multiple (Enter and `Ctrl-y`, in our case)
 </aside>
 
 Let’s have a look at what’s `echo`-ed. Running our command then hitting `Ctrl-y` on any old result, I see this —
 
-```
+```vimscript
 ['ctrl-y', '.gitconfig:1:1:[color]']
 ```
 
 Running it again and hitting Enter  —
 
-```
+```vimscript
 ['', '.gitconfig:1:1:[color]']
 ```
 
@@ -93,7 +92,7 @@ The first item in this tuple is the completion key, and the second is the result
 
 So we just need a bit of Vimscript to parse this tuple and either add the line to the unnamed register (the default register for yanking, cutting, and pasting); or open the file.
 
-```
+```vimscript
 function! RgSink(sink_lines)
   let split_lines = split(a:sink_lines[1], ':')
 

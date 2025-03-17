@@ -6,7 +6,10 @@ const { text, path, isCurrentPage } = Astro.props as {
 };
 ---
 
-<a class:list={[{ "is-selected": isCurrentPage }]} href={path}>
+<a
+  class:list={["ignore-link-style", { "is-selected": isCurrentPage }]}
+  href={path}
+>
   {text}
 </a>
 

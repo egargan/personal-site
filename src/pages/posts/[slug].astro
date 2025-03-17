@@ -1,6 +1,5 @@
 ---
 import Base from "$layouts/Base.astro";
-import ArrowIcon from "$lib/components/icons/ArrowIcon.astro";
 import Nav from "$lib/components/nav/Nav.astro";
 import { formatDateLong } from "$lib/utils/time";
 import { getCollection, render } from "astro:content";
@@ -38,12 +37,12 @@ const { Content } = await render(post);
           <span>{post.data.readTimeMins} minute read</span>
         </p>
       </header>
-      <Content />
+      <Content components="/" />
       <footer>
         <p>Thanks for reading!</p>
         <div class="footer-links">
-          <button id="back-to-top">Back to Top</button>
-          <a class="underline" href="/">Back Home</a>
+          <button class="link-button" id="back-to-top">Back to Top</button>
+          <a href="/">Back Home</a>
         </div>
       </footer>
     </article>
@@ -66,13 +65,13 @@ const { Content } = await render(post);
   }
 
   h1 {
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     font-weight: 600;
-    font-size: 24px;
+    font-size: 30px;
   }
 
   p.metadata {
-    color: var(--text-secondary);
+    color: var(--text-two);
   }
 
   p.metadata > span {
@@ -80,7 +79,7 @@ const { Content } = await render(post);
   }
 
   p.metadata > span:not(:last-child) {
-    margin-right: 8px;
+    margin-right: 6px;
   }
 
   footer {
@@ -90,7 +89,7 @@ const { Content } = await render(post);
     display: flex;
     justify-content: space-between;
 
-    font-size: 0.875rem;
+    font-size: 0.95rem;
     line-height: 1.25rem;
   }
 
@@ -102,11 +101,6 @@ const { Content } = await render(post);
     display: flex;
     gap: 24px;
     white-space: nowrap;
-  }
-
-  .footer-links > a,
-  .footer-links > button {
-    text-decoration: underline;
   }
 
   @media (min-width: 640px) {
@@ -128,27 +122,164 @@ const { Content } = await render(post);
   }
 
   :global(h2) {
-    margin-top: 32px;
+    margin-top: 64px;
     margin-bottom: 12px;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 24px;
   }
 
   :global(h3) {
-    margin-top: 32px;
+    margin-top: 64px;
     margin-bottom: 12px;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 21px;
+  }
+
+  :global(.code-block-title-bar) {
+    background-color: var(--background-three);
+    border-bottom: 1px solid var(--outline);
+
+    padding-top: 4px;
+    padding-bottom: 2px;
+  }
+
+  :global(.code-block-title) {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 16px;
+    color: var(--text-two);
+  }
+
+  :global(.filetype-icon) {
+    width: 16px;
+    height: 16px;
+
+    margin-top: -1px;
+  }
+
+  :global(.code-block-container) {
+    border-radius: 5px;
+    background-color: var(--background-two) !important;
+
+    margin: 0;
+
+    font-size: 14px;
   }
 
   :global(pre) {
+    background-color: unset !important;
+
+    padding-bottom: 16px;
+    padding-top: 16px;
+  }
+
+  :global(.code-block-title + pre) {
+    padding-top: 12px;
+  }
+
+  :global(aside) {
+    background-color: var(--blue-background);
+
+    border-left: 4px solid var(--blue);
     border-radius: 2px;
 
-    background-color: black;
-    padding: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
 
-    margin-bottom: 12px;
+    box-sizing: content-box;
+  }
 
-    font-size: 15px;
+  :global(aside strong:first-child) {
+    font-size: 19px;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  :global(.code-block-container, aside) {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+
+  :global(.code-block-container + .code-block-container) {
+    margin-top: 0;
+
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  :global(.code-block-container:has(+ .code-block-container)) {
+    margin-bottom: -1px;
+
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  :global(aside > p:last-child) {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 840px) {
+    :global(.code-block-container, aside) {
+      margin-left: -32px;
+      margin-right: -32px;
+    }
+
+    :global(.code-block-title-bar, pre, aside) {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+
+    :global(.code-block-container) {
+      border-radius: 0;
+
+      border-top: 1px solid var(--outline);
+      border-bottom: 1px solid var(--outline);
+
+      border-left: none;
+      border-right: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    :global(.code-block-container, aside) {
+      margin-left: -20px;
+      margin-right: -20px;
+    }
+
+    :global(.code-block-title-bar, pre, aside) {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+
+  @media (min-width: 841px) {
+    :global(.code-block-container, aside) {
+      margin-left: -24px;
+      margin-right: -24px;
+    }
+
+    :global(.code-block-title-bar, pre, aside) {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    :global(.code-block-container) {
+      border: 1px solid var(--outline);
+    }
+  }
+
+  :global(:not(pre) > code) {
+    background-color: var(--background-three);
+    border-radius: 4px;
+    border-bottom: 1.5px solid var(--outline);
+    padding: 2px 3px;
+
+    font-size: 0.85em;
+  }
+
+  :global(code) {
+    font-family: "Atkinson Hyperlegible Mono";
   }
 </style>

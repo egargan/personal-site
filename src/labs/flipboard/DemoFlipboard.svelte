@@ -2,7 +2,6 @@
   import { onMount } from "svelte";
   import { TransitionComposer, Flipboard, Cycler } from "flipboard";
 
-
   interface Props {
     size?: "small" | "big";
     numCols: number;
@@ -10,13 +9,7 @@
     class: string;
   }
 
-  let {
-    size = "big",
-    numCols,
-    numRows,
-    class: className
-  }: Props = $props();
-  
+  let { size = "big", numCols, numRows, class: className }: Props = $props();
 
   let flipboardContainer: HTMLElement = $state();
 

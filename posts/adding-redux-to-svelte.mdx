@@ -10,9 +10,12 @@ intro: Using Redux with Svelte isn’t the most established experience right now
 
 Svelte’s state management features only take you so far when your app increases in complexity. Redux solves this, but using it with Svelte isn’t the most established experience right now. In this post I’ll be exploring using the two together.
 
-<blockquote>
-  tl;dr: use the modules in this Gist to interact with Redux in Svelte like you would in React
-</blockquote>
+*TODO: prevent text in `<aside>` from being wrapped in `<p>`*<br/>
+*TODO: do abbr properly*
+<aside>
+  <strong><abbr>tl;dr</abbr></strong>
+  Use the modules in this Gist to interact with Redux in Svelte like you would in React
+</aside>
 
 ## Managing State Like a Purist
 
@@ -22,18 +25,15 @@ Most of the results just pointed me at Svelte’s [Context API](https://svelte.d
 
 For small-scale state that you want to communicate across your component hierarchy, they’re brilliant. Just create a writable store for one or a few values, and add it to context.
 
-```html
-// ParentComponent.svelte
-
+```svelte title="ParentComponent.svelte"
 <script>
-	const trafficLight: Writable<'green' | 'yellow' | 'red'> = writable('red');
-	setContext('trafficLight', trafficLight);
+  const trafficLight: Writable<'green' | 'yellow' | 'red'> = writable('red');
+  setContext('trafficLight', trafficLight);
 </script>
-
-// ChildComponent.svelte
-
+```
+```svelte title="ChildComponent.svelte"
 <script>
-	const trafficLight: Writable<'green' | 'yellow' | 'red'> = getContext('trafficLight');
+  const trafficLight: Writable<'green' | 'yellow' | 'red'> = getContext('trafficLight');
   $: if ($trafficLight === 'green') {
     // GO!
   }
@@ -68,9 +68,7 @@ I’m going to use a dummy to-do app that I’ve thrown together using SvelteKit
 
 Creating a Redux store with a handful of actions is easily done with the helpers provided by [the official `@reduxjs/toolkit` package](https://redux-toolkit.js.org/introduction/getting-started) —
 
-```typescript
-// todos.ts
-
+```typescript title="todos.ts"
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
@@ -82,27 +80,24 @@ export default createSlice({
   initialState: { todos: [] },
   reducers: {
     add(state: TodosState, action: PayloadAction<string>) {
-			// what you'd expect...
+      // what you'd expect...
     },
     remove(state: TodosState, action: PayloadAction<string>) {
-			// what you'd expect...
+      // what you'd expect...
     },
     toggleDone(state: TodosState, action: PayloadAction<string>) {
-			// what you'd expect...
+      // what you'd expect...
     },
   },
 })
-
-// index.svelte
-
+```
+```svelte
 <script>
   import { configureStore } from '@reduxjs/toolkit';
   import todosSlice from '../todos';
 
   const store = configureStore({ reducer: todosSlice.reducer });
 </script>
-
-<!-- ... -->
 ```
 
 In this snippet, we’re creating an instance of our Redux store in a component at the root of our app, `index.svelte` (have a read of [SvelteKit’s docs](https://kit.svelte.dev/docs#routing-pages) if you’re scratching your head over this file’s name).
@@ -247,10 +242,11 @@ But we’re ignoring one crucial piece of functionality of React’s `useSelecto
 
 Without it, any subscriptions for `todos` are going to be fired whenever *any* part of our entire store is updated. Obviously this isn’t a big deal for this example, but in the real world where stores are big and complicated, composed of multiple slices — it is.
 
-> Svelte does a fantastic job of making sure components are only re-rendered when they need to be.
-> In the above example, each `<Todo/>` component is only re-created when the todo value changes, even if the object reference isn’t the same! It’s all a bit magic.
->
->Despite this, it’s important that the stores from useSelector only update when the selected value changes. This will minimise the work Svelte’s runtime has to do, and will mean any reactive statements involving these stores aren’t re-run unnecessarily.
+<aside>
+  Svelte does a fantastic job of making sure components are only re-rendered when they need to be. In the above example, each `<Todo/>` component is only re-created when the todo value changes, even if the object reference isn’t the same! It’s all a bit magic.
+
+  Despite this, it’s important that the stores from useSelector only update when the selected value changes. This will minimise the work Svelte’s runtime has to do, and will mean any reactive statements involving these stores aren’t re-run unnecessarily.
+</aside>
 
 Luckily, `derived` lets us give it a lambda function that *conditionally* updates the outputted store. Using this, we can change our `useSelector` function to call the given selector whenever the main store changes, compare the result to the previous value, and only update the derived store if there’s a difference.
 

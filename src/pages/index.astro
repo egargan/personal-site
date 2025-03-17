@@ -102,9 +102,6 @@ const posts = (await getCollection('posts'))
   }
 
   a {
-    display: flex;
-    align-items: center;
-
     gap: 4px;
     font-weight: 500;
 
@@ -113,8 +110,11 @@ const posts = (await getCollection('posts'))
   }
 
   a.arrow-link {
-    color: var(--blue);
-    stroke: var(--blue);
+    display: inline-flex;
+    align-items: center;
+
+    color: var(--blue-strong);
+    stroke: var(--blue-strong);
     text-decoration: none;
   }
 

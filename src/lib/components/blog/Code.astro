@@ -1,0 +1,15 @@
+---
+import { Code as AstroCode } from "astro:components";
+
+const { lang } = Astro.props as { lang: string };
+
+console.log(Astro.props);
+
+const rendered = await Astro.slots.render("default");
+
+debugger;
+---
+
+<pre>
+  <slot />
+</pre>
