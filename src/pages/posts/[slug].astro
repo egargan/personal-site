@@ -37,7 +37,7 @@ const { Content } = await render(post);
           <span>{post.data.readTimeMins} minute read</span>
         </p>
       </header>
-      <Content components="/" />
+      <Content />
       <footer>
         <p>Thanks for reading!</p>
         <div class="footer-links">
@@ -135,12 +135,26 @@ const { Content } = await render(post);
     font-size: 21px;
   }
 
+  :global(.code-block-container) {
+    border-radius: 5px;
+    background-color: var(--background-two) !important;
+
+    margin: 0;
+
+    overflow: clip;
+
+    font-size: 14px;
+  }
+
   :global(.code-block-title-bar) {
-    background-color: var(--background-three);
-    border-bottom: 1px solid var(--outline);
+    display: grid;
+    grid-template-columns: 1fr max-content max-content;
 
     padding-top: 4px;
     padding-bottom: 2px;
+
+    background-color: var(--background-three);
+    border-bottom: 1px solid var(--outline);
   }
 
   :global(.code-block-title) {
@@ -159,15 +173,19 @@ const { Content } = await render(post);
     margin-top: -1px;
   }
 
-  :global(.code-block-container) {
-    border-radius: 5px;
-    background-color: var(--background-two) !important;
+  :global(button.code-block-copy) {
+    color: var(--text-two);
+    stroke: var(--text-two);
+    stroke-width: 1.5px;
 
-    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    gap: 4px;
+  }
 
-    overflow: clip;
-
-    font-size: 14px;
+  :global(button.code-block-copy svg) {
+    width: 18px;
   }
 
   :global(pre) {
