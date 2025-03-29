@@ -29,13 +29,16 @@ All of these different keys that “complete” FZF are configured by the Vim pl
 The first step is telling FZF which key presses we want it to complete with. We do this with [FZF’s
 `--expect` option](https://manpages.debian.org/unstable/fzf/fzf.1.en.html#expect=).
 
-Starting with [custom Rg command example](https://github.com/junegunn/fzf.vim/blob/master/doc/fzf-vim.txt#L328) from the FZF’s Vim plugin’s docs, let’s add an `--expect` argument.
+Starting with custom Rg command
+example from the [FZF Vim plugin’s
+docs](https://github.com/junegunn/fzf.vim/blob/master/doc/fzf-vim.txt#L328), let’s add <mark
+class="green">an `--expect` argument</mark>.
 
-```vimscript {1,3}
+```vimscript {1,3} green:/--expect=ctrl-y/
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-	\   fzf#vim#with_preview({ 'options': '--expect=ctrl-y' }), <bang>0)
+  \   fzf#vim#with_preview({ 'options': '--expect=ctrl-y' }), <bang>0)
 ```
 
 By default, these `--expect` keys will perform the default complete action. In this case, taking you to the file containing your search term.

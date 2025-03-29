@@ -30,43 +30,77 @@ const { class: _class } = Astro.props;
     <li>
       <ThemeSwitch />
     </li>
-    <li>
-      <SoundSwitch />
-    </li>
+    <!-- <li> -->
+    <!--   <SoundSwitch /> -->
+    <!-- </li> -->
   </ul>
 </header>
 
+<script>
+  const header = document.querySelector("header");
+
+  const observer = new IntersectionObserver(
+    ([element]) => {
+      element.target.classList.toggle("stuck", element.intersectionRatio < 1);
+    },
+    { threshold: [1] },
+  );
+
+  observer.observe(header!);
+</script>
+
 <style>
   header {
+    position: sticky;
+    top: -1px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    padding-top: 40px;
+    background-color: color-mix(in oklab, var(--background), transparent 20%);
+    backdrop-filter: blur(5px);
+
+    margin-top: 10px;
+
+    padding-top: 12px;
     padding-left: 20px;
     padding-right: 20px;
+    padding-bottom: 8px;
+  }
+
+  ul {
+    gap: 30px;
+  }
+
+  ul,
+  li {
+    display: flex;
+  }
+
+  li {
+    height: min-content;
+  }
+
+  .control-panel {
+    display: flex;
+    gap: 30px;
   }
 
   @media (min-width: 640px) {
     header {
       padding-left: 32px;
       padding-right: 32px;
-    }
-  }
 
-  @media (min-width: 640px) {
+      margin-top: 25px;
+    }
+
     nav {
       padding-right: 20px;
     }
-  }
 
-  ul {
-    display: flex;
-    gap: 40px;
-  }
-
-  .control-panel {
-    display: flex;
-    gap: 20px;
+    ul {
+      gap: 40px;
+    }
   }
 </style>

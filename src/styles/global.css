@@ -296,10 +296,24 @@ html {
 	--blue-background: #90d4fb66;
 
 	--pink: #fc6471;
-	--pink-strong: #bc5961;
-	--pink-weak: #ffafb6;
+	--pink-background: #fc647130;
 
-	--green: #2a7f62;
+	--green: #22D6A0;
+	--green-background: #22D6A025;
+
+	--yellow: #ffdb59;
+	--yellow-background: #ffdb5930;
+
+	--purple: #de53d9;
+	--purple-background: #de53d928;
+
+	--cyan: #1cd6ca;
+	--cyan-background: #1cd6ca30;
+
+	--orange: #f57f31;
+	--orange-background: #f57f3130;
+
+	--grey-background: #b2b2db30;
 
 	--transition-blink: 70ms;
 	--transition-short: 120ms;
@@ -322,25 +336,29 @@ html[data-theme="dark"] {
 	--blue: #1b98e0;
 	--blue-strong: #90d4fb;
 	--blue-weak: #2886BC;
-	--blue-background: #2886BC55;
+	--blue-background: #2886BC40;
 
-	--pink: #fc6471;
-	--pink-weak: #bc5961;
-	--pink-strong: #ffafb6;
+	--green: #0BC78Faa;
+	--green-background: #0BC78F30;
+
+	--cyan: #19d3c7aa;
+	--cyan-background: #19d3c740;
+
+	--purple: #de53d9aa;
+	--purple-background: #de53d93a;
+
+	--grey-background: #4e4969b0;
 
 	.astro-code,
 	.astro-code span {
 		color: var(--shiki-dark) !important;
-		font-style: var(--shiki-dark-font-style) !important;
-		font-weight: var(--shiki-dark-font-weight) !important;
-		text-decoration: var(--shiki-dark-text-decoration) !important;
 	}
 }
 
 @media (prefers-color-scheme: dark) {
 	html:not([data-theme="light"]) {
 		--background: #242331;
-		--background-two: #2e2c3f;
+		--background-two: #343247;
 		--background-three: #3c3851;
 
 		--outline: #55556b;
@@ -350,21 +368,25 @@ html[data-theme="dark"] {
 		--text-two: #b4b4cc;
 		--text-three: #9696b0;
 
-		--blue: #42AEEC;
-		--blue-strong: #99D7FB;
+		--blue: #1b98e0;
+		--blue-strong: #90d4fb;
 		--blue-weak: #2886BC;
-		--blue-background: #2886BC55;
+		--blue-background: #2886BC30;
 
-		--pink: #fc6471;
-		--pink-weak: #bc5961;
-		--pink-strong: #ffafb6;
+		--green: #0BC78Faa;
+		--green-background: #0BC78F30;
+
+		--cyan: #19d3c7aa;
+		--cyan-background: #19d3c740;
+
+		--purple: #de53d9aa;
+		--purple-background: #de53d93a;
+
+		--grey-background: #4e4969b0;
 
 		.astro-code,
 		.astro-code span {
 			color: var(--shiki-dark) !important;
-			font-style: var(--shiki-dark-font-style) !important;
-			font-weight: var(--shiki-dark-font-weight) !important;
-			text-decoration: var(--shiki-dark-text-decoration) !important;
 		}
 	}
 }

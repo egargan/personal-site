@@ -23,11 +23,12 @@ With this post I just wanted to share the snippets of code I’ve brought to mos
 
 As you’ll know if you’ve ever wanted to create an `Error` subclass, there’s a bit of boilerplate needed in the constructor to do it “properly”.
 
-We need to set the instance’s `name` property to the name of our error class.
+We need to set the instance’s <mark class="cyan">`name`</mark> property to the name of our error class.
 
-As well, to make Typescript happy with our class, we need to explicitly set its prototype.
+As well, to make Typescript happy with our class, we need to explicitly <mark
+class="purple">set its prototype</mark>.
 
-```typescript
+```typescript cyan:/this.name = "MyError";/ purple:/Object.setPrototypeOf(this, MyError.prototype);/
 export class MyError extends Error {
   constructor(message: string) {
     super(message);
@@ -59,9 +60,9 @@ TC39, the people that maintain the Javascript standard, recently implemented [th
 
 It’s been supported in Node since 16.9, and is implemented in every major browser, [according to MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/cause#browser_compatibility).
 
-This means you’ll be able to give a `cause` property to `Error`'s constructor, like so —
+This means you’ll be able to give a <mark class="cyan">`cause`</mark> property to `Error`'s constructor, like so —
 
-```typescript
+```typescript cyan:/{ cause: err }/
 try {
   somethingBad();
 } catch (err) {
@@ -80,6 +81,7 @@ Error: something bad happened!
     at Object.<anonymous> (/Users/edward.gargan/personal/ts-errors/index.ts:8:9)
     at Module._compile (node:internal/modules/cjs/loader:1165:14)
     ...
+  // [!code highlight:grey:4]
   [cause]: Error: ENOENT: no such file or directory, open 'doesnt-exist.txt'
       at Object.openSync (node:fs:590:3)
       at readFileSync (node:fs:458:35)
@@ -101,6 +103,7 @@ export class ExtError extends Error {
     Object.setPrototypeOf(this, new.target.prototype);
   }
 
+  // [!code highlight:green:4]
   from(cause: unknown): ExtError {
     this.cause = cause;
     return this;
@@ -164,9 +167,9 @@ Here’s how they look —
 try {
   data = getData(filepath)
 } catch (err) {
-  if (matchErr(err, FileError)) {
+  if (matchErr(err, FileError)) { // [!code highlight:green]
     log.warn("file could not be loaded", err);
-  } else if (matchErrOrThrow(err, TypeError, MissingValueError)) {
+  } else if (matchErrOrThrow(err, TypeError, MissingValueError)) { // [!code highlight:green]
     log.warn("file is corrupted", err);
   }
 }

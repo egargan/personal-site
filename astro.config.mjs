@@ -2,11 +2,11 @@ import { defineConfig } from "astro/config";
 import vercel from "@astrojs/vercel";
 import svelte from "@astrojs/svelte";
 import mdx from "@astrojs/mdx";
-import {
-  transformerMetaHighlight,
-  transformerMetaWordHighlight,
-} from "@shikijs/transformers";
 import { codeHandler } from "./src/lib/remark-rehype";
+import {
+  transformerNamedMetaHighlight,
+  transformerNamedHighlight,
+} from "./src/lib/shiki";
 
 export default defineConfig({
   integrations: [
@@ -15,8 +15,12 @@ export default defineConfig({
       shikiConfig: {
         themes: {
           dark: "github-dark",
-          light: "catppuccin-latte",
+          light: "github-light",
         },
+        transformers: [
+          transformerNamedHighlight(),
+          transformerNamedMetaHighlight(),
+        ],
       },
       remarkRehype: {
         handlers: {
@@ -32,4 +36,3 @@ export default defineConfig({
     },
   }),
 });
-
