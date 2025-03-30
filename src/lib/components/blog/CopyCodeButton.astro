@@ -41,22 +41,32 @@ const { blockId } = Astro.props as {
     };
 
     button.addEventListener("click", () => {
-      navigator.clipboard.writeText(block.textContent).then(() => {
-        copiedSpan.style.display = "block";
-        labelSpan.style.display = "none";
+      navigator.permissions
+        .query({ name: "clipboard-write" })
+        .then((result) => {
+          if (!(result.state === "granted" || result.state === "prompt")) {
+            throw new Error(
+              "failed to copy to clipboard, 'clipboard-write' permission not granted",
+            );
+          }
 
-        clearTimeout(timeout);
+          navigator.clipboard.writeText(block.textContent).then(() => {
+            copiedSpan.style.display = "block";
+            labelSpan.style.display = "none";
 
-        copiedSpan.removeEventListener("transitionend", hideCopiedSpan);
+            clearTimeout(timeout);
 
-        timeout = setTimeout(() => {
-          copiedSpan.classList.add("fade-out");
+            copiedSpan.removeEventListener("transitionend", hideCopiedSpan);
 
-          copiedSpan.addEventListener("transitionend", hideCopiedSpan, {
-            once: true,
+            timeout = setTimeout(() => {
+              copiedSpan.classList.add("fade-out");
+
+              copiedSpan.addEventListener("transitionend", hideCopiedSpan, {
+                once: true,
+              });
+            }, 1200);
           });
-        }, 1200);
-      });
+        });
     });
   });
 </script>

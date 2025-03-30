@@ -9,7 +9,7 @@ let props = Astro.props as {
 
 let { "data-language": lang, "data-meta": meta } = props;
 
-let title, prettyLanguage, languageIconSrc;
+let noCopy, title, prettyLanguage, languageIconSrc;
 
 if (meta) {
   const titleMetaMatch = meta.match(
@@ -18,6 +18,12 @@ if (meta) {
 
   if (titleMetaMatch && titleMetaMatch.length > 2) {
     title = titleMetaMatch[2];
+  }
+
+  const noCopyMatch = meta.match(new RegExp("nocopy"));
+
+  if (noCopyMatch) {
+    noCopy = true;
   }
 }
 
@@ -82,8 +88,9 @@ const blockId = randomId("code-block");
     )
   }
 
-  <pre {...props}>
-    <CopyCodeButton blockId={blockId} />
+  <pre
+    {...props}>
+    {!noCopy && <CopyCodeButton blockId={blockId} />}
     <slot />
   </pre>
 </div>
