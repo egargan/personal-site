@@ -1,0 +1,140 @@
+---
+import ClipboardIcon from "../icons/ClipboardIcon.astro";
+
+const { blockId } = Astro.props as {
+  blockId: string;
+};
+---
+
+<button data-block-id={blockId} class="code-copy">
+  <ClipboardIcon />
+  <span class="code-copy-label visually-hidden">Copy code block</span>
+  <span
+    class="copied-message fly-in"
+    style={{ "--fly-in-duration": "120ms", "--fly-in-y": "10px" }}>Copied!</span
+  >
+</button>
+
+<script>
+  const buttons = document.querySelectorAll("button.code-copy");
+
+  buttons.forEach((button) => {
+    const blockId = button.getAttribute("data-block-id");
+    const block = document.querySelector(
+      `[data-block-id="${blockId}"] pre code`,
+    );
+
+    const copiedSpan = button.querySelector(
+      "span.copied-message",
+    ) as HTMLSpanElement;
+
+    const labelSpan = button.querySelector(
+      "span.code-copy-label",
+    ) as HTMLSpanElement;
+
+    let timeout: ReturnType<typeof setTimeout>;
+
+    const hideCopiedSpan = () => {
+      copiedSpan.style.display = "none";
+      labelSpan.style.display = "inline";
+      copiedSpan.classList.remove("fade-out");
+    };
+
+    button.addEventListener("click", () => {
+      navigator.clipboard.writeText(block.textContent).then(() => {
+        copiedSpan.style.display = "block";
+        labelSpan.style.display = "none";
+
+        clearTimeout(timeout);
+
+        copiedSpan.removeEventListener("transitionend", hideCopiedSpan);
+
+        timeout = setTimeout(() => {
+          copiedSpan.classList.add("fade-out");
+
+          copiedSpan.addEventListener("transitionend", hideCopiedSpan, {
+            once: true,
+          });
+        }, 1200);
+      });
+    });
+  });
+</script>
+
+<style is:global>
+  button.code-copy {
+    color: var(--text-two);
+    stroke: var(--text-two);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 12px;
+
+    height: 36px;
+    width: 36px;
+
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    border: 1px solid var(--outline);
+    background-color: var(--background-three);
+    border-radius: 4px;
+
+    opacity: 0;
+
+    transition:
+      opacity var(--transition-short),
+      border-color var(--transition-short);
+  }
+
+  button.code-copy:hover {
+    border-color: var(--text-three);
+  }
+
+  button.code-copy:active {
+    border-color: var(--blue);
+  }
+
+  .code-block-container.hover button.code-copy,
+  button.code-copy:focus-visible {
+    opacity: 1;
+  }
+
+  button.code-copy svg {
+    width: 18px;
+  }
+
+  span.copied-message {
+    display: none;
+
+    position: absolute;
+    right: 100%;
+
+    font-family: "Atkinson Hyperlegible";
+
+    margin-right: 12px;
+    padding: 4px 12px;
+
+    user-select: none;
+    pointer-events: none;
+
+    border-radius: 3px;
+
+    background-color: var(--text);
+    color: var(--background) !important;
+
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    text-align: center;
+
+    transition-property: opacity;
+  }
+
+  span.copied-message.fade-out {
+    transition: opacity var(--transition-blink) linear;
+    opacity: 0;
+  }
+</style>

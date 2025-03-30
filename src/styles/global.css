@@ -349,8 +349,7 @@ html[data-theme="dark"] {
 
 	--grey-background: #4e4969b0;
 
-	.astro-code,
-	.astro-code span {
+	.astro-code code span {
 		color: var(--shiki-dark) !important;
 	}
 }
@@ -384,8 +383,7 @@ html[data-theme="dark"] {
 
 		--grey-background: #4e4969b0;
 
-		.astro-code,
-		.astro-code span {
+		.astro-code code span {
 			color: var(--shiki-dark) !important;
 		}
 	}

@@ -1,0 +1,224 @@
+---
+import { randomId } from "$lib/utils/randomId";
+import CopyCodeButton from "./CopyCodeButton.astro";
+
+let props = Astro.props as {
+  "data-language": string;
+  "data-meta": string;
+};
+
+let { "data-language": lang, "data-meta": meta } = props;
+
+let title, prettyLanguage, languageIconSrc;
+
+if (meta) {
+  const titleMetaMatch = meta.match(
+    new RegExp("(title=)(?:[\"'])(.*?)(?:[\"'])"),
+  );
+
+  if (titleMetaMatch && titleMetaMatch.length > 2) {
+    title = titleMetaMatch[2];
+  }
+}
+
+switch (lang) {
+  case "typescript":
+    prettyLanguage = "TypeScript";
+    break;
+  case "javascript":
+    prettyLanguage = "JavaScript";
+    break;
+  default:
+    prettyLanguage = lang.charAt(0).toUpperCase() + lang.slice(1);
+}
+
+switch (lang) {
+  case "typescript":
+  case "javascript":
+  default:
+    languageIconSrc = `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${lang}/${lang}-original.svg`;
+    break;
+  case "vimscript":
+    languageIconSrc =
+      "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vim/vim-original.svg";
+    break;
+}
+
+const blockId = randomId("code-block");
+---
+
+<script>
+  const containers = document.querySelectorAll(".code-block-container");
+
+  containers.forEach((container) => {
+    let timeout: ReturnType<typeof setTimeout>;
+
+    container.addEventListener("mouseover", () => {
+      container.classList.add("hover");
+      clearTimeout(timeout);
+    });
+
+    container.addEventListener("mouseout", () => {
+      timeout = setTimeout(() => {
+        container.classList.remove("hover");
+      }, 1000);
+    });
+  });
+</script>
+
+<div data-block-id={blockId} class="code-block-container">
+  {
+    ((lang && lang !== "plaintext") || title) && (
+      <div class="code-block-title-bar">
+        <span class="code-block-title">
+          <img
+            src={languageIconSrc}
+            role="presentation"
+            class="filetype-icon"
+          />
+          {title ? title : prettyLanguage}
+        </span>
+      </div>
+    )
+  }
+
+  <pre {...props}>
+    <CopyCodeButton blockId={blockId} />
+    <slot />
+  </pre>
+</div>
+
+<style is:global>
+  .code-block-container {
+    border-radius: 5px;
+    background-color: var(--background-two) !important;
+
+    margin: 0;
+
+    overflow: clip;
+
+    font-size: 14px;
+  }
+
+  .code-block-title-bar {
+    display: grid;
+    grid-template-columns: 1fr max-content max-content;
+
+    padding-top: 4px;
+    padding-bottom: 2px;
+
+    background-color: var(--background-three);
+    border-bottom: 1px solid var(--outline);
+  }
+
+  .code-block-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 16px;
+    color: var(--text-two);
+  }
+
+  .filetype-icon {
+    width: 16px;
+    height: 16px;
+
+    margin-top: -1px;
+  }
+
+  pre {
+    background-color: unset !important;
+
+    padding-bottom: 16px;
+    padding-top: 16px;
+
+    display: grid;
+    position: relative;
+  }
+
+  pre code {
+    /* Use grid as it's the only thing that lets us do full-width highlights */
+    display: grid;
+  }
+
+  pre span {
+    /* Disable italic styles in shiki themes */
+    font-style: normal !important;
+    display: inline-block;
+    min-height: 1.25em;
+  }
+
+  pre .code-highlight:not(.line) {
+    margin-left: -4px;
+    margin-right: -4px;
+
+    padding: 1px 4px;
+
+    margin-top: 1px;
+    margin-bottom: 1px;
+  }
+
+  pre .code-highlight.line {
+    border-left-width: 1.5px;
+    border-left-style: solid;
+  }
+
+  pre .code-highlight:not(.line) {
+    border-radius: 3px;
+
+    border-bottom-width: 1.5px;
+    border-bottom-style: solid;
+  }
+
+  .code-block-title + pre {
+    padding-top: 12px;
+  }
+
+  .code-block-container,
+  aside {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+
+  .code-block-container + .code-block-container {
+    margin-top: 0;
+
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .code-block-container:has(+ .code-block-container) {
+    margin-bottom: -1px;
+
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .code-highlight:not(:has(+ .code-highlight)) {
+    padding-bottom: 0.175em;
+  }
+
+  .line:not(.code-highlight) + .code-highlight,
+  line.code-highlight:first-of-type {
+    padding-top: 0.175em;
+  }
+
+  @media (max-width: 840px) {
+    :global(.code-block-container) {
+      border-radius: 0;
+
+      border-top: 1px solid var(--outline);
+      border-bottom: 1px solid var(--outline);
+
+      border-left: none;
+      border-right: none;
+    }
+  }
+
+  @media (min-width: 841px) {
+    :global(.code-block-container) {
+      border: 1px solid var(--outline);
+    }
+  }
+</style>

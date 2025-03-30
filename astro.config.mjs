@@ -2,7 +2,6 @@ import { defineConfig } from "astro/config";
 import vercel from "@astrojs/vercel";
 import svelte from "@astrojs/svelte";
 import mdx from "@astrojs/mdx";
-import { codeHandler } from "./src/lib/remark-rehype";
 import {
   transformerNamedMetaHighlight,
   transformerNamedHighlight,
@@ -18,14 +17,14 @@ export default defineConfig({
           light: "github-light",
         },
         transformers: [
+          {
+            pre(hast) {
+              hast.properties["data-meta"] = this.options.meta?.__raw;
+            },
+          },
           transformerNamedHighlight(),
           transformerNamedMetaHighlight(),
         ],
-      },
-      remarkRehype: {
-        handlers: {
-          code: codeHandler,
-        },
       },
     }),
   ],

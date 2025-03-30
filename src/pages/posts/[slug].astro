@@ -1,5 +1,6 @@
 ---
 import Base from "$layouts/Base.astro";
+import Code from "$lib/components/blog/Code.astro";
 import Nav from "$lib/components/nav/Nav.astro";
 import { formatDateLong } from "$lib/utils/time";
 import { getCollection, render } from "astro:content";
@@ -37,7 +38,7 @@ const { Content } = await render(post);
           <span>{post.data.readTimeMins} minute read</span>
         </p>
       </header>
-      <Content />
+      <Content components={{ pre: Code }} />
       <footer>
         <p>Thanks for reading!</p>
         <div class="footer-links">
@@ -135,101 +136,12 @@ const { Content } = await render(post);
     font-size: 21px;
   }
 
-  :global(.code-block-container) {
-    border-radius: 5px;
-    background-color: var(--background-two) !important;
-
-    margin: 0;
-
-    overflow: clip;
-
-    font-size: 14px;
-  }
-
-  :global(.code-block-title-bar) {
-    display: grid;
-    grid-template-columns: 1fr max-content max-content;
-
-    padding-top: 4px;
-    padding-bottom: 2px;
-
-    background-color: var(--background-three);
-    border-bottom: 1px solid var(--outline);
-  }
-
-  :global(.code-block-title) {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-
-    font-size: 16px;
-    color: var(--text-two);
-  }
-
-  :global(.filetype-icon) {
-    width: 16px;
-    height: 16px;
-
-    margin-top: -1px;
-  }
-
-  :global(button.code-block-copy) {
-    color: var(--text-two);
-    stroke: var(--text-two);
-    stroke-width: 1.5px;
-
-    display: inline-flex;
-    align-items: center;
-    flex-direction: row-reverse;
-    gap: 4px;
-  }
-
-  :global(button.code-block-copy svg) {
-    width: 18px;
-  }
-
-  :global(pre) {
-    background-color: unset !important;
-
-    padding-bottom: 16px;
-    padding-top: 16px;
-  }
-
-  :global(pre code) {
-    /* Use grid as it's the only thing that lets us do full-width highlights */
-    display: grid;
-  }
-
-  :global(pre span) {
-    /* Disable italic styles in shiki themes */
-    font-style: normal !important;
-
-    display: inline-block;
-  }
-
-  :global(mark, pre .code-highlight:not(.line)) {
+  :global(mark) {
     border-radius: 3px;
 
     border-bottom-width: 1.5px;
     border-bottom-style: solid;
-  }
 
-  :global(pre .code-highlight:not(.line)) {
-    margin-left: -4px;
-    margin-right: -4px;
-
-    padding: 1px 4px;
-
-    margin-top: 1px;
-    margin-bottom: 1px;
-  }
-
-  :global(pre .code-highlight.line) {
-    border-left-width: 1.5px;
-    border-left-style: solid;
-  }
-
-  :global(mark) {
     color: var(--text);
     padding: 3px 4px;
   }
@@ -268,10 +180,6 @@ const { Content } = await render(post);
     background-color: var(--grey-background);
   }
 
-  :global(.code-block-title + pre) {
-    padding-top: 12px;
-  }
-
   :global(aside) {
     background-color: var(--blue-background);
 
@@ -290,36 +198,6 @@ const { Content } = await render(post);
     display: block;
   }
 
-  :global(.code-block-container, aside) {
-    margin-top: 24px;
-    margin-bottom: 24px;
-  }
-
-  :global(.code-block-container + .code-block-container) {
-    margin-top: 0;
-
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-
-  :global(.code-block-container:has(+ .code-block-container)) {
-    margin-bottom: -1px;
-
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-
-  :global(.code-highlight:not(:has(+ .code-highlight))) {
-    padding-bottom: 0.175em;
-  }
-
-  :global(
-      .line:not(.code-highlight) + .code-highlight,
-      line.code-highlight:first-of-type
-    ) {
-    padding-top: 0.175em;
-  }
-
   :global(aside > p:last-child) {
     margin-bottom: 0;
   }
@@ -333,16 +211,6 @@ const { Content } = await render(post);
     :global(.code-block-title-bar, pre span.line, aside) {
       padding-left: 32px;
       padding-right: 32px;
-    }
-
-    :global(.code-block-container) {
-      border-radius: 0;
-
-      border-top: 1px solid var(--outline);
-      border-bottom: 1px solid var(--outline);
-
-      border-left: none;
-      border-right: none;
     }
   }
 
