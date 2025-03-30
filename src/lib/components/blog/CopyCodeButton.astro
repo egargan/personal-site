@@ -90,7 +90,6 @@ const { blockId } = Astro.props as {
     top: 0;
 
     border: 1px solid var(--outline);
-    background-color: var(--background-three);
     border-radius: 4px;
 
     opacity: 0;
@@ -146,5 +145,11 @@ const { blockId } = Astro.props as {
   span.copied-message.fade-out {
     transition: opacity var(--transition-blink) linear;
     opacity: 0;
+  }
+
+  @media not (hover: hover) {
+    button.code-copy {
+      display: none;
+    }
   }
 </style>

@@ -183,7 +183,7 @@ As with `instanceof` checks, these functions will narrow `err` according to the 
 
 Having spent a bit of time with Rust, I quickly fell in love with its `Result` type, a container for either **an error type or a “successful” value type.
 
-In either case, this `Result` is returned **from the function. Errors are never “thrown” and “caught” as they are in Javascript.
+In either case, this `Result` is returned from the function. Errors are never *thrown* and *caught* as they are in Javascript.
 
 Returning errors like this means *every path* through a function — and so your program — is type safe.
 

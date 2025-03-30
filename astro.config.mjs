@@ -6,6 +6,8 @@ import {
   transformerNamedMetaHighlight,
   transformerNamedHighlight,
 } from "./src/lib/shiki";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeSlug from "rehype-slug";
 
 export default defineConfig({
   integrations: [
@@ -26,6 +28,10 @@ export default defineConfig({
           transformerNamedMetaHighlight(),
         ],
       },
+      rehypePlugins: [
+        rehypeSlug,
+        [rehypeAutolinkHeadings, { behavior: "wrap" }],
+      ],
     }),
   ],
   output: "static",

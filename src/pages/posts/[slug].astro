@@ -123,17 +123,57 @@ const { Content } = await render(post);
   }
 
   :global(h2) {
-    margin-top: 64px;
-    margin-bottom: 12px;
-    font-weight: 600;
     font-size: 24px;
   }
 
   :global(h3) {
-    margin-top: 64px;
+    font-size: 21px;
+  }
+
+  :global(h2, h3) {
+    padding-top: 64px;
     margin-bottom: 12px;
     font-weight: 600;
-    font-size: 21px;
+  }
+
+  :global(h2 a, h3 a) {
+    transition: text-decoration-color var(--transition-short);
+    text-decoration: underline;
+    text-decoration-color: transparent !important;
+    text-underline-offset: 2px;
+  }
+
+  :global(h2 a:hover, h3 a:hover) {
+    text-decoration-color: var(--text-three) !important;
+    cursor: pointer;
+  }
+
+  :global(h2 a:after, h3 a:after) {
+    content: "\00a0 #";
+    display: inline;
+    position: relative;
+
+    font-weight: lighter;
+    max-height: 0.5em;
+
+    color: var(--text-three);
+    opacity: 0;
+
+    left: -10px;
+
+    transition:
+      left var(--transition-short) ease-out,
+      opacity var(--transition-short) ease-out;
+  }
+
+  :global(h2 a:hover:after, h3 a:hover:after) {
+    left: 0px;
+    opacity: 1;
+  }
+
+  :global(html) {
+    /* Make sure scrolling from anchor clicks is smooth */
+    scroll-behavior: smooth;
   }
 
   :global(mark) {
@@ -235,10 +275,6 @@ const { Content } = await render(post);
     :global(.code-block-title-bar, pre span.line, aside) {
       padding-left: 24px;
       padding-right: 24px;
-    }
-
-    :global(.code-block-container) {
-      border: 1px solid var(--outline);
     }
   }
 
