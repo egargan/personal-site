@@ -50,12 +50,12 @@ The next step is getting FZF to run a custom completion function for our `--expe
 ## Sink Functions
 
 [Sink functions](https://github.com/junegunn/fzf/blob/master/README-VIM.md#fzfrun) are the things that process the results of FZF commands.
-C
+
 The sink function for the bulit-in `Files` command handles opening the filename that we pick in the FZF window. `Buffers`' sink function simply opens the buffer with the chosen name.
 
 Now that we’ve added a new way to complete our `Rg` command, we need a new sink function to handle it.
 
-```vimscript
+```vimscript cyan:/sink*/
 function! RgSink(sink_lines)
   echo a:sink_lines
   " ...
@@ -73,7 +73,7 @@ command! -bang -nargs=* Rg
   \ )
 ```
 
-We use this `sink*` property to tell FZF to use our custom sink function. At the moment, all it does is echo the the argument that FZF gives it.
+We use this <mark class="cyan">`sink*`</mark> property to tell FZF to use our custom sink function. At the moment, all it does is echo the the argument that FZF gives it.
 
 <aside>
 This config dictionary can include `sink` or `sink*` — the first is for FZF commands that only have one completion key (Enter), the second is for multiple (Enter and `Ctrl-y`, in our case)
