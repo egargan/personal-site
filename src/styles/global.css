@@ -279,41 +279,41 @@ button {
 /* Variables */
 
 html {
-	--background: #fafaff;
-	--background-two: #f5f5ff;
-	--background-three: #eaeaf9;
+	--background: hsl(240deg 100 99);
+	--background-two: hsl(240deg 100 98);
+	--background-three: hsl(240deg 56 95);
 
-	--outline: #cacae5;
-	--shadow: #c5c5d9;
+	--outline: hsl(240deg 34 85);
+	--shadow: hsl(240deg 21 81);
 
-	--text: #242331;
-	--text-two: #65657f;
-	--text-three: #71708e;
+	--text: hsl(244deg 17 17);
+	--text-two: hsl(240deg 11 45);
+	--text-three: hsl(242deg 12 50);
 
-	--blue: #1b98e0;
-	--blue-strong: #0f6799;
-	--blue-weak: #90d4fb;
-	--blue-background: #90d4fb66;
+	--blue: hsl(202deg 79 49);
+	--blue-strong: hsl(202deg 82 33);
+	--blue-weak: hsl(202deg 93 78);
+	--blue-background: hsl(202deg 93 78 / 35%);
 
-	--pink: #fc6471;
-	--pink-background: #fc647130;
+	--pink: hsl(355deg 96 69);
+	--pink-background: hsl(355deg 96 69 / 19%);
 
-	--green: #22D6A0;
-	--green-background: #22D6A025;
+	--green: hsl(162deg 73 49);
+	--green-background: hsl(162deg 73 49 / 15%);
 
-	--yellow: #ffdb59;
-	--yellow-background: #ffdb5930;
+	--yellow: hsl(47deg 100 68);
+	--yellow-background: hsl(47deg 100 68 / 19%);
 
-	--purple: #de53d9;
-	--purple-background: #de53d928;
+	--purple: hsl(302deg 68 60);
+	--purple-background: hsl(302deg 68 60 / 16%);
 
-	--cyan: #1cd6ca;
-	--cyan-background: #1cd6ca30;
+	--cyan: hsl(176deg 77 48);
+	--cyan-background: hsl(176deg 77 48 / 19%);
 
-	--orange: #f57f31;
-	--orange-background: #f57f3130;
+	--orange: hsl(24deg 91 58);
+	--orange-background: hsl(24deg 91 58 / 19%);
 
-	--grey-background: #b2b2db30;
+	--grey-background: hsl(240deg 36 78 / 19%);
 
 	--transition-blink: 70ms;
 	--transition-short: 120ms;
@@ -322,32 +322,32 @@ html {
 }
 
 html[data-theme="dark"] {
-	--background: #242331;
-	--background-two: #343247;
-	--background-three: #3c3851;
+	--background: hsl(244deg 17 17);
+	--background-two: hsl(246deg 17 24);
+	--background-three: hsl(250deg 18 27);
 
-	--outline: #55556b;
-	--shadow: #393951;
+	--outline: hsl(240deg 12 38);
+	--shadow: hsl(240deg 17 27);
 
-	--text: #fafaff;
-	--text-two: #b4b4cc;
-	--text-three: #9696b0;
+	--text: hsl(240deg 100 99);
+	--text-two: hsl(240deg 19 75);
+	--text-three: hsl(240deg 14 64);
 
-	--blue: #1b98e0;
-	--blue-strong: #90d4fb;
-	--blue-weak: #2886BC;
-	--blue-background: #2886BC40;
+	--blue: hsl(202deg 79 49);
+	--blue-strong: hsl(202deg 93 78);
+	--blue-weak: hsl(202deg 65 45);
+	--blue-background: hsl(202deg 65 45 / 25%);
 
-	--green: #0BC78Faa;
-	--green-background: #0BC78F28;
+	--green: hsl(162deg 90 41 / 67%);
+	--green-background: hsl(162deg 90 41 / 16%);
 
-	--cyan: #19d3c7aa;
-	--cyan-background: #19d3c730;
+	--cyan: hsl(176deg 79 46 / 67%);
+	--cyan-background: hsl(176deg 79 46 / 19%);
 
-	--purple: #de53d9aa;
-	--purple-background: #de53d93a;
+	--purple: hsl(302deg 68 60 / 67%);
+	--purple-background: hsl(302deg 68 60 / 23%);
 
-	--grey-background: #4e4969b0;
+	--grey-background: hsl(249deg 18 35 / 69%);
 
 	.astro-code code span {
 		color: var(--shiki-dark) !important;
@@ -356,32 +356,32 @@ html[data-theme="dark"] {
 
 @media (prefers-color-scheme: dark) {
 	html:not([data-theme="light"]) {
-		--background: #242331;
-		--background-two: #343247;
-		--background-three: #3c3851;
+		--background: hsl(244deg 17 17);
+		--background-two: hsl(246deg 17 24);
+		--background-three: hsl(250deg 18 27);
 
-		--outline: #55556b;
-		--shadow: #393951;
+		--outline: hsl(240deg 12 38);
+		--shadow: hsl(240deg 17 27);
 
-		--text: #fafaff;
-		--text-two: #b4b4cc;
-		--text-three: #9696b0;
+		--text: hsl(240deg 100 99);
+		--text-two: hsl(240deg 19 75);
+		--text-three: hsl(240deg 14 64);
 
-		--blue: #1b98e0;
-		--blue-strong: #90d4fb;
-		--blue-weak: #2886BC;
-		--blue-background: #2886BC30;
+		--blue: hsl(202deg 79 49);
+		--blue-strong: hsl(202deg 93 78);
+		--blue-weak: hsl(202deg 65 45);
+		--blue-background: hsl(202deg 65 45 / 19%);
 
-		--green: #0BC78Faa;
-		--green-background: #0BC78F28;
+		--green: hsl(162deg 90 41 / 67%);
+		--green-background: hsl(162deg 90 41 / 16%);
 
-		--cyan: #19d3c7aa;
-		--cyan-background: #19d3c730;
+		--cyan: hsl(176deg 79 46 / 67%);
+		--cyan-background: hsl(176deg 79 46 / 19%);
 
-		--purple: #de53d9aa;
-		--purple-background: #de53d93a;
+		--purple: hsl(302deg 68 60 / 67%);
+		--purple-background: hsl(302deg 68 60 / 23%);
 
-		--grey-background: #4e4969b0;
+		--grey-background: hsl(249deg 18 35 / 69%);
 
 		.astro-code code span {
 			color: var(--shiki-dark) !important;
