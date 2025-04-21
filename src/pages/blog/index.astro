@@ -4,7 +4,7 @@ import PostListItem from "$lib/components/PostListItem.astro";
 import Nav from "$lib/components/nav/Nav.astro";
 import { getCollection } from "astro:content";
 
-const posts = await getCollection("posts");
+const posts = await getCollection("blog");
 
 posts.sort((a, b) => (a.data.created < b.data.created ? 1 : -1));
 ---

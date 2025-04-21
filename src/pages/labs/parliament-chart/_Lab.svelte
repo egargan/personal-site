@@ -1,9 +1,7 @@
 <script lang="ts">
-  import ParliamentChart from "./ParliamentChart.svelte";
-  import LabFooter from "$lib/components/LabFooter.svelte";
-  import SeatControls from "./SeatControls.svelte";
-  import type { Parties } from "./types";
-  import info from "./info.ts";
+  import ParliamentChart from "./_ParliamentChart.svelte";
+  import SeatControls from "./_SeatControls.svelte";
+  import type { Parties } from "./_types";
 
   const parties: Parties = {
     red: { name: "Red Party", initialSeats: 80, color: "#FF3624" },
@@ -12,9 +10,14 @@
     yellow: { name: "Yellow Party", initialSeats: 80, color: "#FFC830" },
   };
 
-  let seats = $state(Object.fromEntries(
-    Object.entries(parties).map(([id, { initialSeats }]) => [id, initialSeats]),
-  ));
+  let seats = $state(
+    Object.fromEntries(
+      Object.entries(parties).map(([id, { initialSeats }]) => [
+        id,
+        initialSeats,
+      ]),
+    ),
+  );
 
   function onSeatsChange(event: CustomEvent<{ id: string; value: string }>) {
     if (!(event.detail.id in seats)) return;
@@ -43,13 +46,4 @@
       <SeatControls on:change={onSeatsChange} {parties} {seats} />
     </div>
   </div>
-
-  <div class="bottom-0 z-20 w-full flex-grow-0 lg:absolute">
-    <LabFooter
-      title={info.title}
-      heading={info.footerDesc}
-      repoUrl="https://github.com/egargan/parliament-chart/"
-    />
-  </div>
 </main>
-

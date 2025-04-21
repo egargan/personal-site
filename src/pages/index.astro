@@ -7,7 +7,7 @@ import PostListItem from "$lib/components/PostListItem.astro";
 import Nav from "$lib/components/nav/Nav.astro";
 import { getCollection } from "astro:content";
 
-const posts = (await getCollection('posts'))
+const posts = (await getCollection('blog'))
   .toSorted((a, b) => a.data.created < b.data.created ? 1 : -1)
   .slice(0, 2);
 ---
@@ -52,7 +52,7 @@ const posts = (await getCollection('posts'))
       <!-- TODO: why can't we animate the section? -->
       <div style={{ "--fly-in-delay": "90ms" }} class="fly-in">
         <h1>Recent Posts</h1>
-        <a class="arrow-link" href="/posts">
+        <a class="arrow-link" href="/blog">
           See All
           <ArrowIcon points="right" />
         </a>

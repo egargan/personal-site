@@ -3,13 +3,11 @@
   import { readable, writable } from "svelte/store";
   import { fade } from "svelte/transition";
 
-  import LabFooter from "$lib/components/LabFooter.svelte";
-  import createPasswordStore from "./createPasswordStore";
-  import TickIcon from "./TickIcon.svelte";
-  import CrossIcon from "./CrossIcon.svelte";
-  import TokenIcon from "./TokenIcon.svelte";
+  import createPasswordStore from "./_createPasswordStore";
+  import TickIcon from "./_TickIcon.svelte";
+  import CrossIcon from "./_CrossIcon.svelte";
+  import TokenIcon from "./_TokenIcon.svelte";
   import cx from "$lib/utils/cx";
-  import info from "./info.ts";
 
   import run, { type HandshakeController, type Token } from "handshake";
 
@@ -19,7 +17,14 @@
 
   let controller: HandshakeController;
 
-  const controlPassword: Token[] = [ "TOP", "BOTTOM", "TOP", "BOTTOM", "FRONT", "FRONT" ];
+  const controlPassword: Token[] = [
+    "TOP",
+    "BOTTOM",
+    "TOP",
+    "BOTTOM",
+    "FRONT",
+    "FRONT",
+  ];
 
   onMount(() => {
     // This path tells the handshake stuff where it should look for its assets, which have been
@@ -68,7 +73,7 @@
   <div
     class="mx-auto mb-52 scale-[75%] min-[520px]:scale-100 md:mb-36 md:scale-[120%]"
     bind:this={container}
-></div>
+  ></div>
 
   <div class="absolute bottom-0 z-20 w-full">
     <div
@@ -126,11 +131,5 @@
         <img src="/labs/handshake/d-key.svg" alt="D key" />
       </div>
     </div>
-
-    <LabFooter
-      title={info.title}
-      heading={info.footerDesc}
-      repoUrl="https://github.com/egargan/handshake"
-    />
   </div>
 </main>

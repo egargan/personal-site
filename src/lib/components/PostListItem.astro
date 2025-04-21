@@ -3,13 +3,13 @@ import { formatDateLong } from "$lib/utils/time";
 import type { CollectionEntry } from "astro:content";
 
 const { post, bigHeader } = Astro.props as {
-  post: CollectionEntry<"posts">;
+  post: CollectionEntry<"blog">;
   bigHeader?: boolean;
 };
 ---
 
 <article>
-  <a class="ignore-link-style" href={`/posts/${post.id}`}>
+  <a class="ignore-link-style" href={`/blog/${post.id}`}>
     <h2>
       {post.data.title}
     </h2>

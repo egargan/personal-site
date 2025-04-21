@@ -1,13 +1,11 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
-  import RockerNumberInput from "./RockerNumberInput.svelte";
+  import RockerNumberInput from "./_RockerNumberInput.svelte";
   import debounce from "$lib/utils/debounce";
-  import DemoFlipboard from "./DemoFlipboard.svelte";
-  import RowIcon from "./RowIcon.svelte";
-  import ColumnIcon from "./ColumnIcon.svelte";
-  import LabFooter from "$lib/components/LabFooter.svelte";
-  import info from "./info.ts";
+  import DemoFlipboard from "./_DemoFlipboard.svelte";
+  import RowIcon from "./_RowIcon.svelte";
+  import ColumnIcon from "./_ColumnIcon.svelte";
 
   let numRows = $state(6);
   let numCols = $state(6);
@@ -61,12 +59,5 @@
         <RockerNumberInput max={8} bind:number={numCols} />
       </div>
     </div>
-
-    <LabFooter
-      dropShadow
-      title={info.title}
-      heading={info.footerDesc}
-      repoUrl="https://github.com/egargan/flipboard"
-    />
   </div>
 </main>
