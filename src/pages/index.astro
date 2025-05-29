@@ -1,10 +1,9 @@
 ---
-import Base from "$layouts/Base.astro";
+import Layout from "$layouts/Main.astro";
 import ArrowIcon from "$lib/components/icons/ArrowIcon.astro";
 import CopyOnClick from "$lib/components/CopyOnClick.astro";
 import InlineLink from "$lib/components/InlineLink.astro";
 import PostListItem from "$lib/components/PostListItem.astro";
-import Nav from "$lib/components/nav/Nav.astro";
 import { getCollection } from "astro:content";
 
 const posts = (await getCollection('blog'))
@@ -12,11 +11,17 @@ const posts = (await getCollection('blog'))
   .slice(0, 2);
 ---
 
-<Base title="Ed Gargan" description="Personal website and blog">
-  <Nav />
+<Layout title="Ed Gargan" description="Personal website and blog">
   <main>
     <!-- TODO: add fly-in anims for each paragraph -->
+
     <section class="greeting">
+      <p>
+        <em>
+          TODO: <a href="https://developer.chrome.com/docs/web-platform/view-transitions/cross-document">use x-doc page transitions</a>
+        </em>
+      </p>
+      <p><em>TODO: add labs index</em></p>
       <h1 style={{ "--fly-in-delay": "30ms" }} class="fly-in">Hi, I'm Ed 👋</h1>
 
       <p style={{ "--fly-in-delay": "60ms" }} class="fly-in">
@@ -60,19 +65,19 @@ const posts = (await getCollection('blog'))
 
       <ul>
         {
-          posts.map((post, i) => (
-            <li
-              style={{ "--fly-in-delay": `${30 * (4 + i)}ms` }}}}
-              class="fly-in"
-            >
-              <PostListItem {post} />
-            </li>
-          ))
+        posts.map((post, i) => (
+        <li
+          style={{ "--fly-in-delay": `${30 * (4 + i)}ms` }}}}
+          class="fly-in"
+        >
+          <PostListItem {post} />
+        </li>
+        ))
         }
       </ul>
     </section>
   </main>
-</Base>
+</Layout>
 
 <style>
   section.greeting h1 {
@@ -116,16 +121,5 @@ const posts = (await getCollection('blog'))
     color: var(--blue-strong);
     stroke: var(--blue-strong);
     text-decoration: none;
-  }
-
-  ul {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  @media (min-width: 820px) {
-    section {
-      margin-top: 80px;
-    }
   }
 </style>

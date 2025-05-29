@@ -1,142 +1,26 @@
 ---
-import LabPreview from "$lib/components/LabPreview.astro";
-import Base from "$layouts/Base.astro";
-import Nav from "$lib/components/nav/Nav.astro";
+import { getCollection } from "astro:content";
+import Layout from "$layouts/Main.astro";
 
-import recordStackInfo from "$labs/record-stack/info";
-import handshakeInfo from "$labs/handshake/info";
-import flipboardInfo from "$labs/flipboard/info";
-import parliamentChartInfo from "$labs/parliament-chart/info";
+const labs = await getCollection("labs");
 ---
 
-<Base title="Labs" description="Doodles and experiments with web tech">
+<Layout title="Labs" description="Doodles and experiments with web tech">
   <main>
-    <Nav />
     <ul>
-      <div class="lab-column">
-        <li class="fly-in" style={{ "--fly-in-delay": "30ms" }}>
-          <LabPreview info={recordStackInfo} />
-        </li>
-        <li class="fly-in" style={{ "--fly-in-delay": "30ms" }}>
-          <LabPreview info={handshakeInfo} />
-        </li>
-      </div>
-
-      <div class="lab-column">
-        <li class="fly-in" style={{ "--fly-in-delay": "30ms" }}>
-          <LabPreview info={flipboardInfo} />
-        </li>
-
-        <li class="fly-in" style={{ "--fly-in-delay": "30ms" }}>
-          <LabPreview info={parliamentChartInfo} />
-        </li>
-      </div>
-
-      <div class="lab-column">
-        <li class="fly-in" style={{ "--fly-in-delay": "30ms" }}>
-          <LabPreview info={parliamentChartInfo} />
-        </li>
-      </div>
+      {
+        labs.map((lab) => (
+          <li>
+            <a href={`/labs/${lab.id}`}>{lab.data.title}</a>
+          </li>
+        ))
+      }
     </ul>
   </main>
-</Base>
+</Layout>
 
 <style>
-  main {
-    height: 100%;
-    width: 100%;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
   ul {
     margin-top: 32px;
-
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-
-    row-gap: 44px;
-    column-gap: 24px;
-
-    padding-left: 16px;
-    padding-right: 40px;
-    padding-bottom: 80px;
-  }
-
-  .lab-column {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 48px;
-  }
-
-  .lab-column:nth-child(3) {
-    display: none;
-  }
-
-  @media (min-width: 520px) {
-    ul {
-      padding-right: 80px;
-    }
-  }
-
-  @media (min-width: 640px) {
-    main {
-      padding-left: 32px;
-      padding-right: 32px;
-    }
-
-    ul {
-      grid-template-columns: 11fr 9fr;
-      padding-left: 24px;
-      padding-right: 24px;
-    }
-
-    .lab-column {
-      gap: 12px;
-    }
-  }
-
-  @media (min-width: 820px) {
-    main {
-      width: 820px;
-    }
-
-    ul {
-      margin-top: 48px;
-      row-gap: 16px;
-    }
-
-    .lab-column:nth-child(1) {
-      grid-column-start: 1;
-    }
-
-    .lab-column:nth-child(2) {
-      grid-column-start: 2;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    ul {
-      margin-left: -120px;
-      margin-right: -120px;
-      grid-template-columns: 10fr 9fr 10fr;
-    }
-
-    .lab-column:nth-child(2) > li:nth-child(2) {
-      display: none;
-    }
-
-    .lab-column:nth-child(3) {
-      grid-column-start: 3;
-      display: flex;
-    }
-  }
-
-  @media (min-width: 1280px) {
-    ul {
-      margin-left: -160px;
-      margin-right: -160px;
-    }
   }
 </style>

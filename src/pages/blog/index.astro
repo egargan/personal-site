@@ -1,7 +1,6 @@
 ---
-import Base from "$layouts/Base.astro";
+import Layout from "$layouts/Main.astro";
 import PostListItem from "$lib/components/PostListItem.astro";
-import Nav from "$lib/components/nav/Nav.astro";
 import { getCollection } from "astro:content";
 
 const posts = await getCollection("blog");
@@ -9,43 +8,31 @@ const posts = await getCollection("blog");
 posts.sort((a, b) => (a.data.created < b.data.created ? 1 : -1));
 ---
 
-<Base
+<Layout
   title="Blog • Ed Gargan"
   description="Blog posts, experiments, and doodles for web developers"
 >
-  <Nav />
   <main>
-    <section>
-      <ul>
-        {
-          posts.map((post, i) => (
-            <li
-              style={{ "--fly-in-delay": `${30 * (i + 1)}ms` }}
-              class="fly-in"
-            >
-              <PostListItem {post} bigHeader />
-            </li>
-          ))
-        }
-      </ul>
-    </section>
+    <ul>
+      {
+        posts.map((post, i) => (
+          <li style={{ "--fly-in-delay": `${30 * (i + 1)}ms` }} class="fly-in">
+            <PostListItem {post} bigHeader />
+          </li>
+        ))
+      }
+    </ul>
   </main>
-</Base>
+</Layout>
 
 <style>
-  section {
-    margin-top: 56px;
-    padding-bottom: 80px;
+  main {
+    margin-top: 48px;
   }
 
-  ul {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  @media (min-width: 820px) {
-    section {
-      margin-top: 80px;
+  @media (max-width: 640px) {
+    main {
+      margin-top: 32px;
     }
   }
 </style>

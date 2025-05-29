@@ -69,67 +69,63 @@
 
 <svelte:window onkeydown={handleKeydown} />
 
-<main class="flex h-full w-full items-center justify-center overflow-hidden">
-  <div
-    class="mx-auto mb-52 scale-[75%] min-[520px]:scale-100 md:mb-36 md:scale-[120%]"
-    bind:this={container}
-  ></div>
+<div
+  class="mx-auto mb-52 scale-[75%] min-[520px]:scale-100 md:mb-36 md:scale-[120%]"
+  bind:this={container}
+></div>
 
-  <div class="absolute bottom-0 z-20 w-full">
-    <div
-      class="relative -top-12 mx-auto flex max-w-lg items-center gap-x-4 px-4"
-    >
-      <ul
-        class="flex flex-1 flex-wrap rounded-md border-[3px] px-0 transition-colors duration-[50ms]
+<div class="absolute bottom-0 z-20 w-full">
+  <div class="relative -top-12 mx-auto flex max-w-lg items-center gap-x-4 px-4">
+    <ul
+      class="flex flex-1 flex-wrap rounded-md border-[3px] px-0 transition-colors duration-[50ms]
         {cx($submitState === 'idle', 'border-transparent')}
         {cx($submitState === 'success', 'border-green')}
         {cx($submitState === 'fail', 'border-red')}"
-      >
-        {#each $enteredPassword as token}
-          <li
-            class="mb-0 text-4xl font-bold
-            {cx($submitState !== 'idle', 'opacity-70')}"
-            out:fade={{ duration: 50 }}
-          >
-            <TokenIcon {token} />
-          </li>
-        {/each}
-      </ul>
-
-      <div class="h-8 w-8">
-        {#if $submitState === "success"}
-          <div transition:fade={{ duration: 50 }}>
-            <TickIcon />
-          </div>
-        {:else if $submitState === "fail"}
-          <div transition:fade={{ duration: 50 }}>
-            <CrossIcon />
-          </div>
-        {/if}
-      </div>
-    </div>
-
-    <div
-      class="mx-auto mb-4 flex w-fit flex-wrap items-center justify-start gap-x-8 gap-y-4 px-6"
     >
-      <div
-        class="flex items-center gap-x-3 {cx(
-          !$enteredPassword.length,
-          'opacity-50',
-        )}"
-      >
-        <span class="font-bold">Confirm</span>
-        <img src="/labs/handshake/enter-key.svg" alt="Backspace key" />
-      </div>
-      <div class="flex items-center gap-x-3">
-        <span class="font-bold">Reset</span>
-        <!-- TODO: use a componenly icon for these? -->
-        <img src="/labs/handshake/backspace-key.svg" alt="Backspace key" />
-      </div>
-      <div class="flex items-center gap-x-3">
-        <span class="font-bold">Debug</span>
-        <img src="/labs/handshake/d-key.svg" alt="D key" />
-      </div>
+      {#each $enteredPassword as token}
+        <li
+          class="mb-0 text-4xl font-bold
+            {cx($submitState !== 'idle', 'opacity-70')}"
+          out:fade={{ duration: 50 }}
+        >
+          <TokenIcon {token} />
+        </li>
+      {/each}
+    </ul>
+
+    <div class="h-8 w-8">
+      {#if $submitState === "success"}
+        <div transition:fade={{ duration: 50 }}>
+          <TickIcon />
+        </div>
+      {:else if $submitState === "fail"}
+        <div transition:fade={{ duration: 50 }}>
+          <CrossIcon />
+        </div>
+      {/if}
     </div>
   </div>
-</main>
+
+  <div
+    class="mx-auto mb-4 flex w-fit flex-wrap items-center justify-start gap-x-8 gap-y-4 px-6"
+  >
+    <div
+      class="flex items-center gap-x-3 {cx(
+        !$enteredPassword.length,
+        'opacity-50',
+      )}"
+    >
+      <span class="font-bold">Confirm</span>
+      <img src="/labs/handshake/enter-key.svg" alt="Backspace key" />
+    </div>
+    <div class="flex items-center gap-x-3">
+      <span class="font-bold">Reset</span>
+      <!-- TODO: use a componenly icon for these? -->
+      <img src="/labs/handshake/backspace-key.svg" alt="Backspace key" />
+    </div>
+    <div class="flex items-center gap-x-3">
+      <span class="font-bold">Debug</span>
+      <img src="/labs/handshake/d-key.svg" alt="D key" />
+    </div>
+  </div>
+</div>

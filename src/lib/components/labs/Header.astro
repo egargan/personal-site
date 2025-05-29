@@ -1,0 +1,85 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+import ThemeSwitch from "$lib/components/nav/ThemeSwitch.astro";
+
+const { lab } = Astro.props as { lab: CollectionEntry<"labs"> };
+---
+
+<header>
+  <div class="title-container">
+    <h1>
+      {lab.data.title}
+    </h1>
+    <span class="lab-chip">Lab</span>
+  </div>
+  <nav>
+    <ul>
+      <li>
+        <button class="link-button">What's this?</button>
+      </li>
+      <li>
+        <a href="/labs">More labs</a>
+      </li>
+    </ul>
+  </nav>
+  <ThemeSwitch />
+</header>
+
+<style>
+  header {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    padding: 12px;
+    padding-left: 16px;
+    padding-right: 18px;
+
+    background-color: var(--background-two);
+
+    border-radius: 8px;
+    border: 2px solid var(--outline);
+    box-shadow: 0 3px 0 var(--shadow);
+  }
+
+  .title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  h1 {
+    font-size: 22px;
+    font-weight: 500;
+  }
+
+  .lab-chip {
+    padding-left: 4px;
+    padding-right: 4px;
+
+    border-radius: 2px;
+
+    font-weight: bolder;
+    font-size: 14px;
+    line-height: 1.4em;
+
+    background-color: var(--purple);
+    color: hsl(240deg 100 99);
+  }
+
+  nav ul {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  nav ul li {
+    font-size: 16px;
+  }
+</style>

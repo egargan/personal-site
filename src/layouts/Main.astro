@@ -1,0 +1,24 @@
+---
+// TODO: remove blog styles from CSS file when not on blog page
+import "@/styles/reset.css";
+import "@/styles/fonts.css";
+import "@/styles/base.css";
+import "@/styles/colors.css";
+import "@/styles/main-column.css";
+
+import SpeedInsights from "@vercel/speed-insights/astro";
+import Nav from "$lib/components/nav/Nav.astro";
+import Head from "./Head.astro";
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <Head title={title} description={description} />
+  <body>
+    <Nav />
+    <slot />
+    <SpeedInsights />
+  </body>
+</html>

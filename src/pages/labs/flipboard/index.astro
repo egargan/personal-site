@@ -1,5 +1,7 @@
 ---
-import Base from "$layouts/Base.astro";
+// This code is identical between the lab index.astro files, can we de-dupe?
+
+import Layout from "$layouts/Lab.astro";
 import Lab from "./_Lab.svelte";
 import { getEntry } from "astro:content";
 
@@ -10,6 +12,6 @@ if (!lab) {
 }
 ---
 
-<Base title={"Lab — " + lab.data.title} description={lab.data.description}>
+<Layout {lab}>
   <Lab client:only />
-</Base>
+</Layout>

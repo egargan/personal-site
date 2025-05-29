@@ -1,0 +1,113 @@
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-items: stretch;
+
+  font-family: "Atkinson Hyperlegible", system-ui, sans-serif;
+  letter-spacing: 0.01em;
+  font-size: 18px;
+
+  background-color: var(--background);
+  color: var(--text);
+}
+
+ul,
+ol {
+  list-style-position: outside;
+  list-style-type: none;
+  padding: 0;
+}
+
+p,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text);
+}
+
+a {
+  text-decoration: none;
+}
+
+p {
+  margin-bottom: 0.8em;
+}
+
+a:not(.ignore-link-style),
+.link-button {
+  font-weight: 500;
+
+  text-decoration: underline;
+  text-decoration-color: var(--blue);
+  text-decoration-thickness: 2px;
+  text-decoration-skip-ink: none;
+
+  text-decoration-line: underline;
+  text-underline-offset: 2px;
+
+  transition: color text-decoration-color;
+  transition-duration: var(--transition-blink);
+}
+
+a:not(.ignore-link-style):hover,
+.link-button:hover {
+  text-decoration-color: var(--blue-weak);
+}
+
+button {
+  padding: 0;
+
+  background-color: unset;
+  color: var(--text);
+  border: none;
+
+  cursor: pointer;
+}
+
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  padding: 0;
+  border: 0;
+}
+
+.fly-in {
+  animation-name: wait-invisible, fly-in;
+  animation-timing-function: linear,
+    var(--fly-in-timing-function, cubic-bezier(0.215, 0.61, 0.355, 1));
+  animation-duration: var(--fly-in-delay, 30ms), var(--fly-in-duration, 400ms);
+  animation-delay: 0s, var(--fly-in-delay, 30ms);
+}
+
+@keyframes wait-invisible {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fly-in {
+  0% {
+    opacity: 0;
+    transform: translateY(var(--fly-in-y, 15px));
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

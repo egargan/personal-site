@@ -1,7 +1,6 @@
 ---
-import Base from "$layouts/Base.astro";
+import Layout from "$layouts/Main.astro";
 import Code from "$lib/components/blog/Code.astro";
-import Nav from "$lib/components/nav/Nav.astro";
 import { formatDateLong } from "$lib/utils/time";
 import { getCollection, render } from "astro:content";
 
@@ -18,31 +17,28 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<Base title={post.data.title} description={post.data.intro}>
-  <Nav />
+<Layout title={post.data.title} description={post.data.intro}>
   <main>
-    <article>
-      <header>
-        <h1>{post.data.title}</h1>
-        <p class="metadata">
-          <span class="date">
-            {formatDateLong(new Date(post.data.created))}
-          </span>
-          <span>·</span>
-          <span>{post.data.readTimeMins} minute read</span>
-        </p>
-      </header>
-      <Content components={{ pre: Code }} />
-      <footer>
-        <p>Thanks for reading!</p>
-        <div class="footer-links">
-          <button class="link-button" id="back-to-top">Back to Top</button>
-          <a href="/">Back Home</a>
-        </div>
-      </footer>
-    </article>
+    <header>
+      <h1>{post.data.title}</h1>
+      <p class="metadata">
+        <span class="date">
+          {formatDateLong(new Date(post.data.created))}
+        </span>
+        <span>·</span>
+        <span>{post.data.readTimeMins} minute read</span>
+      </p>
+    </header>
+    <Content components={{ pre: Code }} />
   </main>
-</Base>
+  <footer>
+    <p>Thanks for reading!</p>
+    <div class="footer-links">
+      <button class="link-button" id="back-to-top">Back to Top</button>
+      <a href="/">Back Home</a>
+    </div>
+  </footer>
+</Layout>
 
 <script>
   document.getElementById("back-to-top")!.addEventListener("click", () => {
@@ -51,16 +47,6 @@ const { Content } = await render(post);
 </script>
 
 <style>
-  main {
-    border-radius: 4px;
-    background-color: var(--white);
-  }
-
-  article {
-    margin-top: 64px;
-    padding-bottom: 64px;
-  }
-
   header {
     margin-bottom: 40px;
   }
@@ -84,7 +70,8 @@ const { Content } = await render(post);
   }
 
   footer {
-    margin-top: 4rem;
+    margin-top: 3rem;
+    margin-bottom: 32px;
     width: 100%;
 
     display: flex;
@@ -105,14 +92,14 @@ const { Content } = await render(post);
   }
 
   @media (min-width: 640px) {
-    article {
+    main {
       margin-top: 76px;
     }
   }
 
-  @media (min-width: 820px) {
-    article {
-      padding-bottom: 320px;
+  @media (min-width: 640px) {
+    footer {
+      padding-bottom: 220px;
     }
   }
 

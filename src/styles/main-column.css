@@ -1,0 +1,32 @@
+main,
+body > header,
+main + footer {
+  height: 100%;
+  width: 100%;
+
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+@media (min-width: 640px) {
+  main,
+  body > header,
+  main + footer {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+@media (min-width: 820px) {
+  main,
+  body > header,
+  main + footer {
+    width: 820px;
+  }
+}
+
+@media (min-width: 820px) {
+  body {
+    align-items: center;
+  }
+}
