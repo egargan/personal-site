@@ -2,6 +2,7 @@ html {
   --background: hsl(240deg 100 99);
   --background-two: hsl(240deg 100 98);
   --background-three: hsl(240deg 56 95);
+  --background-hsl: 240deg 100 99;
 
   --outline: hsl(240deg 34 88);
   --shadow: hsl(240deg 21 81);
@@ -46,6 +47,8 @@ html[data-theme="dark"] {
   --background-two: hsl(246deg 18 22);
   --background-three: hsl(250deg 18 25);
 
+  --background-hsl: 244deg 17 17;
+
   --outline: hsl(240deg 12 38);
   --shadow: hsl(240deg 15 32);
 
@@ -58,13 +61,13 @@ html[data-theme="dark"] {
   --blue-weak: hsl(202deg 65 45);
   --blue-background: hsl(202deg 65 45 / 25%);
 
-  --green: hsl(162deg 90 41 / 63%);
+  --green: hsl(162deg 80 32);
   --green-background: hsl(162deg 90 41 / 12%);
 
-  --cyan: hsl(176deg 79 46 / 67%);
+  --cyan: hsl(176deg 70 38);
   --cyan-background: hsl(176deg 79 46 / 19%);
 
-  --purple: hsl(302deg 68 60 / 67%);
+  --purple: hsl(302deg 64 60);
   --purple-background: hsl(302deg 68 60 / 23%);
 
   --grey-background: hsl(249deg 18 35 / 60%);

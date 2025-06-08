@@ -1,25 +1,40 @@
 ---
 import Layout from "$layouts/Main.astro";
 import PostListItem from "$lib/components/PostListItem.astro";
+import LabListItem from "$lib/components/LabListItem.astro";
 import { getCollection } from "astro:content";
 
-const posts = await getCollection("blog");
+// TODO: rename "blog" to something like "writing" if we like this idea
+const writing = await getCollection("blog");
+const labs = await getCollection("labs");
+
+const posts = [...writing, ...labs];
 
 posts.sort((a, b) => (a.data.created < b.data.created ? 1 : -1));
 ---
 
 <Layout
   title="Blog • Ed Gargan"
-  description="Blog posts, experiments, and doodles for web developers"
+  description="Blog posts, experiments, and doodles for web people"
 >
   <main>
     <ul>
       {
-        posts.map((post, i) => (
-          <li style={{ "--fly-in-delay": `${30 * (i + 1)}ms` }} class="fly-in">
-            <PostListItem {post} bigHeader />
-          </li>
-        ))
+        posts.map((post, i) => {
+          if (post.collection === "blog") {
+            return (
+              <li>
+                <PostListItem {post} {i} bigHeader />
+              </li>
+            );
+          } else if (post.collection === "labs") {
+            return (
+              <li>
+                <LabListItem {post} {i} />
+              </li>
+            );
+          }
+        })
       }
     </ul>
   </main>

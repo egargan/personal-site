@@ -1,8 +1,7 @@
 {
-  "plugins": [
-    "prettier-plugin-astro",
-    "prettier-plugin-svelte"
-  ],
+  "bracketSameLine": true,
+  "htmlWhitespaceSensitivity": "ignore",
+  "plugins": ["prettier-plugin-astro", "prettier-plugin-svelte"],
   "overrides": [
     {
       "files": "*.svelte",
