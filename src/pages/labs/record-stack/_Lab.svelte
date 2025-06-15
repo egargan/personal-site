@@ -5,10 +5,30 @@
   const components = Array(22).fill(DemoRecord);
 </script>
 
-<main
-  class="flex h-full w-full flex-col items-center justify-center lg:flex-row"
->
-  <div class="h-full w-full max-w-[1200px] lg:flex-[3_0_0] xl:pl-12">
-    <RecordStack {components} />
-  </div>
+<main>
+  <RecordStack {components} />
 </main>
+
+<style>
+  main {
+    height: 100vh;
+    width: 100vw;
+
+    max-width: 880px;
+  }
+
+  @media (min-width: 880px) {
+    main {
+      align-self: flex-end;
+      padding-right: 4vw;
+    }
+  }
+
+  @media (min-width: 1600px) {
+    main {
+      align-self: center;
+      padding-right: 4vw;
+      max-width: 1200px;
+    }
+  }
+</style>

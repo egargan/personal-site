@@ -20,22 +20,76 @@
   }
 </script>
 
-<div class="flex w-24 overflow-clip rounded bg-red text-white">
+<div class="rocker-container">
   <button
     disabled={!!min && number <= min}
-    class="bg-red py-2 pl-3.5 pr-3 hover:brightness-95"
-    onclick={decrement}>–</button
-  >
+    class="rocker-btn rocker-btn-left"
+    onclick={decrement}>
+    –
+  </button>
   <input
     tabindex="-1"
-    class="block w-full bg-red text-center focus:outline-0"
+    class="rocker-input"
     type="number"
     readonly
-    value={number}
-  />
+    value={number} />
   <button
     disabled={!!max && number >= max}
-    class="bg-red py-2 pl-3 pr-3.5 hover:brightness-95"
-    onclick={increment}>+</button
-  >
+    class="rocker-btn rocker-btn-right"
+    onclick={increment}>
+    +
+  </button>
 </div>
+
+<style>
+  .rocker-container {
+    width: 108px;
+    overflow: clip;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    border-radius: 4px;
+  }
+
+  .rocker-btn {
+    padding-top: 8px;
+    padding-bottom: 8px;
+
+    border: none;
+    background-color: var(--blue);
+    color: white;
+
+    cursor: pointer;
+
+    transition: filter 0.2s;
+  }
+
+  .rocker-btn-left {
+    padding-left: 14px;
+    padding-right: 12px;
+  }
+
+  .rocker-btn-right {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .rocker-btn:hover:enabled {
+    filter: brightness(0.95);
+  }
+
+  .rocker-input {
+    width: 100%;
+
+    background-color: var(--blue);
+    color: white;
+    border: none;
+
+    text-align: right;
+  }
+
+  .rocker-input:focus {
+    outline: 0;
+  }
+</style>

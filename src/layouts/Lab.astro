@@ -18,9 +18,7 @@ const { lab } = Astro.props as { lab: CollectionEntry<"labs"> };
   <Head title={"Lab — " + lab.data.title} description={lab.data.description} />
   <body>
     <Header {lab} />
-    <main>
-      <slot />
-    </main>
+    <slot />
     <SpeedInsights />
   </body>
 </html>

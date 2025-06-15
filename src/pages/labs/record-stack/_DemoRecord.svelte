@@ -31,43 +31,69 @@
   function getRandomLineWidth() {
     switch (randomInt(4)) {
       case 0:
-        return "w-1/2";
+        return "25%";
       case 1:
-        return "w-3/4";
+        return "50%";
       case 2:
-        return "w-1/4";
+        return "75%";
       case 3:
-        return "w-full";
+        return "100%";
     }
   }
 </script>
 
 <div class={getRandomColor()}>
   <heading>
-    <h1 class="m-0 px-4 py-8 font-bold" data-title>
+    <h1 data-title>
       {getRandomTitle()}
     </h1>
-    <p class="m-0 p-4" data-preview>
+    <div data-preview>
       {#each [...Array(randomInt(4, 2))] as _}
-        <div class="line mb-3"></div>
+        <div class="line"></div>
       {/each}
-    </p>
+    </div>
   </heading>
-  <div class="p-4" data-body>
+  <div data-body>
     {#each [...Array(randomInt(40, 25))] as _, i}
       {#if i % 5 == randomInt(5)}
-        <div class="line mb-7 {getRandomLineWidth()}"></div>
+        <div
+          class="line break {getRandomLineWidth()}"
+          style={`width: ${getRandomLineWidth()}`}>
+        </div>
       {:else}
-        <div class="line mb-3"></div>
+        <div class="line"></div>
       {/if}
     {/each}
   </div>
 </div>
 
 <style>
-  .line {
-    @apply h-[11px];
+  h1 {
+    margin: 0;
+    padding: 24px 16px;
+
+    font-size: 22px;
+    line-height: 1.4em;
+    font-weight: bold;
   }
+
+  div[data-preview] {
+    padding: 8px 16px;
+  }
+
+  div[data-body] {
+    padding: 16px;
+  }
+
+  .line {
+    height: 11px;
+    margin-bottom: 12px;
+  }
+
+  .line.break {
+    margin-bottom: 28px;
+  }
+
   .line:last-child {
     width: 50%;
   }
@@ -112,4 +138,3 @@
     background: #acb7cf;
   }
 </style>
-

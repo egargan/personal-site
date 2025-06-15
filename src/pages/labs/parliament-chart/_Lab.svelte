@@ -19,31 +19,114 @@
     ),
   );
 
-  function onSeatsChange(event: CustomEvent<{ id: string; value: string }>) {
-    if (!(event.detail.id in seats)) return;
+  function onSeatsChange(id: string, value: string) {
+    if (!(id in seats)) return;
 
     seats = {
       ...seats,
-      [event.detail.id]: parseInt(event.detail.value),
+      [id]: parseInt(value),
     };
   }
 </script>
 
-<main class="flex h-full w-full flex-col items-center">
-  <div
-    class="mx-4 flex w-full max-w-[1100px] flex-grow flex-col items-center justify-end
-    gap-x-2 gap-y-2 pb-4 md:mx-0 lg:flex-row"
-  >
-    <div class="mx-8 w-full max-w-[720px] px-2 lg:px-0">
-      {#key seats}
-        <ParliamentChart {seats} colors={parties} />
-      {/key}
-    </div>
+<main>
+  <div class="chart-wrapper">
+    {#key seats}
+      <ParliamentChart {seats} colors={parties} />
+    {/key}
+  </div>
 
-    <div
-      class="w-full px-10 xs:max-w-[640px] lg:mr-12 lg:max-w-[340px] lg:px-0"
-    >
-      <SeatControls on:change={onSeatsChange} {parties} {seats} />
-    </div>
+  <div class="controls-wrapper">
+    <SeatControls {onSeatsChange} {parties} {seats} />
   </div>
 </main>
+
+<style>
+  :global(body) {
+    --d: 2px;
+    --c: var(--outline);
+    --bg: var(--background);
+    --s: 50px;
+
+    background: radial-gradient(
+        circle at var(--d) var(--d),
+        var(--c) calc(var(--d) - 1px),
+        var(--bg) var(--d)
+      )
+      0 0 / var(--s) var(--s);
+  }
+
+  main {
+    width: 100vw;
+    height: 100vh;
+
+    max-width: 1100px;
+    margin: auto;
+
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 64px;
+
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    column-gap: 8px;
+    row-gap: 8px;
+  }
+
+  @media (min-width: 768px) {
+    main {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  @media (min-width: 960px) {
+    main {
+      flex-direction: row;
+    }
+  }
+
+  .chart-wrapper {
+    width: 100%;
+    max-width: 720px;
+
+    margin-left: 32px;
+    margin-right: 32px;
+
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  @media (min-width: 960px) {
+    .chart-wrapper {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .controls-wrapper {
+    width: 100%;
+    padding-left: 40px;
+    padding-right: 40px;
+
+    background: var(--background);
+  }
+
+  @media (min-width: 480px) {
+    .controls-wrapper {
+      max-width: 640px;
+    }
+  }
+
+  @media (min-width: 960px) {
+    .controls-wrapper {
+      max-width: 340px;
+
+      margin-right: 48ox;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+</style>

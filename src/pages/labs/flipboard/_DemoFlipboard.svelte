@@ -50,6 +50,7 @@
     ]);
 
     flipboardContainer.appendChild(flipboard.getElement());
+
     cycler.enableCycling();
   });
 </script>
