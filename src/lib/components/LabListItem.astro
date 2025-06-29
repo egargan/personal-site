@@ -6,6 +6,22 @@ const { post, i } = Astro.props as {
   post: CollectionEntry<"labs">;
   i: number;
 };
+
+let previewObjectPosition;
+
+switch (post.id) {
+  case "handshake":
+    previewObjectPosition = "center 40%";
+    break;
+  case "parliament-chart":
+    previewObjectPosition = "center 30%";
+    break;
+  case "record-stack":
+    previewObjectPosition = "center top";
+    break;
+  default:
+    previewObjectPosition = "center";
+}
 ---
 
 <article
@@ -13,7 +29,12 @@ const { post, i } = Astro.props as {
   style={{ "--fly-in-delay": `${30 * (i + 1)}ms` }}
   class="fly-in">
   <a class="ignore-link-style" href={`/labs/${post.id}`}>
-    <video loop muted role="presentation" src={`/labs/${post.id}/preview.webm`}>
+    <video
+      loop
+      muted
+      role="presentation"
+      style={`object-position: ${previewObjectPosition};`}
+      src={`/labs/${post.id}/preview.webm`}>
     </video>
     <div class="gradient"></div>
     <div class="header">
@@ -90,7 +111,7 @@ const { post, i } = Astro.props as {
     /* ); */
     background: linear-gradient(
       to bottom,
-      hsla(244deg 17 17 / 10%) 60%,
+      hsla(244deg 17 17 / 10%) 55%,
       hsla(244deg 17 17 / 85%) 95%
     );
   }
@@ -114,7 +135,7 @@ const { post, i } = Astro.props as {
     width: 100%;
 
     object-fit: cover;
-    object-position: top;
+    /* object-position: center; */
     transition: opacity var(--transition-short);
 
     /* opacity: 90%; */
