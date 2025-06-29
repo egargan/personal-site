@@ -29,7 +29,7 @@
   onMount(() => {
     // This path tells the handshake stuff where it should look for its assets, which have been
     // copied over from the package into SvelteKit's static dir
-    const runItems = run(container, "/labs/handshake");
+    const runItems = run(container, "/posts/handshake");
 
     controller = runItems[0];
     const cleanup = runItems[1];
@@ -40,9 +40,7 @@
       enteredPassword = [...newPassword];
     });
 
-    controller.console.log(
-      "HINT: the password is: " + controlPassword.join(", "),
-    );
+    console.log("HINT: the password is: " + controlPassword.join(", "));
 
     return cleanup;
   });

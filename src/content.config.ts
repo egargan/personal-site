@@ -15,8 +15,9 @@ const blog = defineCollection({
   }),
 });
 
+// TODO: can we just define this in the lab directories themselves?
 const labs = defineCollection({
-  loader: glob({ pattern: "*.mdx", base: "./content/labs" }),
+  loader: glob({ pattern: "*.yml", base: "./content/labs" }),
   schema: z.object({
     title: z.string(),
     created: z.string().date(),

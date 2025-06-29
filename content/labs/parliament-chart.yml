@@ -1,8 +1,6 @@
----
 title: Parliament chart
 created: "2024-01-16"
 tags:
-- infovis
+  - infovis
 description: Donut chart used to visualise things like government composition, built with SVG and JS
 status: live
----

@@ -1,10 +1,11 @@
 ---
+import { getCollection } from "astro:content";
+
 import Layout from "$layouts/Main.astro";
 import ArrowIcon from "$lib/components/icons/ArrowIcon.astro";
 import CopyOnClick from "$lib/components/CopyOnClick.astro";
 import InlineLink from "$lib/components/InlineLink.astro";
-import PostListItem from "$lib/components/PostListItem.astro";
-import { getCollection } from "astro:content";
+import BlogListItem from "$lib/components/BlogListItem.astro";
 
 const posts = (await getCollection('blog'))
   .toSorted((a, b) => a.data.created < b.data.created ? 1 : -1)
@@ -16,12 +17,16 @@ const posts = (await getCollection('blog'))
     <!-- TODO: add fly-in anims for each paragraph -->
 
     <section class="greeting">
+      <p><em>TODO: remove labs index</em></p>
+      <p><em>TODO: add "what's this?" for each lab</em></p>
+      <p><em>TODO: add grid layout for blog index</em></p>
+      <p><em>TODO: reword homgepage</em></p>
       <p>
         <em>
           TODO: <a href="https://developer.chrome.com/docs/web-platform/view-transitions/cross-document">use x-doc page transitions</a>
         </em>
       </p>
-      <p><em>TODO: add labs index</em></p>
+
       <h1 style={{ "--fly-in-delay": "30ms" }} class="fly-in">Hi, I'm Ed 👋</h1>
 
       <p style={{ "--fly-in-delay": "60ms" }} class="fly-in">
