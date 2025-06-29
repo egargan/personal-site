@@ -25,15 +25,15 @@ switch (post.id) {
 ---
 
 <article
-  class="lab-list-item"
-  style={{ "--fly-in-delay": `${30 * (i + 1)}ms` }}
-  class="fly-in">
+  class="lab-list-item fly-in"
+  style={{ "--fly-in-delay": `${30 * (i + 1)}ms` }}>
   <a class="ignore-link-style" href={`/labs/${post.id}`}>
     <video
       loop
       muted
       role="presentation"
       style={`object-position: ${previewObjectPosition};`}
+      poster={`/labs/${post.id}/preview.jpg`}
       src={`/labs/${post.id}/preview.webm`}>
     </video>
     <div class="gradient"></div>
@@ -67,7 +67,7 @@ switch (post.id) {
   article {
     margin-bottom: 40px;
 
-    border-radius: 4px;
+    border-radius: 6px;
     overflow: clip;
 
     margin-left: -6px;
