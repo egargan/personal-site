@@ -8,28 +8,27 @@ import { getCollection } from "astro:content";
 const writing = await getCollection("blog");
 const labs = await getCollection("labs");
 
-const posts = [...writing, ...labs];
-
-posts.sort((a, b) => (a.data.created < b.data.created ? 1 : -1));
+const posts = [...writing, ...labs].sort((a, b) =>
+  a.data.created < b.data.created ? 1 : -1,
+);
 ---
 
 <Layout
-  title="Blog • Ed Gargan"
-  description="Blog posts, experiments, and doodles for web people"
->
+  title="Posts • Ed Gargan"
+  description="Blog posts, experiments, and doodles for web people">
   <main>
     <ul>
       {
         posts.map((post, i) => {
           if (post.collection === "blog") {
             return (
-              <li>
-                <PostListItem {post} {i} bigHeader />
+              <li class="blog">
+                <BlogListItem {post} {i} bigHeader />
               </li>
             );
           } else if (post.collection === "labs") {
             return (
-              <li>
+              <li class="lab">
                 <LabListItem {post} {i} />
               </li>
             );
@@ -40,7 +39,80 @@ posts.sort((a, b) => (a.data.created < b.data.created ? 1 : -1));
   </main>
 </Layout>
 
+<script>
+  import Masonry from "masonry-layout";
+  import { createResizeListener } from "$lib/utils/resize";
+
+  let masonry: Masonry;
+
+  const arrangeMasonryLayout = () => {
+    const gutter = parseInt(
+      getComputedStyle(document.querySelector("main")!).getPropertyValue(
+        "--gutter",
+      ),
+    );
+
+    if (window.innerWidth < 640) {
+      masonry.destroy?.();
+    } else {
+      console.log({
+        gutter,
+      });
+
+      masonry = new Masonry("main > ul", {
+        itemSelector: "main > ul > li",
+        resize: false,
+        transitionDuration: 0,
+        gutter,
+      });
+    }
+  };
+
+  arrangeMasonryLayout();
+
+  createResizeListener(arrangeMasonryLayout, [640, 860, 1024]);
+</script>
+
 <style>
+  main {
+    --gutter: 48px;
+  }
+
+  li {
+    width: 100%;
+  }
+
+  @media (min-width: 820px) {
+    :global(body > header) {
+      width: 820px;
+    }
+  }
+
+  @media (min-width: 860px) {
+    main {
+      width: 860px;
+    }
+
+    li {
+      width: calc((860px / 2) - var(--gutter) - 8px);
+    }
+
+    body {
+      align-items: center;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    main {
+      width: 1026px;
+      --gutter: 64px;
+    }
+
+    li {
+      width: calc((1024px / 2) - var(--gutter));
+    }
+  }
+
   main {
     margin-top: 48px;
   }

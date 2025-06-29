@@ -20,17 +20,3 @@ main + footer {
     padding-right: 32px;
   }
 }
-
-@media (min-width: 820px) {
-  main,
-  body > header,
-  main + footer {
-    width: 820px;
-  }
-}
-
-@media (min-width: 820px) {
-  body {
-    align-items: center;
-  }
-}

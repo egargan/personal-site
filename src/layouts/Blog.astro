@@ -2,9 +2,7 @@
 import Layout from "$layouts/Main.astro";
 import Code from "$lib/components/blog/Code.astro";
 import { formatDateLong } from "$lib/utils/time";
-import { getCollection, render } from "astro:content";
-
-const { frontmatter } = Astro.props;
+import { render } from "astro:content";
 
 const { post } = Astro.props;
 const { Content } = await render(post);

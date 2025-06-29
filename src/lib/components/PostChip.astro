@@ -1,0 +1,41 @@
+---
+const { type } = Astro.props as {
+  type: "lab" | "blog";
+};
+---
+
+<span class={`type-${type}`}>{type}</span>
+
+<style>
+  span {
+    font-family: "Atkinson Hyperlegible Mono";
+    font-size: 16px;
+    line-height: 1.1em;
+
+    text-transform: capitalize;
+
+    display: inline-flex;
+    vertical-align: text-bottom;
+
+    padding-bottom: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 2px;
+
+    margin-left: 2px;
+
+    border-radius: 3px;
+
+    text-shadow: none;
+  }
+
+  span.type-lab {
+    background-color: var(--purple);
+    color: white;
+  }
+
+  span.type-blog {
+    background-color: hsl(162deg 73 34);
+    color: white;
+  }
+</style>

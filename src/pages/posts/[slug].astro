@@ -47,6 +47,20 @@ const { Content } = await render(post);
 </script>
 
 <style>
+  @media (min-width: 820px) {
+    main,
+    body > header,
+    main + footer {
+      width: 820px;
+    }
+  }
+
+  @media (min-width: 820px) {
+    body {
+      align-items: center;
+    }
+  }
+
   header {
     margin-bottom: 40px;
   }

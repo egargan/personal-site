@@ -1,6 +1,7 @@
 ---
 import { formatDateLong } from "$lib/utils/time";
 import type { CollectionEntry } from "astro:content";
+import PostChip from "./PostChip.astro";
 
 const { post, i } = Astro.props as {
   post: CollectionEntry<"labs">;
@@ -40,8 +41,9 @@ switch (post.id) {
     <div class="header">
       <div class="title-row">
         <h2>{post.data.title}</h2>
-        <span class="lab-chip">Lab</span>
+        <PostChip type="lab" />
       </div>
+
       <p class="metadata">
         <span class="date">{formatDateLong(new Date(post.data.created))}</span>
       </p>
@@ -71,14 +73,7 @@ switch (post.id) {
     overflow: clip;
 
     margin-left: -6px;
-    margin-left: -6px;
-  }
-
-  @media (min-width: 640px) {
-    article {
-      margin-left: -12px;
-      margin-left: -12px;
-    }
+    margin-right: -6px;
   }
 
   a {
@@ -146,12 +141,12 @@ switch (post.id) {
   }
 
   .title-row {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
+    white-space: nowrap;
   }
 
   h2 {
+    display: inline;
+
     font-size: 22px;
     line-height: 32px;
     font-weight: 700;
@@ -170,22 +165,6 @@ switch (post.id) {
 
     text-shadow: 0px 0px 2px hsla(244deg 17 17 / 60%);
     /* text-shadow: 0px 0px 2px hsla(var(--background-hsl) / 70%); */
-  }
-
-  .lab-chip {
-    font-family: "Atkinson Hyperlegible Mono";
-    font-size: 16px;
-    line-height: 1.1em;
-
-    background-color: var(--purple);
-    color: white;
-
-    padding-bottom: 2px;
-    padding-left: 4px;
-    padding-right: 4px;
-    padding-top: 2px;
-
-    border-radius: 3px;
   }
 
   a:hover h2 {

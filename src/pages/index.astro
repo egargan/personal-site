@@ -17,7 +17,6 @@ const posts = (await getCollection('blog'))
     <!-- TODO: add fly-in anims for each paragraph -->
 
     <section class="greeting">
-      <p><em>TODO: remove labs index</em></p>
       <p><em>TODO: add "what's this?" for each lab</em></p>
       <p><em>TODO: add grid layout for blog index</em></p>
       <p><em>TODO: reword homgepage</em></p>
@@ -75,7 +74,7 @@ const posts = (await getCollection('blog'))
           style={{ "--fly-in-delay": `${30 * (4 + i)}ms` }}}}
           class="fly-in"
         >
-          <PostListItem {post} />
+          <BlogListItem {post} />
         </li>
         ))
         }
@@ -85,6 +84,20 @@ const posts = (await getCollection('blog'))
 </Layout>
 
 <style>
+  @media (min-width: 820px) {
+    main,
+    body > header,
+    main + footer {
+      width: 820px;
+    }
+  }
+
+  @media (min-width: 820px) {
+    body {
+      align-items: center;
+    }
+  }
+
   section.greeting h1 {
     margin-bottom: 32px;
     font-weight: 600;
