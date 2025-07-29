@@ -51,17 +51,6 @@ const { Content } = await render(post);
     margin-top: 40px;
   }
 
-  @media (min-width: 820px) {
-    main,
-    footer {
-      width: 820px;
-    }
-
-    body {
-      align-items: center;
-    }
-  }
-
   header {
     margin-bottom: 40px;
   }
@@ -110,11 +99,20 @@ const { Content } = await render(post);
     main {
       margin-top: 76px;
     }
-  }
 
-  @media (min-width: 640px) {
     footer {
       padding-bottom: 220px;
+    }
+  }
+
+  @media (min-width: 820px) {
+    main,
+    footer {
+      width: 820px;
+    }
+
+    body {
+      align-items: center;
     }
   }
 

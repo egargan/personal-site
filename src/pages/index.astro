@@ -7,23 +7,14 @@ import CopyOnClick from "$lib/components/CopyOnClick.astro";
 import InlineLink from "$lib/components/InlineLink.astro";
 import BlogListItem from "$lib/components/BlogListItem.astro";
 
-const posts = (await getCollection('blog'))
-  .toSorted((a, b) => a.data.created < b.data.created ? 1 : -1)
+const posts = (await getCollection("blog"))
+  .toSorted((a, b) => (a.data.created < b.data.created ? 1 : -1))
   .slice(0, 2);
 ---
 
 <Layout title="Ed Gargan" description="Personal website and blog">
   <main>
-    <!-- TODO: add fly-in anims for each paragraph -->
-
     <section class="greeting">
-      <p><em>TODO: reword homgepage</em></p>
-      <p>
-        <em>
-          TODO: <a href="https://developer.chrome.com/docs/web-platform/view-transitions/cross-document">use x-doc page transitions</a>
-        </em>
-      </p>
-
       <h1 style={{ "--fly-in-delay": "30ms" }} class="fly-in">Hi, I'm Ed 👋</h1>
 
       <p style={{ "--fly-in-delay": "60ms" }} class="fly-in">
@@ -34,15 +25,18 @@ const posts = (await getCollection('blog'))
       </p>
 
       <p style={{ "--fly-in-delay": "60ms" }} class="fly-in">
-        These days I'm focused on web development, but in the past I've spent
-        lots of time with Android, mobile automation, and building backends with
-        Rust.
+        I've been in web-focused roles in media for a few years now (<InlineLink
+          href="https://www.ft.com/">FT</InlineLink
+        > before the Guardian), but I've also built tools and services in cybersecurity
+        settings in the past (<InlineLink
+          href="https://www.withsecure.com/en/home">WithSecure</InlineLink
+        >, <InlineLink href="https://www.netcraft.com/">Netcraft</InlineLink>).
       </p>
 
       <p style={{ "--fly-in-delay": "60ms" }} class="fly-in">
-        In my spare time I like to doodle with web tech —
-        <InlineLink openInSameTab href="/labs">see my labs projects</InlineLink
-        >.
+        In my spare time I like to blog about or doodle with web technology
+        &mdash; check out
+        <InlineLink openInSameTab href="/labs">my posts</InlineLink>!
       </p>
 
       <p style={{ "--fly-in-delay": "60ms" }} class="fly-in">
@@ -67,14 +61,14 @@ const posts = (await getCollection('blog'))
 
       <ul>
         {
-        posts.map((post, i) => (
-        <li
-          style={{ "--fly-in-delay": `${30 * (4 + i)}ms` }}}}
-          class="fly-in"
-        >
-          <BlogListItem {post} />
-        </li>
-        ))
+          posts.map((post, i) => (
+          <li
+            style={{ "--fly-in-delay": `${30 * (4 + i)}ms` }}}}
+            class="fly-in"
+          >
+            <BlogListItem {post} />
+          </li>
+          ))
         }
       </ul>
     </section>
@@ -104,7 +98,7 @@ const posts = (await getCollection('blog'))
   }
 
   section.recent-posts h1 {
-    font-size: 21px;
+    font-size: 24px;
   }
 
   section.recent-posts {
@@ -116,6 +110,11 @@ const posts = (await getCollection('blog'))
     margin-bottom: 24px;
     display: flex;
     gap: 40px;
+  }
+
+  section.recent-posts ul :global(h2) {
+    /* Override header size for blog lists */
+    font-size: 20px !important;
   }
 
   a {

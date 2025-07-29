@@ -3,9 +3,8 @@ import { formatDateLong } from "$lib/utils/time";
 import type { CollectionEntry } from "astro:content";
 import PostChip from "./PostChip.astro";
 
-const { post, bigHeader, i } = Astro.props as {
+const { post, i } = Astro.props as {
   post: CollectionEntry<"blog">;
-  bigHeader?: boolean;
   i: number;
 };
 ---
@@ -26,7 +25,7 @@ const { post, bigHeader, i } = Astro.props as {
   </a>
 </article>
 
-<style define:vars={{ "header-size": bigHeader ? "22px" : "18px" }}>
+<style>
   article {
     margin-bottom: 40px;
   }
@@ -39,7 +38,7 @@ const { post, bigHeader, i } = Astro.props as {
   h2 {
     display: inline;
 
-    font-size: var(--header-size);
+    font-size: 22px;
     line-height: 32px;
     font-weight: 500;
 
