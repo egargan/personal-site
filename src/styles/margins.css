@@ -3,7 +3,7 @@ html {
 }
 
 main,
-body > header,
+body .header-column,
 main + footer {
   height: 100%;
   width: 100%;
@@ -14,7 +14,7 @@ main + footer {
 
 @media (min-width: 640px) {
   main,
-  body > header,
+  body .header-column,
   main + footer {
     padding-left: 32px;
     padding-right: 32px;

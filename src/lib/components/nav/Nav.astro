@@ -7,33 +7,35 @@ const { class: _class } = Astro.props;
 ---
 
 <header class={_class}>
-  <nav>
-    <ul>
-      <li>
-        <NavElement
-          text="Home"
-          path="/"
-          isCurrentPage={Astro.url.pathname === "/"}
-        />
-      </li>
-      <li>
-        <NavElement
-          text="Posts"
-          path="/posts"
-          isCurrentPage={Astro.url.pathname.startsWith("/posts")}
-        />
-      </li>
-    </ul>
-  </nav>
+  <div class="header-column">
+    <nav>
+      <ul>
+        <li>
+          <NavElement
+            text="Home"
+            path="/"
+            isCurrentPage={Astro.url.pathname === "/"}
+          />
+        </li>
+        <li>
+          <NavElement
+            text="Posts"
+            path="/posts"
+            isCurrentPage={Astro.url.pathname.startsWith("/posts")}
+          />
+        </li>
+      </ul>
+    </nav>
 
-  <ul class="control-panel">
-    <li>
-      <ThemeSwitch />
-    </li>
-    <!-- <li> -->
-    <!--   <SoundSwitch /> -->
-    <!-- </li> -->
-  </ul>
+    <ul class="control-panel">
+      <li>
+        <ThemeSwitch />
+      </li>
+      <!-- <li> -->
+      <!--   <SoundSwitch /> -->
+      <!-- </li> -->
+    </ul>
+  </div>
 </header>
 
 <script>
@@ -51,57 +53,30 @@ const { class: _class } = Astro.props;
 
 <style>
   header {
+    width: 100%;
+
     position: sticky;
     top: -1px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    display: grid;
-    grid-template-areas: ". header . ";
-    grid-template-columns: 20px 1fr 20px;
 
     background-color: color-mix(in oklab, var(--background), transparent 20%);
     backdrop-filter: blur(5px);
 
-    margin-top: 10px;
+    display: flex;
+    justify-content: center;
 
+    margin-top: 10px;
     padding-top: 12px;
     padding-bottom: 8px;
 
     z-index: 5;
   }
 
-  @media (min-width: 640px) {
-    header {
-      grid-template-columns: 32px 1fr 32px;
-      margin-top: 25px;
-    }
+  .header-column {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    nav {
-      padding-right: 20px;
-    }
-
-    ul {
-      gap: 40px;
-    }
-  }
-
-  @media (min-width: 820px) {
-    header {
-      grid-template-columns: 1fr 820px 1fr;
-    }
-  }
-
-  header > *:first-child {
-    grid-area: header;
-    justify-self: start;
-  }
-
-  header > *:last-child {
-    grid-area: header;
-    justify-self: end;
+    width: 820px;
   }
 
   ul {
@@ -120,5 +95,19 @@ const { class: _class } = Astro.props;
   .control-panel {
     display: flex;
     gap: 30px;
+  }
+
+  @media (min-width: 640px) {
+    header {
+      margin-top: 25px;
+    }
+
+    nav {
+      padding-right: 20px;
+    }
+
+    ul {
+      gap: 40px;
+    }
   }
 </style>
