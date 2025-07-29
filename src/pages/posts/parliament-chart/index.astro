@@ -1,5 +1,7 @@
 ---
 import Layout from "$layouts/Lab.astro";
+import Header from "$lib/components/labs/Header.astro";
+import GithubLink from "$lib/components/GithubLink.astro";
 import Lab from "./_Lab.svelte";
 import { getEntry } from "astro:content";
 
@@ -11,5 +13,26 @@ if (!lab) {
 ---
 
 <Layout {lab}>
+  <Header {lab}>
+    <p>
+      Parliament charts are used to show the party composition of a government,
+      usually wheeled out for election results.
+    </p>
+    <p>
+      Inspired by
+      <!-- prettier-ignore -->
+      <a href="https://app.flourish.studio/@flourish/parliament-chart">Flourish's component</a>,
+      I wanted to have a go at the geometry involved in building this. I had
+      hoped for a <i>perfect</i> solution where all of the positions are determined
+      in one go with even spacing, but I had to settle for an iterative approach
+      with rounds of balancing out the number of dots in the rings, which is where
+      those jagged divisions between the sections come from.
+    </p>
+
+    <GithubLink
+      link="https://github.com/egargan/parliament-chart"
+      text="egargan/parliament-chart"
+    />
+  </Header>
   <Lab client:only />
 </Layout>

@@ -1,4 +1,6 @@
 ---
+import Header from "$lib/components/labs/Header.astro";
+import GithubLink from "$lib/components/GithubLink.astro";
 import Layout from "$layouts/Lab.astro";
 import Lab from "./_Lab.svelte";
 import { getEntry } from "astro:content";
@@ -11,5 +13,17 @@ if (!lab) {
 ---
 
 <Layout {lab}>
+  <Header {lab}>
+    <p>
+      This Svelte component takes a list of articles with a title, subheading,
+      and body (identified by data attributes), and presents them in this
+      interactive stack-of-records-style arrangement.
+    </p>
+
+    <GithubLink
+      link="https://github.com/egargan/record-stack"
+      text="egargan/record-stack"
+    />
+  </Header>
   <Lab client:only />
 </Layout>

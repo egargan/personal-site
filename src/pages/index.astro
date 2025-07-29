@@ -85,15 +85,12 @@ const posts = (await getCollection('blog'))
 
 <style>
   @media (min-width: 820px) {
-    main,
-    body > header,
-    main + footer {
+    :global(body > header),
+      main {
       width: 820px;
     }
-  }
 
-  @media (min-width: 820px) {
-    body {
+    :global(body) {
       align-items: center;
     }
   }

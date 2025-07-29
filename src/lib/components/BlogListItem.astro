@@ -10,7 +10,7 @@ const { post, bigHeader, i } = Astro.props as {
 };
 ---
 
-<article style={{ "--fly-in-delay": `${30 * (i + 1)}ms` }} class="fly-in">
+<article>
   <a class="ignore-link-style" href={`/posts/${post.id}`}>
     <div class="title-row">
       <h2>{post.data.title}</h2>

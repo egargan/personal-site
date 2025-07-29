@@ -48,14 +48,12 @@ const { Content } = await render(post);
 
 <style>
   @media (min-width: 820px) {
+    :global(body > header),
     main,
-    body > header,
-    main + footer {
+    footer {
       width: 820px;
     }
-  }
 
-  @media (min-width: 820px) {
     body {
       align-items: center;
     }

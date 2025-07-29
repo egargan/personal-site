@@ -1,6 +1,6 @@
 ---
-// This code is identical between the lab index.astro files, can we de-dupe?
-
+import Header from "$lib/components/labs/Header.astro";
+import GithubLink from "$lib/components/GithubLink.astro";
 import Layout from "$layouts/Lab.astro";
 import Lab from "./_Lab.svelte";
 import { getEntry } from "astro:content";
@@ -13,5 +13,28 @@ if (!lab) {
 ---
 
 <Layout {lab}>
+  <Header {lab}>
+    <p>
+      This lab displays a series of images with transitions that imitates
+      split-flap displays.
+    </p>
+    <p>
+      If you're from the UK, you might remember <a
+        href="https://identitydesigned.com/more4/">
+        More4's flappy triangle branding and idents
+      </a>. I love the look of this effect so I wanted to try and implement it
+      with SVG and Javascript. Originally the flaps showed just a plain colour,
+      but painting on an image like this is much more interesting.
+    </p>
+    <p>
+      What would really sell the effect is brightening and darkening the faces
+      of the flaps as they rotate, but I haven't got around to this yet.
+    </p>
+
+    <GithubLink
+      link="https://github.com/egargan/flipboard"
+      text="egargan/flipboard"
+    />
+  </Header>
   <Lab client:only />
 </Layout>

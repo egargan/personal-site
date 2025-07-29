@@ -1,40 +1,77 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import PostChip from "../PostChip.astro";
 
 import ThemeSwitch from "$lib/components/nav/ThemeSwitch.astro";
+import Cross from "../icons/Cross.astro";
 
 const { lab } = Astro.props as { lab: CollectionEntry<"labs"> };
 ---
 
 <header>
-  <div class="title-container">
-    <h1>
-      {lab.data.title}
-    </h1>
-    <span class="lab-chip">Lab</span>
+  <div role="dialog" id="whats-this-content" data-hidden="true">
+    <div>
+      <slot />
+    </div>
+    <button id="close-dialog" aria-label="close lab info dialog">
+      <Cross />
+    </button>
+    <div class="fade-gradient"></div>
   </div>
-  <nav>
-    <ul>
-      <li>
-        <button class="link-button">What's this?</button>
-      </li>
-      <li>
-        <a href="/labs">More labs</a>
-      </li>
-    </ul>
-  </nav>
-  <ThemeSwitch />
+  <div class="main-row">
+    <div class="title-container">
+      <h1>
+        {lab.data.title}
+      </h1>
+      <PostChip type="lab" />
+    </div>
+    <div class="controls">
+      <nav>
+        <ul>
+          <li>
+            <button id="whats-this-button" class="link-button">
+              What's this?
+            </button>
+          </li>
+          <li>
+            <a href="/labs">More labs</a>
+          </li>
+        </ul>
+      </nav>
+      <ThemeSwitch />
+    </div>
+  </div>
 </header>
+
+<script>
+  const whatsThisButton = document.getElementById("whats-this-button");
+  const whatsThisContent = document.getElementById("whats-this-content");
+  const closeButton = document.getElementById("close-dialog");
+
+  if (!whatsThisButton) throw new Error("can't find what's this? button");
+  if (!whatsThisContent) throw new Error("can't find what's this? button");
+  if (!closeButton) throw new Error("can't find close button");
+
+  whatsThisButton?.addEventListener("click", () => {
+    if (whatsThisContent.dataset.hidden === "true") {
+      whatsThisContent.dataset.hidden = "false";
+    } else {
+      whatsThisContent.dataset.hidden = "true";
+    }
+  });
+
+  closeButton?.addEventListener("click", () => {
+    whatsThisContent.dataset.hidden = "true";
+  });
+</script>
 
 <style>
   header {
     position: absolute;
-    bottom: 16px;
-    left: 16px;
+    bottom: 0;
+    left: 0;
 
-    display: flex;
-    align-items: center;
-    gap: 24px;
+    margin: 16px;
 
     padding: 12px;
     padding-left: 16px;
@@ -49,6 +86,89 @@ const { lab } = Astro.props as { lab: CollectionEntry<"labs"> };
     z-index: 50;
   }
 
+  #whats-this-content {
+    height: fit-content;
+    position: relative;
+
+    transition:
+      width 0.35s ease,
+      height 0.35s ease,
+      opacity 0.25s ease,
+      content-visibility 0.35s ease;
+
+    transition-behavior: allow-discrete;
+
+    display: grid;
+    grid-template-columns: 1fr auto;
+
+    opacity: 1;
+
+    content-visibility: visible;
+
+    overflow: clip;
+  }
+
+  #whats-this-content > div:first-child {
+    width: 600px;
+    margin-bottom: 18px;
+  }
+
+  #whats-this-content[data-hidden="true"] {
+    height: 0px;
+    width: 100%;
+    opacity: 0;
+  }
+
+  @supports (content-visibility: hidden) {
+    #whats-this-content[data-hidden="true"] {
+      content-visibility: hidden;
+    }
+  }
+
+  @supports not (content-visibility: hidden) {
+    #whats-this-content[data-hidden="true"] {
+      transition-property: width, height, opacity, display;
+    }
+
+    #whats-this-content[data-hidden="true"] {
+      display: none;
+    }
+  }
+
+  #close-dialog {
+    height: fit-content;
+    margin-left: 4px;
+    margin-right: -4px;
+  }
+
+  .fade-gradient {
+    height: 6px;
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background: linear-gradient(to top, var(--background-two), transparent);
+    pointer-events: none;
+
+    z-index: 5;
+  }
+
+  .main-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    background-color: var(--background-two);
+  }
+
+  header h1,
+  header button,
+  header a {
+    white-space: nowrap;
+  }
+
   .title-container {
     display: flex;
     align-items: center;
@@ -61,18 +181,10 @@ const { lab } = Astro.props as { lab: CollectionEntry<"labs"> };
     font-weight: 500;
   }
 
-  .lab-chip {
-    padding-left: 4px;
-    padding-right: 4px;
-
-    border-radius: 2px;
-
-    font-weight: bolder;
-    font-size: 14px;
-    line-height: 1.4em;
-
-    background-color: var(--purple);
-    color: hsl(240deg 100 99);
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
   }
 
   nav ul {

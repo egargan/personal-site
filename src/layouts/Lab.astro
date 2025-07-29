@@ -8,7 +8,6 @@ import { type CollectionEntry } from "astro:content";
 import SpeedInsights from "@vercel/speed-insights/astro";
 
 import Head from "./Head.astro";
-import Header from "$lib/components/labs/Header.astro";
 
 const { lab } = Astro.props as { lab: CollectionEntry<"labs"> };
 ---
@@ -17,7 +16,6 @@ const { lab } = Astro.props as { lab: CollectionEntry<"labs"> };
 <html lang="en">
   <Head title={"Lab — " + lab.data.title} description={lab.data.description} />
   <body>
-    <Header {lab} />
     <slot />
     <SpeedInsights />
   </body>

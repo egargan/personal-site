@@ -1,4 +1,6 @@
 ---
+import Header from "$lib/components/labs/Header.astro";
+import GithubLink from "$lib/components/GithubLink.astro";
 import Layout from "$layouts/Lab.astro";
 import Lab from "./_Lab.svelte";
 import { getEntry } from "astro:content";
@@ -11,5 +13,15 @@ if (!lab) {
 ---
 
 <Layout {lab}>
+  <Header {lab}>
+    <p>
+      An interactive authentication method using secret handshakes as
+      passphrases, built with <a href="https://brm.io/matter-js/">Matter.js</a>.
+    </p>
+    <GithubLink
+      link="https://github.com/egargan/handshake"
+      text="egargan/handshake"
+    />
+  </Header>
   <Lab client:only />
 </Layout>

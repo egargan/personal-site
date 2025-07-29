@@ -22,14 +22,18 @@ const posts = [...writing, ...labs].sort((a, b) =>
         posts.map((post, i) => {
           if (post.collection === "blog") {
             return (
-              <li class="blog">
-                <BlogListItem {post} {i} bigHeader />
+              <li
+                style={{ "--fly-in-delay": `${30 * (i + 1)}ms` }}
+                class="blog fly-in">
+                <BlogListItem {post} bigHeader />
               </li>
             );
           } else if (post.collection === "labs") {
             return (
-              <li class="lab">
-                <LabListItem {post} {i} />
+              <li
+                style={{ "--fly-in-delay": `${30 * (i + 1)}ms` }}
+                class="lab fly-in">
+                <LabListItem {post} />
               </li>
             );
           }
@@ -83,7 +87,7 @@ const posts = [...writing, ...labs].sort((a, b) =>
   }
 
   @media (min-width: 820px) {
-    :global(body > header) {
+    :global(body > header > .wrapper) {
       width: 820px;
     }
   }
