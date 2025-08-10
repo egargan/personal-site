@@ -2,13 +2,27 @@
 import { getCollection } from "astro:content";
 
 import Layout from "$layouts/Main.astro";
-import ArrowIcon from "$lib/components/icons/ArrowIcon.astro";
 import CopyOnClick from "$lib/components/CopyOnClick.astro";
 import InlineLink from "$lib/components/InlineLink.astro";
 import BlogListItem from "$lib/components/BlogListItem.astro";
+import LabListItem from "$lib/components/LabListItem.astro";
+import ArrowIcon from "$lib/components/icons/ArrowIcon.astro";
 
-const posts = (await getCollection("blog"))
-  .toSorted((a, b) => (a.data.created < b.data.created ? 1 : -1))
+const randomEmoji = () => {
+  // prettier-ignore
+  const emojis = [
+    "👋", "🌍", "💻", "🎨", "📝", "🚀", "🔧", "🤖",
+    "🌟", "💡", "🎉", "🛠️", "📚", "💬", "✨", "🔍", "🎯",
+  ];
+
+  return emojis[Math.floor(Math.random() * emojis.length)];
+};
+
+const writing = await getCollection("blog");
+const labs = await getCollection("labs");
+
+const posts = [...writing, ...labs]
+  .sort((a, b) => (a.data.created < b.data.created ? 1 : -1))
   .slice(0, 2);
 ---
 
@@ -61,21 +75,96 @@ const posts = (await getCollection("blog"))
 
       <ul>
         {
-          posts.map((post, i) => (
-          <li
-            style={{ "--fly-in-delay": `${30 * (4 + i)}ms` }}}}
-            class="fly-in"
-          >
-            <BlogListItem {post} />
-          </li>
-          ))
+          posts.map((post, i) => {
+            if (post.collection === "blog") {
+              return (
+                <li
+                  style={{ "--fly-in-delay": `${30 * (i + 1)}ms` }}
+                  class="blog fly-in">
+                  <BlogListItem {post} bigHeader />
+                </li>
+              );
+            } else if (post.collection === "labs") {
+              return (
+                <li
+                  style={{ "--fly-in-delay": `${30 * (i + 1)}ms` }}
+                  class="lab fly-in">
+                  <LabListItem {post} />
+                </li>
+              );
+            }
+          })
         }
       </ul>
     </section>
   </main>
 </Layout>
 
+<script>
+  import Masonry from "masonry-layout";
+  import { createResizeListener } from "$lib/utils/resize";
+
+  let masonry: Masonry;
+
+  const arrangeMasonryLayout = () => {
+    const gutter = parseInt(
+      getComputedStyle(document.querySelector("main")!).getPropertyValue(
+        "--gutter",
+      ),
+    );
+
+    if (window.innerWidth < 640) {
+      masonry.destroy?.();
+    } else {
+      console.log({
+        gutter,
+      });
+
+      masonry = new Masonry("main > section > ul", {
+        itemSelector: "main > section > ul > li",
+        resize: false,
+        transitionDuration: 0,
+        gutter,
+      });
+    }
+  };
+
+  arrangeMasonryLayout();
+
+  createResizeListener(arrangeMasonryLayout, [640, 820]);
+</script>
+
 <style>
+  main {
+    --gutter: 48px;
+  }
+
+  li {
+    width: 100%;
+  }
+
+  @media (min-width: 820px) {
+    :global(body > header > .wrapper) {
+      width: 820px;
+    }
+  }
+
+  @media (min-width: 820px) {
+    main {
+      width: 820px;
+    }
+
+    li {
+      width: calc((820px / 2) - var(--gutter) - 8px);
+    }
+
+    body {
+      align-items: center;
+    }
+  }
+
+  /** -- */
+
   @media (min-width: 820px) {
     main {
       width: 820px;
@@ -132,5 +221,11 @@ const posts = (await getCollection("blog"))
     color: var(--blue-strong);
     stroke: var(--blue-strong);
     text-decoration: none;
+  }
+
+  .emoji-grid {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 60px);
   }
 </style>
