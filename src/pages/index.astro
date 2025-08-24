@@ -4,26 +4,20 @@ import { getCollection } from "astro:content";
 import Layout from "$layouts/Main.astro";
 import CopyOnClick from "$lib/components/CopyOnClick.astro";
 import InlineLink from "$lib/components/InlineLink.astro";
-import BlogListItem from "$lib/components/BlogListItem.astro";
-import LabListItem from "$lib/components/LabListItem.astro";
 import ArrowIcon from "$lib/components/icons/ArrowIcon.astro";
-
-const randomEmoji = () => {
-  // prettier-ignore
-  const emojis = [
-    "👋", "🌍", "💻", "🎨", "📝", "🚀", "🔧", "🤖",
-    "🌟", "💡", "🎉", "🛠️", "📚", "💬", "✨", "🔍", "🎯",
-  ];
-
-  return emojis[Math.floor(Math.random() * emojis.length)];
-};
+import InlinePostListItem from "$lib/components/InlinePostListItem.astro";
 
 const writing = await getCollection("blog");
 const labs = await getCollection("labs");
 
-const posts = [...writing, ...labs]
-  .sort((a, b) => (a.data.created < b.data.created ? 1 : -1))
-  .slice(0, 2);
+let posts = [...writing, ...labs].sort((a, b) =>
+  a.data.created < b.data.created ? 1 : -1,
+);
+
+let latestNum = 4;
+let allNum = posts.length;
+
+posts = posts.slice(0, latestNum);
 ---
 
 <Layout title="Ed Gargan" description="Personal website and blog">
@@ -41,16 +35,16 @@ const posts = [...writing, ...labs]
       <p style={{ "--fly-in-delay": "60ms" }} class="fly-in">
         I've been in web-focused roles in media for a few years now (<InlineLink
           href="https://www.ft.com/">FT</InlineLink
-        > before the Guardian), but I've also built tools and services in cybersecurity
-        settings in the past (<InlineLink
-          href="https://www.withsecure.com/en/home">WithSecure</InlineLink
+        > before the Guardian), but I've also built things in cybersecurity settings
+        in the past (<InlineLink href="https://www.withsecure.com/en/home"
+          >WithSecure</InlineLink
         >, <InlineLink href="https://www.netcraft.com/">Netcraft</InlineLink>).
       </p>
 
       <p style={{ "--fly-in-delay": "60ms" }} class="fly-in">
         In my spare time I like to blog about or doodle with web technology
         &mdash; check out
-        <InlineLink openInSameTab href="/labs">my posts</InlineLink>!
+        <InlineLink openInSameTab href="/labs">my posts</InlineLink>.
       </p>
 
       <p style={{ "--fly-in-delay": "60ms" }} class="fly-in">
@@ -64,107 +58,26 @@ const posts = [...writing, ...labs]
     </section>
 
     <section class="recent-posts">
-      <!-- TODO: why can't we animate the section? -->
       <div style={{ "--fly-in-delay": "90ms" }} class="fly-in">
         <h1>Recent Posts</h1>
-        <a class="arrow-link" href="/blog">
-          See All
-          <ArrowIcon points="right" />
-        </a>
       </div>
 
-      <ul>
-        {
-          posts.map((post, i) => {
-            if (post.collection === "blog") {
-              return (
-                <li
-                  style={{ "--fly-in-delay": `${30 * (i + 1)}ms` }}
-                  class="blog fly-in">
-                  <BlogListItem {post} bigHeader />
-                </li>
-              );
-            } else if (post.collection === "labs") {
-              return (
-                <li
-                  style={{ "--fly-in-delay": `${30 * (i + 1)}ms` }}
-                  class="lab fly-in">
-                  <LabListItem {post} />
-                </li>
-              );
-            }
-          })
-        }
+      <ul style={{ "--fly-in-delay": "120ms" }} class="fly-in">
+        {posts.map((post) => <InlinePostListItem {post} />)}
       </ul>
+
+      <div class="see-more fly-in" style={{ "--fly-in-delay": "150ms" }}>
+        <span>Showing latest {latestNum} of {allNum},</span>
+        <a class="arrow-link" href="/posts">
+          see all
+          <ArrowIcon stretchOnHover={true} points="right" />
+        </a>
+      </div>
     </section>
   </main>
 </Layout>
 
-<script>
-  import Masonry from "masonry-layout";
-  import { createResizeListener } from "$lib/utils/resize";
-
-  let masonry: Masonry;
-
-  const arrangeMasonryLayout = () => {
-    const gutter = parseInt(
-      getComputedStyle(document.querySelector("main")!).getPropertyValue(
-        "--gutter",
-      ),
-    );
-
-    if (window.innerWidth < 640) {
-      masonry.destroy?.();
-    } else {
-      console.log({
-        gutter,
-      });
-
-      masonry = new Masonry("main > section > ul", {
-        itemSelector: "main > section > ul > li",
-        resize: false,
-        transitionDuration: 0,
-        gutter,
-      });
-    }
-  };
-
-  arrangeMasonryLayout();
-
-  createResizeListener(arrangeMasonryLayout, [640, 820]);
-</script>
-
 <style>
-  main {
-    --gutter: 48px;
-  }
-
-  li {
-    width: 100%;
-  }
-
-  @media (min-width: 820px) {
-    :global(body > header > .wrapper) {
-      width: 820px;
-    }
-  }
-
-  @media (min-width: 820px) {
-    main {
-      width: 820px;
-    }
-
-    li {
-      width: calc((820px / 2) - var(--gutter) - 8px);
-    }
-
-    body {
-      align-items: center;
-    }
-  }
-
-  /** -- */
-
   @media (min-width: 820px) {
     main {
       width: 820px;
@@ -176,7 +89,7 @@ const posts = [...writing, ...labs]
   }
 
   section.greeting h1 {
-    margin-bottom: 32px;
+    margin-bottom: 26px;
     font-weight: 600;
     font-size: 24px;
   }
@@ -191,27 +104,23 @@ const posts = [...writing, ...labs]
   }
 
   section.recent-posts {
-    margin-top: 56px;
+    margin-top: 48px;
     padding-bottom: 80px;
   }
 
-  section.recent-posts > div {
-    margin-bottom: 24px;
+  section.recent-posts > div:first-child {
+    margin-bottom: 16px;
     display: flex;
-    gap: 40px;
+    gap: 32px;
   }
 
-  section.recent-posts ul :global(h2) {
-    /* Override header size for blog lists */
-    font-size: 20px !important;
+  section.recent-posts li {
+    margin-bottom: 16px;
   }
 
   a {
     gap: 4px;
     font-weight: 500;
-
-    text-decoration: underline;
-    text-decoration-color: var(--blue);
   }
 
   a.arrow-link {
@@ -221,11 +130,33 @@ const posts = [...writing, ...labs]
     color: var(--blue-strong);
     stroke: var(--blue-strong);
     text-decoration: none;
+
+    transition: color var(--transition-short);
   }
 
-  .emoji-grid {
-    margin-top: 48px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 60px);
+  a.arrow-link:hover {
+    /* NOTE: this activates the stretchy effect in ArrowIcon */
+    --stretch: 1;
+    color: var(--blue);
+  }
+
+  a.arrow-link > :global(svg) {
+    stroke: var(--blue-strong);
+    transition: stroke var(--transition-short);
+  }
+
+  a.arrow-link:hover > :global(svg) {
+    stroke: var(--blue);
+  }
+
+  .see-more {
+    margin-top: 16px;
+    color: var(--text-two);
+
+    /* font-style: italic; */
+  }
+
+  .see-more a {
+    margin-left: 2px;
   }
 </style>

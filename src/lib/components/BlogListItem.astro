@@ -19,8 +19,6 @@ const { post, i } = Astro.props as {
     <p>{post.data.intro}</p>
     <p class="metadata">
       <span class="date">{formatDateLong(new Date(post.data.created))}</span>
-      <span>·</span>
-      <span>{post.data.readTimeMins} minute read</span>
     </p>
   </a>
 </article>

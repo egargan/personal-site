@@ -1,0 +1,64 @@
+---
+// TODO: remove blog styles from CSS file when not on blog page
+import "@/styles/reset.css";
+import "@/styles/fonts.css";
+import "@/styles/base.css";
+import "@/styles/colors.css";
+import "@/styles/margins.css";
+
+import Nav from "$lib/components/nav/Nav.astro";
+import Head from "./Head.astro";
+
+const { code, message } = Astro.props;
+
+let title;
+
+switch (code) {
+  case 404:
+    title = "Page not found";
+    break;
+  case 500:
+    title = "Something went wrong";
+    break;
+  default:
+    title = `Error ${code}`;
+    break;
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <Head title={title} />
+  <body>
+    <Nav />
+    <main>
+      <h1>{code}</h1>
+      <p>{message}</p>
+    </main>
+    <style>
+      @media (min-width: 820px) {
+        main {
+          width: 820px;
+        }
+
+        :global(body) {
+          align-items: center;
+        }
+      }
+
+      main > *:first-child {
+        margin-top: 128px;
+      }
+
+      h1 {
+        font-size: 64px;
+        font-family: "Atkinson Hyperlegible Mono";
+      }
+
+      p {
+        font-size: 24px;
+        font-weight: normal;
+      }
+    </style>
+  </body>
+</html>

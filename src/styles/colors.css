@@ -56,7 +56,7 @@ html[data-theme="dark"] {
   --text-two: hsl(240deg 19 75);
   --text-three: hsl(240deg 14 64);
 
-  --blue: hsl(202deg 79 49);
+  --blue: hsl(202deg 79 54);
   --blue-strong: hsl(202deg 93 78);
   --blue-weak: hsl(202deg 65 45);
   --blue-background: hsl(202deg 65 45 / 25%);

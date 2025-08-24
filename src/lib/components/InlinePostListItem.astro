@@ -1,0 +1,96 @@
+---
+import { formatDateLong } from "$lib/utils/time";
+import type { CollectionEntry } from "astro:content";
+import PostChip from "./PostChip.astro";
+
+const { post } = Astro.props as {
+  post: CollectionEntry<"blog"> | CollectionEntry<"labs">;
+};
+---
+
+<li>
+  <a class="ignore-link-style" href={`/posts/${post.id}`}>
+    <div class="type-and-title">
+      {
+        (() => {
+          if (post.collection === "blog") {
+            return <PostChip type="blog" />;
+          }
+          return <PostChip type="lab" />;
+        })()
+      }
+      <h2>{post.data.title}</h2>
+    </div>
+    <span class="dot-separator">·</span>
+    <span class="date">{formatDateLong(new Date(post.data.created))}</span>
+  </a>
+</li>
+
+<style>
+  li {
+    margin-bottom: 14px;
+    container-type: inline-size;
+  }
+
+  .chip-wrapper {
+    width: 50px;
+    display: flex;
+    justify-content: center;
+  }
+
+  h2 {
+    font-weight: normal;
+    font-size: 20px;
+  }
+
+  a {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, max-content));
+    align-items: center;
+
+    column-gap: 8px;
+  }
+
+  a h2 {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 2px;
+
+    transition: text-decoration-color var(--transition-blink);
+  }
+
+  a:hover h2 {
+    text-decoration-color: var(--blue);
+  }
+
+  .type-and-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    width: fit-content;
+  }
+
+  .date,
+  .dot-separator {
+    color: var(--text-two);
+  }
+
+  @container (width < 640px) {
+    .dot-separator {
+      display: none;
+    }
+
+    a {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+    }
+
+    .type-and-title {
+      flex-direction: row-reverse;
+    }
+
+    li {
+      margin-bottom: 18px;
+    }
+  }
+</style>

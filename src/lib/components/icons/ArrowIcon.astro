@@ -1,14 +1,16 @@
 ---
-const { points, width, color } = {
-  width: 1.5,
+const { points, width, color, stretchOnHover } = {
+  width: 2,
   points: "left",
-  color: "var(--blue-strong)",
+  color: "var(--blue)",
+  stretchOnHover: false,
   ...Astro.props,
 } as {
   class?: string;
   points: "left" | "right" | "up" | "down";
   width: number;
   color: string;
+  stretchOnHover?: boolean;
 };
 ---
 
@@ -17,33 +19,62 @@ const { points, width, color } = {
   height="24px"
   stroke-width={width}
   viewBox="0 0 24 24"
-  xmlns="http://www.w3.org/2000/svg"
   stroke={color}
   data-points={points}
->
-  <path
-    d="M18.5 12H6m0 0l6-6m-6 6l6 6"
-    stroke-width={width}
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  >
-  </path>
-
-  <style>
-    svg {
-      transform: rotate(0deg);
-    }
-
-    svg[data-points="right"] {
-      transform: rotate(180deg);
-    }
-
-    svg[data-points="up"] {
-      transform: rotate(90deg);
-    }
-
-    svg[data-points="down"] {
-      transform: rotate(-90deg);
-    }
-  </style>
+  class:list={{ stretch: stretchOnHover }}>
+  <line x1="1" y1="12" x2="23" y2="12"></line>
+  <line x1="6" y1="12" x2="12" y2="6"></line>
+  <line x1="6" y1="12" x2="12" y2="18"></line>
 </svg>
+
+<style define:vars={{ width }}>
+  svg {
+    transform: rotate(0deg);
+    overflow: visible;
+    --stretch-px: 7px;
+  }
+
+  line {
+    stroke-linecap: round;
+    stroke-width: var(--width);
+  }
+
+  svg[data-points="right"] {
+    transform: rotate(180deg);
+  }
+
+  svg[data-points="up"] {
+    transform: rotate(90deg);
+  }
+
+  svg[data-points="down"] {
+    transform: rotate(-90deg);
+  }
+
+  svg line:nth-child(1) {
+    stroke-dasharray: 18px;
+    stroke-dashoffset: calc(-1 * var(--stretch-px));
+
+    transition:
+      stroke-dashoffset linear var(--transition-short),
+      stroke-dasharray linear var(--transition-short);
+  }
+
+  :global(*:hover) > svg line:nth-child(1),
+  svg:hover line:nth-child(1) {
+    stroke-dasharray: calc(18px + var(--stretch-px));
+    stroke-dashoffset: 0px;
+  }
+
+  svg line:nth-child(2),
+  svg line:nth-child(3) {
+    transition: transform ease-in-out var(--transition-short);
+  }
+
+  :global(*:hover) > svg line:nth-child(2),
+  :global(*:hover) > svg line:nth-child(3),
+  svg:hover line:nth-child(2),
+  svg:hover line:nth-child(3) {
+    transform: translateX(-6px);
+  }
+</style>
