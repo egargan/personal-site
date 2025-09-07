@@ -1,0 +1,61 @@
+---
+import Pre from "$components/blog/Pre.astro";
+import Code from "$components/blog/Code.astro";
+import Legend from "./TransferChartLegend.svelte";
+import TweenRaw from "./Tween.svelte?raw";
+import Tween from "./Tween.svelte";
+import { format } from "./format-code";
+import { iconMask } from "$lib/components/icons/iconoir-embeds";
+
+const code = format(TweenRaw, 0);
+---
+
+<div class="feature-group-x">
+  <Pre data-language="svelte">
+    <Code lang="svelte" {code} />
+  </Pre>
+  <div class="feature" style="--flex-n: 0.7">
+    <div class="feature-title-bar">
+      <span>Result</span>
+    </div>
+    <div class="result">
+      <div>
+        <Tween client:load />
+      </div>
+      <Legend />
+    </div>
+  </div>
+</div>
+
+<style
+  define:vars={{
+    "restart-icon": iconMask("restart"),
+  }}
+>
+  .legend-and-controls {
+    place-self: center;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  button::before {
+    content: "";
+
+    width: 16px;
+    height: 16px;
+
+    display: inline-block;
+
+    background-color: var(--text);
+
+    mask-image: var(--restart-icon);
+    mask-size: 100%;
+  }
+
+  @media (max-width: 1120px) {
+    button {
+      place-self: start;
+    }
+  }
+</style>

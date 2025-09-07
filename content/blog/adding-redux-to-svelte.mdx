@@ -24,20 +24,22 @@ Most of the results just pointed me at Svelte’s [Context API](https://svelte.d
 
 For small-scale state that you want to communicate across your component hierarchy, they’re brilliant. Just create a writable store for one or a few values, and add it to context.
 
-```svelte title="ParentComponent.svelte"
-<script>
-  const trafficLight: Writable<'green' | 'yellow' | 'red'> = writable('red');
-  setContext('trafficLight', trafficLight);
-</script>
-```
-```svelte title="ChildComponent.svelte"
-<script>
-  const trafficLight: Writable<'green' | 'yellow' | 'red'> = getContext('trafficLight');
-  $: if ($trafficLight === 'green') {
-    // GO!
-  }
-</script>
-```
+<div class="feature-group">
+  ```svelte title="ParentComponent.svelte"
+  <script>
+    const trafficLight: Writable<'green' | 'yellow' | 'red'> = writable('red');
+    setContext('trafficLight', trafficLight);
+  </script>
+  ```
+  ```svelte title="ChildComponent.svelte"
+  <script>
+    const trafficLight: Writable<'green' | 'yellow' | 'red'> = getContext('trafficLight');
+    $: if ($trafficLight === 'green') {
+      // GO!
+    }
+  </script>
+  ```
+</div>
 
 But this pattern only takes you so far. What do we do when we have multiple traffic lights that need synchronising? What if our traffic lights’ states need to be fetched from an API?
 
@@ -67,37 +69,39 @@ I’m going to use a dummy to-do app that I’ve thrown together using SvelteKit
 
 Creating a Redux store with a handful of actions is easily done with the helpers provided by [the official `@reduxjs/toolkit` package](https://redux-toolkit.js.org/introduction/getting-started) —
 
-```typescript title="todos.ts"
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
+<div class="feature-group">
+  ```typescript title="todos.ts"
+  import { createSlice } from '@reduxjs/toolkit'
+  import type { PayloadAction } from '@reduxjs/toolkit'
 
-type Todo = { id: string; text: string; done: boolean };
-type TodosState = { todos: Todo[] };
+  type Todo = { id: string; text: string; done: boolean };
+  type TodosState = { todos: Todo[] };
 
-export default createSlice({
-  name: 'todos',
-  initialState: { todos: [] },
-  reducers: {
-    add(state: TodosState, action: PayloadAction<string>) {
-      // what you'd expect...
+  export default createSlice({
+    name: 'todos',
+    initialState: { todos: [] },
+    reducers: {
+      add(state: TodosState, action: PayloadAction<string>) {
+        // what you'd expect...
+      },
+      remove(state: TodosState, action: PayloadAction<string>) {
+        // what you'd expect...
+      },
+      toggleDone(state: TodosState, action: PayloadAction<string>) {
+        // what you'd expect...
+      },
     },
-    remove(state: TodosState, action: PayloadAction<string>) {
-      // what you'd expect...
-    },
-    toggleDone(state: TodosState, action: PayloadAction<string>) {
-      // what you'd expect...
-    },
-  },
-})
-```
-```svelte
-<script>
-  import { configureStore } from '@reduxjs/toolkit';
-  import todosSlice from '../todos';
+  })
+  ```
+  ```svelte
+  <script>
+    import { configureStore } from '@reduxjs/toolkit';
+    import todosSlice from '../todos';
 
-  const store = configureStore({ reducer: todosSlice.reducer });
-</script>
-```
+    const store = configureStore({ reducer: todosSlice.reducer });
+  </script>
+  ```
+</div>
 
 In this snippet, we’re creating an instance of our Redux store in a component at the root of our app, `index.svelte` (have a read of [SvelteKit’s docs](https://kit.svelte.dev/docs#routing-pages) if you’re scratching your head over this file’s name).
 

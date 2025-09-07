@@ -1,0 +1,132 @@
+---
+title: How to use D3 with Svelte
+created: "2025-08-24"
+updated: "2025-08-24"
+tags: ["svelte", "info vis"]
+readTimeMins: 3
+status: draft
+intro: D3
+---
+import IntroDemo from "./IntroDemo.astro";
+import SsrCodeBlock from "./SsrCodeBlock.astro";
+import DrawTransitionsDemo from "./DrawTransitionDemo.astro";
+import ReactivityDemo from "./ReactivityDemo.astro";
+import TweenDemo from "./TweenDemo.astro";
+import "./transfer-chart.css"
+
+TODO: upload all code and data to a Gist
+TODO: add tab to initial demo with data?
+
+14 years after its release in 2011, [D3](https://d3js.org/) is still a foundational tool for data
+visualisation on the web.
+
+Simple line charts, complex interactive maps ([like this
+one](https://www.theguardian.com/us-news/ng-interactive/2024/nov/06/us-election-results-map-2024-live-donald-trump-kamala-harris-president)),
+and everything in between: D3's doing most of the complicated work for you.
+
+Part of D3's appeal is its DOM manipulation API ([d3-selection](https://d3js.org/d3-selection)),
+which makes it easy to build SVG visualisations from the data you're working with.
+
+Here's a simple example. This code imports data from a JSON file, then populates an empty `<svg>` element with `<path>`, `<line>`, etc. elements mapped from the data.
+
+<IntroDemo/>
+
+But things have changed a bit since D3 was released. These days we're usually building
+websites with React, Vue, or Svelte (if you're cool enough).
+
+To make the code above work inside these frameworks, we wait for our components to be
+mounted to the DOM before asking D3 to do its thing.
+
+In Svelte, we do this with <mark class="purple">`onMount`</mark> (equivalent to React's `useEffect`).
+
+```svelte purple:/onMount/
+<script>
+  // import ...
+
+  onMount(() => {
+    const seasons = [...new Set(transfers.map((d) => d.season))];
+
+    const margin = { right: 20, bottom: 40, left: 40 };
+    const width = 420 - margin.left - margin.right;
+    const height = 280 - margin.bottom;
+
+    svg.selectAll()
+      .data(d3.group(transfers, (d) => d.team))
+      // ...
+  })
+</script>
+
+<svg id="transfer-window"></svg>
+```
+
+This works, and it's what I often see in code that uses D3 in Svelte and other frameworks.
+
+But by waiting for our components to finish rendering on the client before drawing our charts with D3, we invite a number of potential drawbacks:
+
+* <a href="https://developer.mozilla.org/en-US/docs/Glossary/CLS">cumulative layout shift</a> when our chart takes up the space it needs and moves neighbouring elements around
+
+* longer load times as the browser downloads the data required to draw the chart [TODO: add hydration caveat, with custom footnote style?]
+
+* worse SEO due to content not being initially available in the page, and for the reasons above
+
+We can mitigate these points individually, but it's much easier to just <strong>render our charts on the server</strong> in the first place.
+
+## Rendering charts server-side
+
+<aside>
+  First things first, your stack needs to be able to actually _do_ server-side rendering (SSR). If you're building a website with Svelte, it's likel that yours does. SSR is table stakes for modern website frameworks.
+
+  If SSR isn't available to you, or if you're just following along in a sandbox environment, you can still follow along.
+
+  Also, from here I'll be talking specifially about Svelte, although the general approach likely applies for other frameworks as well.
+</aside>
+
+To allow our charts to be rendered server-side, we need to ask Svelte to do the rendering instead of D3. This simply means writing the SVG code in our Svelte component, as you would any other HTML.
+
+Let's jump straight into the code. Here, we're drawing the same chart as above, but using Svelte's rendering features instead of D3's.
+
+<SsrCodeBlock/>
+
+Looking at the key bits of code:
+
+* for each team's data in `transfers`, we draw a `<path>` whose shape (`d`) is given by calling <mark class="purple">`line(series)`</mark>
+
+* draw each tick given by <mark class="orange">`y.ticks()`</mark>, and a vertical line
+
+* draw each tick given by <mark class="cyan">`x.domain()`</mark>, and a horizontal line
+
+The code is longer than before, but now our chart can be rendered on the server, and we've solved all of the problems mentioned above.
+
+And, by using Svelte to render our chart for us, we open the door to some other exciting enhancements...
+
+## Animating charts with `svelte/transition`
+
+[`svelte/transition`](https://svelte.dev/docs/svelte/svelte-transition) is one of the many extra libraries that Svelte brings to the party.
+
+It exports a bunch of functions that make it easy to transition elements when they're added or removed from the DOM.
+
+One of these is the [`draw`](https://svelte.dev/docs/svelte/svelte-transition#draw) function. Let's see what it can do for our line chart.
+
+<DrawTransitionsDemo />
+
+Here, we're wrapping our `<path>` in an `{#if}` statement so it's added to or removed from the DOM according to the condition. `in:draw` does its thing when the given element is added to the DOM, ie. when `isInViewport` becomes true.
+
+<aside>
+  If you haven't seen `{@attach whenVisible(...)}` before, this is [Svelte's *attachments* feature](https://svelte.dev/docs/svelte/@attach), a really handy way of tucking away utilities like this that act on specific elements.
+
+  This `whenVisible` attachment simply calls the given callback with true or false if the element is in the viewport.
+</aside>
+
+There's also `fade`, `fly`, `slide`, and several others, all of which can be used just as easily to add some flair to our visualisations.
+
+## Reacting to changing data with runes
+
+Rendering charts with Svelte also makes state management and reactivity easier.
+
+Using Svelte 5's `$state` and `$derived` runes, we can easily
+
+<ReactivityDemo />
+
+## Animating changing data with `svelte/motion`
+
+<TweenDemo/>

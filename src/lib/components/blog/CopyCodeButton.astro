@@ -9,10 +9,10 @@ const { blockId } = Astro.props as {
 <button data-block-id={blockId} class="code-copy">
   <ClipboardIcon />
   <span class="code-copy-label visually-hidden">Copy code block</span>
+  <!-- prettier-ignore -->
   <span
     class="copied-message fly-in"
-    style={{ "--fly-in-duration": "120ms", "--fly-in-y": "10px" }}>Copied!</span
-  >
+    style={{ "--fly-in-duration": "120ms", "--fly-in-y": "10px" }}>Copied!</span>
 </button>
 
 <script>
@@ -20,9 +20,7 @@ const { blockId } = Astro.props as {
 
   buttons.forEach((button) => {
     const blockId = button.getAttribute("data-block-id");
-    const block = document.querySelector(
-      `[data-block-id="${blockId}"] pre code`,
-    );
+    const block = document.querySelector(`[data-block-id="${blockId}"] code`);
 
     const copiedSpan = button.querySelector(
       "span.copied-message",
@@ -92,6 +90,9 @@ const { blockId } = Astro.props as {
     border: 1px solid var(--outline);
     border-radius: 4px;
 
+    cursor: pointer;
+
+    backdrop-filter: blur(3px);
     opacity: 0;
 
     transition:
@@ -107,7 +108,7 @@ const { blockId } = Astro.props as {
     border-color: var(--blue);
   }
 
-  .code-block-container.hover button.code-copy,
+  pre.hover button.code-copy,
   button.code-copy:focus-visible {
     opacity: 1;
   }

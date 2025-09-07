@@ -1,0 +1,54 @@
+---
+let { lang, title } = Astro.props as {
+  lang: string;
+  title?: string;
+};
+
+let prettyLanguage, languageIconSrc;
+
+switch (lang) {
+  case "typescript":
+    prettyLanguage = "TypeScript";
+    break;
+  case "javascript":
+    prettyLanguage = "JavaScript";
+    break;
+  default:
+    prettyLanguage = lang.charAt(0).toUpperCase() + lang.slice(1);
+}
+
+switch (lang) {
+  case "typescript":
+  case "javascript":
+  default:
+    languageIconSrc = `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${lang}/${lang}-original.svg`;
+    break;
+  case "vimscript":
+    languageIconSrc =
+      "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vim/vim-original.svg";
+    break;
+}
+---
+
+<span class="code-block-title">
+  <img src={languageIconSrc} role="presentation" class="filetype-icon" />
+  {title ? title : prettyLanguage}
+</span>
+
+<style>
+  .code-block-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .filetype-icon {
+    width: 16px;
+    height: 16px;
+    margin-top: -1px;
+  }
+
+  .code-block-title + pre {
+    padding-top: 12px;
+  }
+</style>

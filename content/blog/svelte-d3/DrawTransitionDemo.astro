@@ -1,0 +1,79 @@
+---
+import Pre from "$components/blog/Pre.astro";
+import Code from "$components/blog/Code.astro";
+import Legend from "./TransferChartLegend.svelte";
+import DrawTransitionRaw from "./DrawTransition.svelte?raw";
+import DrawTransition from "./DrawTransition.svelte";
+import { format } from "./format-code";
+import { iconMask } from "$lib/components/icons/iconoir-embeds";
+
+const code = format(DrawTransitionRaw, 0);
+---
+
+<div class="feature-group-x">
+  <Pre data-language="svelte">
+    <Code lang="svelte" {code} />
+  </Pre>
+  <div class="feature" style="--flex-n: 0.7">
+    <div class="feature-title-bar">
+      <span>Result</span>
+    </div>
+    <div class="result">
+      <DrawTransition client:load />
+      <div class="legend-and-controls">
+        <Legend />
+        <button class="box-shadow" id="redraw-chart">Restart</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style
+  define:vars={{
+    "restart-icon": iconMask("restart"),
+  }}
+>
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    border-radius: 2px;
+    border: 1px solid var(--outline);
+
+    padding: 4px 6px;
+
+    width: min-content;
+  }
+
+  button::before {
+    content: "";
+
+    width: 16px;
+    height: 16px;
+
+    display: inline-block;
+
+    background-color: var(--text);
+
+    mask-image: var(--restart-icon);
+    mask-size: 100%;
+  }
+
+  .legend-and-controls {
+    place-self: center;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  button {
+    place-self: center;
+  }
+
+  @media (max-width: 1120px) {
+    button {
+      place-self: start;
+    }
+  }
+</style>

@@ -1,0 +1,150 @@
+---
+import { randomId } from "$lib/utils/randomId";
+import CodeBlockTitle from "./CodeBlockTitle.astro";
+import CopyCodeButton from "./CopyCodeButton.astro";
+
+let props = Astro.props as {
+  "data-language": string;
+  "data-meta": string;
+};
+
+let { "data-language": lang, "data-meta": meta } = props;
+let noCopy, title;
+
+if (meta) {
+  const titleMetaMatch = meta.match(
+    new RegExp("(title=)(?:[\"'])(.*?)(?:[\"'])"),
+  );
+
+  if (titleMetaMatch && titleMetaMatch.length > 2) {
+    title = titleMetaMatch[2];
+  }
+
+  const noCopyMatch = meta.match(new RegExp("nocopy"));
+
+  if (noCopyMatch) {
+    noCopy = true;
+  }
+}
+
+const blockId = randomId("code-block");
+---
+
+<script>
+  const containers = document.querySelectorAll("pre[data-block-id]");
+
+  containers.forEach((container) => {
+    let timeout: ReturnType<typeof setTimeout>;
+
+    container.addEventListener("mouseover", () => {
+      container.classList.add("hover");
+      clearTimeout(timeout);
+    });
+
+    container.addEventListener("mouseout", () => {
+      timeout = setTimeout(() => {
+        container.classList.remove("hover");
+      }, 1000);
+    });
+  });
+</script>
+
+<div class="feature">
+  {
+    ((lang && lang !== "plaintext") || title) && (
+      <div class="feature-title-bar">
+        <CodeBlockTitle slot="title" {lang} {title} />
+      </div>
+    )
+  }
+
+  <pre
+    data-block-id={blockId}
+    {...props}>
+    <slot />
+    {!noCopy && <CopyCodeButton blockId={blockId} />}
+  </pre>
+</div>
+
+<style is:global>
+  .code-block-title-bar {
+    display: grid;
+    grid-template-columns: 1fr max-content max-content;
+
+    padding-top: 4px;
+    padding-bottom: 2px;
+
+    background-color: var(--background-three);
+    border-bottom: 1px solid var(--outline);
+  }
+
+  .code-block-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 16px;
+    color: var(--text-two);
+  }
+
+  .filetype-icon {
+    width: 16px;
+    height: 16px;
+
+    margin-top: -1px;
+  }
+
+  pre {
+    background-color: unset !important;
+    display: grid;
+    position: relative;
+  }
+
+  pre code {
+    /* Use grid as it's the only thing that lets us do full-width highlights */
+    display: grid;
+    overflow-x: auto;
+    overflow-y: clip;
+
+    padding-bottom: 16px;
+    padding-top: 16px;
+  }
+
+  pre span {
+    /* Disable italic styles in shiki themes */
+    font-style: normal !important;
+    display: inline-block;
+    min-height: 1.25em;
+  }
+
+  pre .code-highlight:not(.line) {
+    margin-left: -4px;
+    margin-right: -4px;
+
+    padding: 1px 4px;
+
+    margin-top: 1px;
+    margin-bottom: 1px;
+  }
+
+  pre .code-highlight.line {
+    border-left-width: 1.5px;
+    border-left-style: solid;
+  }
+
+  pre .code-highlight:not(.line) {
+    border-radius: 3px;
+
+    border-bottom-width: 1.5px;
+    border-bottom-style: solid;
+  }
+
+  .code-highlight:not(:has(+ .code-highlight)) {
+    padding-bottom: 0.175em;
+  }
+
+  .line:not(.code-highlight) + .code-highlight,
+  line.code-highlight:first-of-type {
+    padding-top: 0.175em;
+  }
+</style>

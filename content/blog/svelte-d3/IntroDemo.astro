@@ -1,0 +1,62 @@
+---
+import Pre from "$components/blog/Pre.astro";
+import Code from "$components/blog/Code.astro";
+import TransferChartLegend from "./TransferChartLegend.svelte";
+import { format } from "./format-code";
+
+// HACK: yank the code from this file and pick out the <script> tag
+import thisFile from "./IntroDemo.astro?raw";
+let code = thisFile!.match(/^<script>([\s\S]*)<\/script>/m)![1];
+code = format(code);
+---
+
+<div class="feature-group-x">
+  <Pre data-language="javascript">
+    <Code lang="js" code={code} />
+  </Pre>
+  <div class="feature" style="--flex-n: 0.7">
+    <div class="feature-title-bar">
+      <span>Result</span>
+    </div>
+    <div class="result">
+      <svg id="transfer-window"></svg>
+      <TransferChartLegend />
+    </div>
+  </div>
+</div>
+
+<script>
+  import * as d3 from "d3";
+  import transfers from "./transfers-top-spenders.json";
+
+  const margin = { right: 20, top: 10, left: 40, bottom: 40 };
+  const width = 420 - margin.left - margin.right;
+  const height = 280 - margin.top - margin.bottom;
+
+  const seasons = [...new Set(transfers.map((d) => d.season))];
+
+  const x = d3.scalePoint().domain(seasons).range([0, width]);
+  const y = d3.scaleLinear().domain([0, 700]).range([height, 0]);
+  // prettier-ignore
+  const line = d3.line().x((d) => x(d.season)).y((d) => y(d.spend));
+
+  // prettier-ignore
+  const svg = d3.select("#transfer-window")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.bottom + margin.top)
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  // prettier-ignore
+  svg.selectAll()
+    .data(d3.group(transfers, (d) => d.team))
+    .join("path")
+    .attr("d", ([_, values]) => line(values))
+    .attr("data-team", ([team]) => team)
+
+  svg.append("g").call(d3.axisLeft(y));
+  // prettier-ignore
+  svg.append("g")
+    .attr("transform", `translate(0,${height})`)
+    .call(d3.axisBottom(x));
+</script>

@@ -62,7 +62,7 @@ html[data-theme="dark"] {
   --blue-background: hsl(202deg 65 45 / 25%);
 
   --green: hsl(162deg 80 32);
-  --green-background: hsl(162deg 90 41 / 12%);
+  --green-background: hsl(162deg 90 41 / 10%);
 
   --cyan: hsl(176deg 70 38);
   --cyan-background: hsl(176deg 79 46 / 19%);

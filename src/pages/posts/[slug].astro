@@ -1,8 +1,13 @@
 ---
-import Layout from "$layouts/Main.astro";
-import Code from "$lib/components/blog/Code.astro";
-import { formatDateLong } from "$lib/utils/time";
 import { getCollection, render } from "astro:content";
+
+import Layout from "$layouts/Main.astro";
+import Pre from "$lib/components/blog/Pre.astro";
+import { formatDateLong } from "$lib/utils/time";
+import {
+  expandLines,
+  compressLines,
+} from "$lib/components/icons/iconoir-embeds";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -29,7 +34,7 @@ const { Content } = await render(post);
         <span>{post.data.readTimeMins} minute read</span>
       </p>
     </header>
-    <Content components={{ pre: Code }} />
+    <Content components={{ pre: Pre }} />
   </main>
   <footer>
     <p>Thanks for reading!</p>
@@ -46,7 +51,12 @@ const { Content } = await render(post);
   });
 </script>
 
-<style>
+<style
+  define:vars={{
+    "expand-lines-icon": expandLines(),
+    "compress-lines-icon": compressLines(),
+  }}
+>
   main {
     margin-top: 40px;
   }
@@ -117,6 +127,7 @@ const { Content } = await render(post);
   }
 
   /* -- Blog styles ------ */
+  /* TODO: move to separate CSS file? */
 
   .post-content {
     width: 100%;
@@ -229,6 +240,9 @@ const { Content } = await render(post);
     padding-top: 16px;
     padding-bottom: 16px;
 
+    margin-top: 18px;
+    margin-bottom: 24px;
+
     box-sizing: content-box;
   }
 
@@ -242,39 +256,165 @@ const { Content } = await render(post);
     margin-bottom: 0;
   }
 
-  @media (max-width: 840px) {
-    :global(.code-block-container, aside) {
-      margin-left: -32px;
-      margin-right: -32px;
-    }
+  :global(ul:not(.ignore-list-style), ol:not(.ignore-list-style)) {
+    list-style-type: disc;
+    padding-left: 12px;
+  }
 
-    :global(.code-block-title-bar, pre span.line, aside) {
-      padding-left: 32px;
-      padding-right: 32px;
-    }
+  :global(ul:not(.ignore-list-style) li, ol:not(.ignore-list-style) li) {
+    padding-left: 8px;
+  }
+
+  :global(.feature) {
+    border-radius: 5px;
+    background-color: var(--background-two) !important;
+
+    margin: 0;
+    overflow: clip;
+
+    display: grid;
+    grid-template-rows: min-content 1fr;
+
+    font-size: 13px;
+  }
+
+  :global(.feature-title-bar) {
+    padding-top: 4px;
+    padding-bottom: 2px;
+
+    height: 33px;
+
+    background-color: var(--background-three);
+    border-bottom: 1px solid var(--outline);
+
+    font-size: 16px;
+    color: var(--text-two);
+  }
+
+  :global(.feature) {
+    margin-top: 28px;
+    margin-bottom: 28px;
+  }
+
+  :global(.feature-group .feature:not(:last-of-type)) {
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  :global(.feature-group .feature:not(:first-of-type)) {
+    margin-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
   }
 
   @media (max-width: 640px) {
-    :global(.code-block-container, aside) {
+    :global(.feature, aside) {
       margin-left: -20px;
       margin-right: -20px;
     }
 
-    :global(.code-block-title-bar, pre span.line, aside) {
+    :global(.feature-title-bar, .feature-pad, pre .line, aside) {
       padding-left: 20px;
       padding-right: 20px;
     }
   }
 
-  @media (min-width: 841px) {
-    :global(.code-block-container, aside) {
+  @media (max-width: 820px) {
+    :global(.feature) {
+      border-radius: 0;
+
+      border-top: 1px solid var(--outline);
+      border-bottom: 1px solid var(--outline);
+
+      border-left: none;
+      border-right: none;
+    }
+
+    :global(.feature, aside) {
+      margin-left: -32px;
+      margin-right: -32px;
+    }
+
+    :global(.feature-title-bar, .feature-pad, pre .line, aside) {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+  }
+
+  @media (min-width: 820px) {
+    :global(.feature) {
+      border: 1px solid var(--outline);
+    }
+
+    :global(.feature, aside) {
       margin-left: -24px;
       margin-right: -24px;
     }
 
-    :global(.code-block-title-bar, pre span.line, aside) {
+    :global(.feature-title-bar, .feature-pad, pre .line, aside) {
       padding-left: 24px;
       padding-right: 24px;
+    }
+  }
+
+  @media (min-width: 1080px) {
+    :global(.feature-group-x) {
+      width: 1080px;
+      place-self: center;
+
+      display: flex;
+      flex-direction: row;
+    }
+
+    :global(.feature-group-x .feature) {
+      flex: var(--flex-n, 1);
+    }
+
+    :global(.feature-group-x .feature:not(:last-of-type)) {
+      margin-right: 0;
+      margin-left: 0;
+
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    :global(.feature-group-x .feature:not(:first-of-type)) {
+      margin-left: -1px;
+      margin-right: 0;
+
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    :global(
+        .feature-group-x
+          .feature:not(:first-of-type)
+          :is(.feature-title-bar, .feature-pad, pre .line)
+      ) {
+      padding-left: 16px;
+    }
+
+    :global(
+        .feature-group-x
+          .feature:not(:last-of-type)
+          :is(.feature-title-bar, .feature-pad, pre .line)
+      ) {
+      padding-right: 16px;
+    }
+  }
+
+  @media (max-width: 1080px) {
+    :global(.feature-group-x .feature:not(:first-of-type)) {
+      margin-top: 0;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    :global(.feature-group-x .feature:not(:last-of-type)) {
+      margin-bottom: -1px;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
     }
   }
 
@@ -304,5 +444,93 @@ const { Content } = await render(post);
 
   :global(code) {
     font-family: "Atkinson Hyperlegible Mono";
+  }
+
+  :global(details) {
+    border-top: 1px solid var(--shadow);
+    border-bottom: 1px solid var(--shadow);
+
+    position: relative;
+    oveflow: hidden;
+  }
+
+  :global(details::details-content) {
+    display: block;
+    block-size: 0;
+    overflow: hidden;
+
+    transition-property: block-size, content-visibility;
+    transition-duration: var(--transition-med);
+    transition-behavior: allow-discrete;
+  }
+
+  :global(details[open]::details-content) {
+    block-size: auto;
+    block-size: calc-size(auto);
+  }
+
+  :global(details summary) {
+    list-style: none;
+
+    cursor: pointer;
+
+    padding-top: 3px;
+    padding-bottom: 1px;
+  }
+
+  :global(details summary span) {
+    filter: grayscale(0.4) brightness(0.8);
+    transition: filter var(--transition-blink);
+  }
+
+  :global(details[open] summary span) {
+    filter: none;
+  }
+
+  :global(details::before) {
+    content: "";
+    position: absolute;
+
+    top: 0;
+    bottom: 0;
+    width: 21px;
+
+    border-right: 1px solid var(--outline);
+  }
+
+  :global(summary::before) {
+    content: "";
+    position: absolute;
+
+    top: 0;
+    bottom: 0;
+    left: 0;
+
+    background-color: var(--text-two);
+    mask-image: var(--expand-lines-icon);
+    mask-repeat: no-repeat;
+    mask-position: 50%;
+
+    width: 20px;
+  }
+
+  :global(summary::after) {
+    content: "+ " attr(data-lines-folded) " more lines";
+
+    color: var(--text-three);
+    margin-left: 16px;
+    font-style: italic;
+
+    transition-property: opacity, content-visibility;
+    transition-duration: var(--transition-blink);
+  }
+
+  :global(details[open] summary::after) {
+    opacity: 0;
+    content-visibility: hidden;
+  }
+
+  :global(details[open] summary::before) {
+    mask-image: var(--compress-lines-icon);
   }
 </style>

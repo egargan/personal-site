@@ -2,7 +2,7 @@
   "extends": "astro/tsconfigs/strict",
   "include": [
     "src/**/*",
-    "posts/**/*"
+    "content/**/*"
   ],
   "compilerOptions": {
     "plugins": [
@@ -11,6 +11,8 @@
       }
     ],
     "baseUrl": ".",
+    "allowJs": true,
+    "checkJs": true,
     "paths": {
       "$lib/*": [
         "src/lib/*"

@@ -1,0 +1,14 @@
+diff --git a/node_modules/@shikijs/core/dist/index.mjs b/node_modules/@shikijs/core/dist/index.mjs
+index a3c25d3..b3ad110 100644
+--- a/node_modules/@shikijs/core/dist/index.mjs
++++ b/node_modules/@shikijs/core/dist/index.mjs
+@@ -479,8 +479,8 @@ function getTransformers(options) {
+   return [
+     ...transformers.pre,
+     ...transformers.normal,
++    ...builtInTransformers,
+     ...transformers.post,
+-    ...builtInTransformers
+   ];
+ }
+ function sortTransformersByEnforcement(transformers) {

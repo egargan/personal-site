@@ -1,0 +1,387 @@
+[
+  {
+    "team": "mnu",
+    "spend": 156,
+    "arrivals": 21,
+    "income": 101,
+    "season": "15/16"
+  },
+  {
+    "team": "chl",
+    "spend": 96,
+    "arrivals": 54,
+    "income": 87,
+    "season": "15/16"
+  },
+  {
+    "team": "liv",
+    "spend": 126,
+    "arrivals": 30,
+    "income": 91,
+    "season": "15/16"
+  },
+  {
+    "team": "mnc",
+    "spend": 208,
+    "arrivals": 29,
+    "income": 67,
+    "season": "15/16"
+  },
+  {
+    "team": "ars",
+    "spend": 26,
+    "arrivals": 16,
+    "income": 2,
+    "season": "15/16"
+  },
+  {
+    "team": "ars",
+    "spend": 113,
+    "arrivals": 13,
+    "income": 10,
+    "season": "16/17"
+  },
+  {
+    "team": "mnc",
+    "spend": 216,
+    "arrivals": 42,
+    "income": 35,
+    "season": "16/17"
+  },
+  {
+    "team": "mnu",
+    "spend": 185,
+    "arrivals": 10,
+    "income": 47,
+    "season": "16/17"
+  },
+  {
+    "team": "chl",
+    "spend": 133,
+    "arrivals": 41,
+    "income": 109,
+    "season": "16/17"
+  },
+  {
+    "team": "liv",
+    "spend": 80,
+    "arrivals": 23,
+    "income": 89,
+    "season": "16/17"
+  },
+  {
+    "team": "liv",
+    "spend": 174,
+    "arrivals": 16,
+    "income": 184,
+    "season": "17/18"
+  },
+  {
+    "team": "mnc",
+    "spend": 318,
+    "arrivals": 38,
+    "income": 91,
+    "season": "17/18"
+  },
+  {
+    "team": "ars",
+    "spend": 153,
+    "arrivals": 15,
+    "income": 162,
+    "season": "17/18"
+  },
+  {
+    "team": "chl",
+    "spend": 260,
+    "arrivals": 47,
+    "income": 195,
+    "season": "17/18"
+  },
+  {
+    "team": "mnu",
+    "spend": 198,
+    "arrivals": 13,
+    "income": 46,
+    "season": "17/18"
+  },
+  {
+    "team": "mnu",
+    "spend": 83,
+    "arrivals": 11,
+    "income": 31,
+    "season": "18/19"
+  },
+  {
+    "team": "ars",
+    "spend": 80,
+    "arrivals": 19,
+    "income": 9,
+    "season": "18/19"
+  },
+  {
+    "team": "liv",
+    "spend": 192,
+    "arrivals": 22,
+    "income": 41,
+    "season": "18/19"
+  },
+  {
+    "team": "mnc",
+    "spend": 79,
+    "arrivals": 28,
+    "income": 58,
+    "season": "18/19"
+  },
+  {
+    "team": "chl",
+    "spend": 209,
+    "arrivals": 41,
+    "income": 83,
+    "season": "18/19"
+  },
+  {
+    "team": "mnc",
+    "spend": 170,
+    "arrivals": 38,
+    "income": 71,
+    "season": "19/20"
+  },
+  {
+    "team": "liv",
+    "spend": 10,
+    "arrivals": 21,
+    "income": 48,
+    "season": "19/20"
+  },
+  {
+    "team": "chl",
+    "spend": 45,
+    "arrivals": 37,
+    "income": 165,
+    "season": "19/20"
+  },
+  {
+    "team": "mnu",
+    "spend": 237,
+    "arrivals": 16,
+    "income": 81,
+    "season": "19/20"
+  },
+  {
+    "team": "ars",
+    "spend": 161,
+    "arrivals": 20,
+    "income": 54,
+    "season": "19/20"
+  },
+  {
+    "team": "ars",
+    "spend": 86,
+    "arrivals": 20,
+    "income": 19,
+    "season": "20/21"
+  },
+  {
+    "team": "liv",
+    "spend": 85,
+    "arrivals": 21,
+    "income": 17,
+    "season": "20/21"
+  },
+  {
+    "team": "mnu",
+    "spend": 84,
+    "arrivals": 21,
+    "income": 20,
+    "season": "20/21"
+  },
+  {
+    "team": "mnc",
+    "spend": 173,
+    "arrivals": 39,
+    "income": 64,
+    "season": "20/21"
+  },
+  {
+    "team": "chl",
+    "spend": 267,
+    "arrivals": 43,
+    "income": 57,
+    "season": "20/21"
+  },
+  {
+    "team": "mnc",
+    "spend": 139,
+    "arrivals": 36,
+    "income": 94,
+    "season": "21/22"
+  },
+  {
+    "team": "chl",
+    "spend": 118,
+    "arrivals": 25,
+    "income": 158,
+    "season": "21/22"
+  },
+  {
+    "team": "liv",
+    "spend": 89,
+    "arrivals": 15,
+    "income": 32,
+    "season": "21/22"
+  },
+  {
+    "team": "ars",
+    "spend": 167,
+    "arrivals": 22,
+    "income": 31,
+    "season": "21/22"
+  },
+  {
+    "team": "mnu",
+    "spend": 142,
+    "arrivals": 20,
+    "income": 31,
+    "season": "21/22"
+  },
+  {
+    "team": "chl",
+    "spend": 630,
+    "arrivals": 35,
+    "income": 68,
+    "season": "22/23"
+  },
+  {
+    "team": "mnc",
+    "spend": 155,
+    "arrivals": 33,
+    "income": 162,
+    "season": "22/23"
+  },
+  {
+    "team": "ars",
+    "spend": 186,
+    "arrivals": 32,
+    "income": 24,
+    "season": "22/23"
+  },
+  {
+    "team": "liv",
+    "spend": 146,
+    "arrivals": 12,
+    "income": 80,
+    "season": "22/23"
+  },
+  {
+    "team": "mnu",
+    "spend": 243,
+    "arrivals": 27,
+    "income": 24,
+    "season": "22/23"
+  },
+  {
+    "team": "chl",
+    "spend": 464,
+    "arrivals": 39,
+    "income": 282,
+    "season": "23/24"
+  },
+  {
+    "team": "mnc",
+    "spend": 260,
+    "arrivals": 24,
+    "income": 139,
+    "season": "23/24"
+  },
+  {
+    "team": "liv",
+    "spend": 172,
+    "arrivals": 19,
+    "income": 61,
+    "season": "23/24"
+  },
+  {
+    "team": "mnu",
+    "spend": 211,
+    "arrivals": 22,
+    "income": 64,
+    "season": "23/24"
+  },
+  {
+    "team": "ars",
+    "spend": 235,
+    "arrivals": 17,
+    "income": 69,
+    "season": "23/24"
+  },
+  {
+    "team": "mnc",
+    "spend": 243,
+    "arrivals": 22,
+    "income": 142,
+    "season": "24/25"
+  },
+  {
+    "team": "ars",
+    "spend": 109,
+    "arrivals": 16,
+    "income": 84,
+    "season": "24/25"
+  },
+  {
+    "team": "chl",
+    "spend": 282,
+    "arrivals": 44,
+    "income": 239,
+    "season": "24/25"
+  },
+  {
+    "team": "liv",
+    "spend": 42,
+    "arrivals": 18,
+    "income": 47,
+    "season": "24/25"
+  },
+  {
+    "team": "mnu",
+    "spend": 246,
+    "arrivals": 22,
+    "income": 117,
+    "season": "24/25"
+  },
+  {
+    "team": "mnu",
+    "spend": 230,
+    "arrivals": 14,
+    "income": 0,
+    "season": "25/26"
+  },
+  {
+    "team": "chl",
+    "spend": 280,
+    "arrivals": 27,
+    "income": 256,
+    "season": "25/26"
+  },
+  {
+    "team": "ars",
+    "spend": 293,
+    "arrivals": 14,
+    "income": 8,
+    "season": "25/26"
+  },
+  {
+    "team": "liv",
+    "spend": 340,
+    "arrivals": 16,
+    "income": 220,
+    "season": "25/26"
+  },
+  {
+    "team": "mnc",
+    "spend": 177,
+    "arrivals": 18,
+    "income": 58,
+    "season": "25/26"
+  }
+]

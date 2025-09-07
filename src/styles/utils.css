@@ -1,0 +1,57 @@
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  padding: 0;
+  border: 0;
+}
+
+.fly-in {
+  animation-name: wait-invisible, fly-in;
+  animation-timing-function: linear,
+    var(--fly-in-timing-function, cubic-bezier(0.215, 0.61, 0.355, 1));
+  animation-duration: var(--fly-in-delay, 30ms), var(--fly-in-duration, 400ms);
+  animation-delay: 0s, var(--fly-in-delay, 30ms);
+}
+
+button.box-shadow {
+  box-shadow: 2px 2px 0 var(--shadow);
+  transition-property: margin, box-shadow, backdrop-filter;
+  transition-duration: var(--transition-short);
+}
+
+button.box-shadow:hover {
+  backdrop-filter: brightness(1.1);
+}
+
+button.box-shadow:active {
+  box-shadow: 0.5px 0.5px 0 var(--shadow);
+  margin-left: 1.5px;
+  margin-top: 1.5px;
+  margin-right: -1.5px;
+  margin-bottom: -1.5px;
+}
+
+@keyframes wait-invisible {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fly-in {
+  0% {
+    opacity: 0;
+    transform: translateY(var(--fly-in-y, 15px));
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

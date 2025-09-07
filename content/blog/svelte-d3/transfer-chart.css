@@ -1,0 +1,109 @@
+:root {
+  --arsenal-color: #ef2501;
+  --chelsea-color: #0659ba;
+  --liverpool-color: #a61136;
+  --man-city-color: #6cabdd;
+  --man-united-color: #fbe122;
+
+  overflow: visible;
+}
+
+.result {
+  place-self: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.team-legend {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  row-gap: 8px;
+  column-gap: 16px;
+
+  place-self: center;
+
+  max-width: 360px;
+}
+
+.team-legend li:before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
+  display: inline-block;
+  border-radius: 100%;
+}
+
+@media (max-width: 1120px) {
+  .result {
+    flex-direction: row;
+    margin-top: 22px;
+  }
+
+  .team-legend {
+    flex-direction: column;
+  }
+}
+
+svg path[data-team] {
+  stroke-width: 3px;
+  fill: none;
+}
+
+svg .tick text {
+  font-size: 12px;
+  fill: var(--text);
+}
+
+svg .domain,
+svg .tick line {
+  stroke: var(--text-two);
+}
+
+svg path[data-team="ars"] {
+  stroke: var(--arsenal-color);
+}
+svg path[data-team="chl"] {
+  stroke: var(--chelsea-color);
+}
+svg path[data-team="liv"] {
+  stroke: var(--liverpool-color);
+}
+svg path[data-team="mnc"] {
+  stroke: var(--man-city-color);
+}
+svg path[data-team="mnu"] {
+  stroke: var(--man-united-color);
+}
+
+.team-legend li[data-team="ars"]:before {
+  background-color: var(--arsenal-color);
+}
+.team-legend li[data-team="chl"]:before {
+  background-color: var(--chelsea-color);
+}
+.team-legend li[data-team="liv"]:before {
+  background-color: var(--liverpool-color);
+}
+.team-legend li[data-team="mnc"]:before {
+  background-color: var(--man-city-color);
+}
+.team-legend li[data-team="mnu"]:before {
+  background-color: var(--man-united-color);
+}
+
+.result button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  border-radius: 2px;
+  border: 1px solid var(--outline);
+
+  padding: 4px 6px;
+
+  place-self: center;
+}

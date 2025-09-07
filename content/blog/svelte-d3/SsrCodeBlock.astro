@@ -1,0 +1,14 @@
+---
+import Pre from "$components/blog/Pre.astro";
+import Code from "$components/blog/Code.astro";
+
+import SsrDemo from "./SsrDemo.svelte?raw";
+import { format } from "./format-code";
+
+const code = format(SsrDemo, 0);
+const meta = "purple:/line(series)/ orange:/y.ticks()/ cyan:/x.domain()/";
+---
+
+<Pre data-language="svelte" data-meta={meta}>
+  <Code lang="svelte" code={code} meta={meta} />
+</Pre>
