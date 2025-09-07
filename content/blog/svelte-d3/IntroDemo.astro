@@ -38,6 +38,7 @@ code = format(code);
   const x = d3.scalePoint().domain(seasons).range([0, width]);
   const y = d3.scaleLinear().domain([0, 700]).range([height, 0]);
   // prettier-ignore
+  // @ts-ignore
   const line = d3.line().x((d) => x(d.season)).y((d) => y(d.spend));
 
   // prettier-ignore
@@ -51,6 +52,7 @@ code = format(code);
   svg.selectAll()
     .data(d3.group(transfers, (d) => d.team))
     .join("path")
+    // @ts-ignore
     .attr("d", ([_, values]) => line(values))
     .attr("data-team", ([team]) => team)
 

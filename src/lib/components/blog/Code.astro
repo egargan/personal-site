@@ -3,10 +3,10 @@ import { Code as AstroCode } from "astro:components";
 import { getShikiConfig } from "$lib/shiki";
 
 const { transformers, themes } = getShikiConfig();
-
 const { code, lang, meta } = Astro.props;
 ---
 
+<!-- @ts-ignore -->
 <AstroCode
   lang={lang}
   code={code}

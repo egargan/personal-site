@@ -1,29 +1,27 @@
-import {
-  createCommentNotationTransformer,
-  transformerRemoveLineBreak,
-} from "@shikijs/transformers";
+import { createCommentNotationTransformer } from "@shikijs/transformers";
 
 export function getShikiConfig() {
   return {
     themes: {
-      dark: "github-dark" as const,
-      light: "github-light" as const,
+      dark: /** @type {const} */ ("github-dark"),
+      light: /** @type {const} */ ("github-light"),
     },
-    transformers: [
-      {
-        pre(hast) {
-          hast.properties["data-meta"] = this.options.meta?.__raw;
+    transformers:
+      /** @type {Array<import("@shikijs/types").ShikiTransformer>} */ ([
+        {
+          pre(hast) {
+            hast.properties["data-meta"] = this.options.meta?.__raw;
+          },
         },
-      },
-      transformerNamedHighlight(),
-      transformerNamedMetaHighlight(),
-      removeTransformer,
-      foldTransformer,
-    ],
+        transformerNamedHighlight(),
+        transformerNamedMetaHighlight(),
+        removeTransformer,
+        foldTransformer,
+      ]),
   };
 }
 
-export function transformerNamedMetaHighlight(options = {}) {
+export function transformerNamedMetaHighlight() {
   return {
     name: "transformer-named-meta-highlight",
 
@@ -42,6 +40,7 @@ export function transformerNamedMetaHighlight(options = {}) {
       // TODO: support multiple matches, allow /g suffixes,
       // or /1 or /2 to match specific words
 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       matches.forEach(([_, name, pattern]) => {
         const index = code.indexOf(pattern);
 
@@ -90,10 +89,7 @@ const foldTransformer = {
   name: "code-fold-transformer",
   enforce: "post",
   code(node) {
-    debugger;
-
-    // TODO: what's going on with newlines?
-    let newLines = [];
+    const newLines = [];
 
     for (let i = 0; i < node.children.length; i++) {
       const lineNode = node.children[i];
@@ -162,8 +158,6 @@ const removeTransformer = {
   name: "code-remove-transformer",
   enforce: "post",
   code(node) {
-    debugger;
-
     // TODO: what's going on with newlines?
     let newLines = [];
 

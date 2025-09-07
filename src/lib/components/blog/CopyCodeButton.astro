@@ -22,6 +22,12 @@ const { blockId } = Astro.props as {
     const blockId = button.getAttribute("data-block-id");
     const block = document.querySelector(`[data-block-id="${blockId}"] code`);
 
+    if (!block) {
+      throw new Error(
+        `could not find code block with [data-block-id="${blockId}"], CopyCodeButton won't work here `,
+      );
+    }
+
     const copiedSpan = button.querySelector(
       "span.copied-message",
     ) as HTMLSpanElement;
@@ -40,6 +46,7 @@ const { blockId } = Astro.props as {
 
     button.addEventListener("click", () => {
       navigator.permissions
+        // @ts-expect-error 'clipboard-write' is a valid PermissionName
         .query({ name: "clipboard-write" })
         .then((result) => {
           if (!(result.state === "granted" || result.state === "prompt")) {
@@ -48,7 +55,7 @@ const { blockId } = Astro.props as {
             );
           }
 
-          navigator.clipboard.writeText(block.textContent).then(() => {
+          navigator.clipboard.writeText(block.textContent ?? "").then(() => {
             copiedSpan.style.display = "block";
             labelSpan.style.display = "none";
 

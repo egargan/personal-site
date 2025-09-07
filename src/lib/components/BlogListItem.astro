@@ -3,9 +3,8 @@ import { formatDateLong } from "$lib/utils/time";
 import type { CollectionEntry } from "astro:content";
 import PostChip from "./PostChip.astro";
 
-const { post, i } = Astro.props as {
+const { post } = Astro.props as {
   post: CollectionEntry<"blog">;
-  i: number;
 };
 ---
 

@@ -10,9 +10,9 @@
         "name": "@astrojs/ts-plugin"
       }
     ],
+    "target": "es2022",
     "baseUrl": ".",
     "allowJs": true,
-    "checkJs": true,
     "paths": {
       "$lib/*": [
         "src/lib/*"

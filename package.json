@@ -13,6 +13,7 @@
   "devDependencies": {
     "@eslint/js": "^9.18.0",
     "@shikijs/transformers": "^3.2.1",
+    "@types/d3": "^7.4.3",
     "@types/masonry-layout": "^4.2.8",
     "@typescript-eslint/parser": "^5.20.0",
     "autoprefixer": "^10.4.4",
@@ -39,6 +40,7 @@
     "@astrojs/ts-plugin": "^1.10.4",
     "@astrojs/vercel": "^8.2.0",
     "@notionhq/client": "^1.0.4",
+    "@shikijs/types": "^3.12.2",
     "@types/clipboard": "^2.0.7",
     "@types/highlightjs": "^9.12.2",
     "@types/mongodb": "^4.0.7",
