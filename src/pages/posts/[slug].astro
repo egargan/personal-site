@@ -256,12 +256,15 @@ const { Content } = await render(post);
     margin-bottom: 0;
   }
 
-  :global(ul:not(.ignore-list-style), ol:not(.ignore-list-style)) {
+  :global(main ul:not(.ignore-list-style), main ol:not(.ignore-list-style)) {
     list-style-type: disc;
     padding-left: 12px;
   }
 
-  :global(ul:not(.ignore-list-style) li, ol:not(.ignore-list-style) li) {
+  :global(
+      main ul:not(.ignore-list-style) li,
+      main ol:not(.ignore-list-style) li
+    ) {
     padding-left: 8px;
   }
 
@@ -306,56 +309,6 @@ const { Content } = await render(post);
     margin-top: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-  }
-
-  @media (max-width: 640px) {
-    :global(.feature, aside) {
-      margin-left: -20px;
-      margin-right: -20px;
-    }
-
-    :global(.feature-title-bar, .feature-pad, pre .line, aside) {
-      padding-left: 20px;
-      padding-right: 20px;
-    }
-  }
-
-  @media (max-width: 820px) {
-    :global(.feature) {
-      border-radius: 0;
-
-      border-top: 1px solid var(--outline);
-      border-bottom: 1px solid var(--outline);
-
-      border-left: none;
-      border-right: none;
-    }
-
-    :global(.feature, aside) {
-      margin-left: -32px;
-      margin-right: -32px;
-    }
-
-    :global(.feature-title-bar, .feature-pad, pre .line, aside) {
-      padding-left: 32px;
-      padding-right: 32px;
-    }
-  }
-
-  @media (min-width: 820px) {
-    :global(.feature) {
-      border: 1px solid var(--outline);
-    }
-
-    :global(.feature, aside) {
-      margin-left: -24px;
-      margin-right: -24px;
-    }
-
-    :global(.feature-title-bar, .feature-pad, pre .line, aside) {
-      padding-left: 24px;
-      padding-right: 24px;
-    }
   }
 
   @media (min-width: 1080px) {
@@ -418,6 +371,56 @@ const { Content } = await render(post);
     }
   }
 
+  @media (max-width: 820px) {
+    :global(.feature) {
+      border-radius: 0;
+
+      border-top: 1px solid var(--outline);
+      border-bottom: 1px solid var(--outline);
+
+      border-left: none;
+      border-right: none;
+    }
+
+    :global(.feature, aside) {
+      margin-left: -32px;
+      margin-right: -32px;
+    }
+
+    :global(.feature-title-bar, .feature-pad, pre .line, aside) {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+  }
+
+  @media (min-width: 820px) {
+    :global(.feature) {
+      border: 1px solid var(--outline);
+    }
+
+    :global(.feature, aside) {
+      margin-left: -24px;
+      margin-right: -24px;
+    }
+
+    :global(.feature-title-bar, .feature-pad, pre .line, aside) {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    :global(.feature, aside) {
+      margin-left: -20px;
+      margin-right: -20px;
+    }
+
+    :global(.feature-title-bar, .feature-pad, pre .line, aside) {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+
   :global(:not(pre) > code) {
     background-color: var(--background-three);
     border-radius: 4px;
@@ -444,93 +447,5 @@ const { Content } = await render(post);
 
   :global(code) {
     font-family: "Atkinson Hyperlegible Mono";
-  }
-
-  :global(details) {
-    border-top: 1px solid var(--shadow);
-    border-bottom: 1px solid var(--shadow);
-
-    position: relative;
-    overflow: hidden;
-  }
-
-  :global(details::details-content) {
-    display: block;
-    block-size: 0;
-    overflow: hidden;
-
-    transition-property: block-size, content-visibility;
-    transition-duration: var(--transition-med);
-    transition-behavior: allow-discrete;
-  }
-
-  :global(details[open]::details-content) {
-    block-size: auto;
-    block-size: calc-size(auto);
-  }
-
-  :global(details summary) {
-    list-style: none;
-
-    cursor: pointer;
-
-    padding-top: 3px;
-    padding-bottom: 1px;
-  }
-
-  :global(details summary span) {
-    filter: grayscale(0.4) brightness(0.8);
-    transition: filter var(--transition-blink);
-  }
-
-  :global(details[open] summary span) {
-    filter: none;
-  }
-
-  :global(details::before) {
-    content: "";
-    position: absolute;
-
-    top: 0;
-    bottom: 0;
-    width: 21px;
-
-    border-right: 1px solid var(--outline);
-  }
-
-  :global(summary::before) {
-    content: "";
-    position: absolute;
-
-    top: 0;
-    bottom: 0;
-    left: 0;
-
-    background-color: var(--text-two);
-    mask-image: var(--expand-lines-icon);
-    mask-repeat: no-repeat;
-    mask-position: 50%;
-
-    width: 20px;
-  }
-
-  :global(summary::after) {
-    content: "+ " attr(data-lines-folded) " more lines";
-
-    color: var(--text-three);
-    margin-left: 16px;
-    font-style: italic;
-
-    transition-property: opacity, content-visibility;
-    transition-duration: var(--transition-blink);
-  }
-
-  :global(details[open] summary::after) {
-    opacity: 0;
-    content-visibility: hidden;
-  }
-
-  :global(details[open] summary::before) {
-    mask-image: var(--compress-lines-icon);
   }
 </style>
