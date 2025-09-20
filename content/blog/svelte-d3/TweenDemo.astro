@@ -1,7 +1,6 @@
 ---
 import Pre from "$components/blog/Pre.astro";
 import Code from "$components/blog/Code.astro";
-import Legend from "./TransferChartLegend.svelte";
 import TweenRaw from "./Tween.svelte?raw";
 import Tween from "./Tween.svelte";
 import { format } from "./format-code";
@@ -19,10 +18,7 @@ const code = format(TweenRaw, 0);
       <span>Result</span>
     </div>
     <div class="result">
-      <div>
-        <Tween client:load />
-      </div>
-      <Legend />
+      <Tween client:load />
     </div>
   </div>
 </div>
@@ -37,25 +33,5 @@ const code = format(TweenRaw, 0);
     display: flex;
     flex-direction: column;
     gap: 16px;
-  }
-
-  button::before {
-    content: "";
-
-    width: 16px;
-    height: 16px;
-
-    display: inline-block;
-
-    background-color: var(--text);
-
-    mask-image: var(--restart-icon);
-    mask-size: 100%;
-  }
-
-  @media (max-width: 1120px) {
-    button {
-      place-self: start;
-    }
   }
 </style>

@@ -3,7 +3,7 @@
   import * as d3 from "d3";
   import transfers from "./transfers-top-spenders.json";
 
-  const margin = { right: 20, top: 10, left: 40, bottom: 40 };
+  const margin = { right: 20, top: 10, left: 40, bottom: 20 };
   const width = 420 - margin.left - margin.right;
   const height = 280 - margin.top - margin.bottom;
 
@@ -52,49 +52,11 @@
 <!-- fold-end -->
 
 <div class="controls">
+  <span>Show data for</span>
   {#each ["spend", "income", "arrivals"] as option}
     <button aria-pressed={stat === option} onclick={() => (stat = option)}>
       {option}
+      {option === "arrivals" ? "(#)" : "(£m)"}
     </button>
   {/each}
 </div>
-
-<!-- remove-start -->
-
-<style>
-  .controls {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 12px;
-
-    place-self: center;
-  }
-
-  button {
-    text-transform: capitalize;
-
-    box-shadow: 2px 2px 0 var(--shadow);
-
-    transition-property: margin, box-shadow, backdrop-filter, border-color,
-      background-color;
-    transition-duration: var(--transition-short);
-  }
-
-  button:hover {
-    backdrop-filter: brightness(1.1);
-  }
-
-  button:active {
-    box-shadow: 0.5px 0.5px 0 var(--shadow);
-    margin-left: 1.5px;
-    margin-top: 1.5px;
-    margin-right: -1.5px;
-    margin-bottom: -1.5px;
-  }
-
-  button[aria-pressed="true"] {
-    background-color: var(--blue-background);
-    border-color: var(--blue);
-    box-shadow: 2px 2px 0 var(--blue-weak);
-  }
-</style>

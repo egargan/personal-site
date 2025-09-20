@@ -8,7 +8,7 @@
   import { onMount, tick } from "svelte";
   // remove-end
 
-  const margin = { right: 20, top: 10, left: 40, bottom: 40 };
+  const margin = { right: 20, top: 10, left: 40, bottom: 20 };
   const width = 420 - margin.left - margin.right;
   const height = 280 - margin.top - margin.bottom;
 

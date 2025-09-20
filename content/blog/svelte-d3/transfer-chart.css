@@ -10,8 +10,10 @@
 
 .result {
   place-self: center;
+
   display: flex;
   flex-direction: column;
+  gap: 16px;
 }
 
 .team-legend {
@@ -37,15 +39,105 @@
   border-radius: 100%;
 }
 
-@media (max-width: 1120px) {
+.controls {
+  place-self: center;
+
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+
+  grid-template-areas: "label btn-1 btn-2 btn-3";
+}
+
+.controls > span {
+  color: var(--text-two);
+  font-size: 16px;
+  grid-area: label;
+  align-content: center;
+}
+
+@media (max-width: 1120px) and (min-width: 580px) {
   .result {
     flex-direction: row;
-    margin-top: 22px;
   }
 
   .team-legend {
     flex-direction: column;
   }
+
+  .controls {
+    grid-template-areas:
+      "label"
+      "btn-1"
+      "btn-2"
+      "btn-3";
+  }
+}
+
+@media (max-width: 1120px) {
+  .result {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 580px) {
+  .result {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 450px) {
+  .controls {
+    grid-template-areas:
+      "label label label "
+      "btn-1 btn-2 btn-3";
+  }
+
+  .controls > span {
+    justify-self: center;
+  }
+}
+
+.result button {
+  --button-shadow: var(--shadow);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  border-radius: 2px;
+  border: 1px solid var(--outline);
+
+  padding: 4px 6px;
+
+  text-transform: capitalize;
+  font-size: 15px;
+
+  box-shadow: 2px 2px 0 var(--button-shadow);
+
+  transition-property: margin, box-shadow, backdrop-filter, border-color,
+    background-color;
+  transition-duration: var(--transition-short);
+}
+
+.result button:hover {
+  backdrop-filter: brightness(1.1);
+}
+
+.result button:active {
+  box-shadow: 0.5px 0.5px 0 var(--shadow);
+  margin-left: 1.5px;
+  margin-top: 1.5px;
+  margin-right: -1.5px;
+  margin-bottom: -1.5px;
+}
+
+.result button[aria-pressed="true"] {
+  --button-shadow: var(--blue-weak);
+  background-color: var(--blue-background);
+  border-color: var(--blue);
 }
 
 svg path[data-team] {
@@ -93,17 +185,4 @@ svg path[data-team="mnu"] {
 }
 .team-legend li[data-team="mnu"]:before {
   background-color: var(--man-united-color);
-}
-
-.result button {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-
-  border-radius: 2px;
-  border: 1px solid var(--outline);
-
-  padding: 4px 6px;
-
-  place-self: center;
 }

@@ -3,12 +3,12 @@
   import * as d3 from "d3";
   import transfers from "./transfers-top-spenders.json";
 
-  const margin = { right: 20, top: 10, left: 40, bottom: 40 };
+  const margin = { right: 20, top: 10, left: 40, bottom: 20 };
   const width = 420 - margin.left - margin.right;
   const height = 280 - margin.top - margin.bottom;
 
   const seasons = [...new Set(transfers.map((d) => d.season))];
-  // fold-end
+  //fold-end
   const x = d3.scalePoint().domain(seasons).range([0, width]);
   const y = d3.scaleLinear().domain([0, 700]).range([height, 0]);
   // prettier-ignore

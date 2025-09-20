@@ -14,8 +14,13 @@ import ReactivityDemo from "./ReactivityDemo.astro";
 import TweenDemo from "./TweenDemo.astro";
 import "./transfer-chart.css"
 
-TODO: upload all code and data to a Gist
-TODO: add tab to initial demo with data?
+<aside>
+TODO: add tab to initial demo with data?<br/>
+TODO: de-dupe code between demo components, better naming?<br/>
+TODO: rename "whenVisible" to just "showLines"<br/>
+TODO: rewrite SSR bit to focus more on doing things "in a more Svelte way"
+TODO: upload all code and data to a Gist<br/>
+</aside>
 
 14 years after its release in 2011, [D3](https://d3js.org/) is still a foundational tool for data
 visualisation on the web.
@@ -46,7 +51,7 @@ In Svelte, we do this with <mark class="purple">`onMount`</mark> (equivalent to 
   onMount(() => {
     const seasons = [...new Set(transfers.map((d) => d.season))];
 
-    const margin = { right: 20, bottom: 40, left: 40 };
+    const margin = { right: 20, bottom: 20, left: 40 };
     const width = 420 - margin.left - margin.right;
     const height = 280 - margin.bottom;
 
