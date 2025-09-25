@@ -30,9 +30,9 @@ export function transformerNamedMetaHighlight() {
 
       const meta = this.options.meta.__raw;
 
-      // Match strings like `foo-highlight:/fooBar/
+      // Match strings like `foo-highlight:/fooBar/2
       const matches = Array.from(
-        meta.matchAll(/([a-zA-Z-]+):\/((?:\\.|[^/])+)\//g),
+        meta.matchAll(/([a-zA-Z-]+):\/((?:\\.|[^/])+)\/(\d+)?/g),
       );
 
       options.decorations ||= [];
@@ -41,8 +41,16 @@ export function transformerNamedMetaHighlight() {
       // or /1 or /2 to match specific words
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      matches.forEach(([_, name, pattern]) => {
-        const index = code.indexOf(pattern);
+      matches.forEach(([_, name, pattern, occurenceStr = "1"]) => {
+        const occurence = Number(occurenceStr) || 1;
+        let index = -1;
+        let from = 0;
+
+        for (let i = 0; i < occurence; i++) {
+          index = code.indexOf(pattern, from);
+          if (index === -1) return;
+          from = index + pattern.length;
+        }
 
         options.decorations.push({
           start: index,
