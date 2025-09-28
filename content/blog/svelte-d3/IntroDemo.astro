@@ -33,6 +33,7 @@ code = format(code);
   const width = 420 - margin.left - margin.right;
   const height = 280 - margin.top - margin.bottom;
 
+  // ["15/16", "16/17", "17/18", ... ]
   const seasons = [...new Set(transfers.map((d) => d.season))];
 
   const x = d3.scalePoint().domain(seasons).range([0, width]);

@@ -1,0 +1,52 @@
+---
+// These files come from Figma
+//
+// https://www.figma.com/design/wV2CqJLPhVcyAuoNh8fvcr/Site--new-?node-id=332-405&p=f&t=uwAszLe972oEWZaO-0
+---
+
+<div class="feature feature-pad">
+  <picture class="light">
+    <source
+      srcset="/posts/svelte-d3/tween-data-landscape-light.svg"
+      media="(min-width: 760px)"
+    />
+    <source srcset="/posts/svelte-d3/tween-data-portrait-light.svg" />
+    <img src="/posts/svelte-d3/tween-data-portrait-light.svg" />
+  </picture>
+
+  <picture class="dark">
+    <source
+      srcset="/posts/svelte-d3/tween-data-landscape-dark.svg"
+      media="(min-width: 760px)"
+    />
+    <source srcset="/posts/svelte-d3/tween-data-portrait-dark.svg" />
+    <img src="/posts/svelte-d3/tween-data-portrait-dark.svg" />
+  </picture>
+</div>
+
+<style>
+  div {
+    padding-top: 12px;
+    padding-bottom: 18px;
+  }
+
+  @media (max-width: 760px) {
+    picture,
+    img {
+      place-self: center;
+      max-width: 550px;
+    }
+  }
+
+  html[data-theme="dark"] {
+    picture.light {
+      display: none;
+    }
+  }
+
+  html:not([data-theme="dark"]) {
+    picture.dark {
+      display: none;
+    }
+  }
+</style>

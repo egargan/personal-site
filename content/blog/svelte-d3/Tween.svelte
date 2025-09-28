@@ -19,11 +19,15 @@
     transfers.map((d) => ({ ...d, stat: d[stat] })),
   );
 
-  let [y, line] = $derived([
-    d3.scaleLinear().domain([0, maxStat.current]).range([height, 0]),
-    // prettier-ignore
+  // prettier-ignore
+  let line = $derived(
     d3.line().x((d) => x(d.season)).y((d) => y(d.stat)),
-  ]);
+  );
+
+  // prettier-ignore
+  let y = $derived(
+    d3.scaleLinear().domain([0, maxStat.current]).range([height, 0]),
+  );
 </script>
 
 <svg

@@ -2,6 +2,18 @@
   interpolate-size: allow-keywords;
 }
 
+html {
+  color-scheme: light dark;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -13,6 +25,8 @@ body {
 
   background-color: var(--background);
   color: var(--text);
+
+  scrollbar-color: var(--outline) transparent;
 }
 
 ul,

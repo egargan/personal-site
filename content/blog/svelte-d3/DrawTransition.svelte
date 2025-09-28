@@ -20,31 +20,27 @@
   const line = d3.line().x((d) => x(d.season)).y((d) => y(d.spend));
   // fold-end
 
-  // [!code highlight:green]
-  let isInViewport = $state(false);
+  let showLines = $state(false);
   // remove-start
   onMount(() => {
     // @ts-ignore
     document.getElementById("redraw-chart").onclick = () => {
-      isInViewport = false;
+      showLines = false;
       tick().then(() => {
-        isInViewport = true;
+        showLines = true;
       });
     };
   });
   // remove-end
 </script>
 
-<!-- [!code highlight:green:3+1] -->
 <svg
   width={width + margin.left + margin.right}
   height={height + margin.bottom + margin.top}
-  {@attach whenVisible((visible) => (isInViewport = visible))}>
+  {@attach whenVisible((visible) => (showLines = visible))}>
   <g transform={`translate(${margin.left},${margin.top})`}>
     {#each d3.group(transfers, (d) => d.team) as [team, series], i}
-      <!-- [!code highlight:green] -->
-      {#if isInViewport}
-        <!-- [!code highlight:green:1+1] -->
+      {#if showLines}
         <path
           in:draw={{ delay: (i + 1) * 150 }}
           d={line(series)}

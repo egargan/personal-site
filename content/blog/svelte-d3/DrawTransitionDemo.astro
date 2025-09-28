@@ -1,7 +1,6 @@
 ---
 import Pre from "$components/blog/Pre.astro";
 import Code from "$components/blog/Code.astro";
-import Legend from "./TransferChartLegend.svelte";
 import DrawTransitionRaw from "./DrawTransition.svelte?raw";
 import DrawTransition from "./DrawTransition.svelte";
 import { format } from "./format-code";
@@ -12,7 +11,11 @@ const code = format(DrawTransitionRaw, 0);
 
 <div class="feature-group-x">
   <Pre data-language="svelte">
-    <Code lang="svelte" {code} />
+    <Code
+      meta="purple:/{#if showLines}/ orange:/in:draw={{ delay: (i + 1) * 150 }}/"
+      lang="svelte"
+      {code}
+    />
   </Pre>
   <div class="feature" style="--flex-n: 0.7">
     <div class="feature-title-bar">

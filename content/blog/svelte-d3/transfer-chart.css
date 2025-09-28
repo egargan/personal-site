@@ -100,7 +100,7 @@
   }
 }
 
-.result button {
+.feature button:not(.code-copy) {
   --button-shadow: var(--shadow);
 
   display: inline-flex;
@@ -122,11 +122,11 @@
   transition-duration: var(--transition-short);
 }
 
-.result button:hover {
+.feature button:not(.code-copy):hover {
   backdrop-filter: brightness(1.1);
 }
 
-.result button:active {
+.feature button:not(.code-copy):active {
   box-shadow: 0.5px 0.5px 0 var(--shadow);
   margin-left: 1.5px;
   margin-top: 1.5px;
@@ -134,7 +134,7 @@
   margin-bottom: -1.5px;
 }
 
-.result button[aria-pressed="true"] {
+.feature button:not(.code-copy)[aria-pressed="true"] {
   --button-shadow: var(--blue-weak);
   background-color: var(--blue-background);
   border-color: var(--blue);

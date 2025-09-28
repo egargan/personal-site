@@ -32,7 +32,7 @@ html {
   --cyan-background: hsl(176deg 77 48 / 19%);
 
   --orange: hsl(24deg 91 58);
-  --orange-background: hsl(24deg 91 58 / 19%);
+  --orange-background: hsl(24deg 91 58 / 17%);
 
   --grey-background: hsl(240deg 36 78 / 19%);
 
@@ -62,7 +62,7 @@ html[data-theme="dark"] {
   --blue-background: hsl(202deg 65 45 / 25%);
 
   --green: hsl(162deg 80 32);
-  --green-background: hsl(162deg 90 41 / 10%);
+  --green-background: hsl(162deg 90 41 / 12%);
 
   --cyan: hsl(176deg 70 38);
   --cyan-background: hsl(176deg 79 46 / 19%);

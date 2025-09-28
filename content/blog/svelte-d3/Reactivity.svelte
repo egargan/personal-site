@@ -14,11 +14,15 @@
   let stat = $state("spend");
   let maxStat = $derived(Math.max(...transfers.map((d) => d[stat])));
 
-  let [y, line] = $derived([
-    d3.scaleLinear().domain([0, maxStat]).range([height, 0]),
-    // prettier-ignore
-    d3.line().x((d) => x(d.season)).y((d) => y(d[stat])),
-  ]);
+  // prettier-ignore
+  let line = $derived(
+    d3.line().x((d) => x(d.season)).y((d) => y(d[stat]))
+  );
+
+  // prettier-ignore
+  let y = $derived(
+    d3.scaleLinear().domain([0, maxStat]).range([height, 0])
+  );
 </script>
 
 <!-- fold-start -->
