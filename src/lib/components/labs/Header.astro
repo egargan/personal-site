@@ -109,7 +109,7 @@ const { lab } = Astro.props as { lab: CollectionEntry<"labs"> };
   }
 
   #whats-this-content > div:first-child {
-    width: 600px;
+    width: min(600px, 100%);
     margin-bottom: 18px;
   }
 
@@ -158,9 +158,16 @@ const { lab } = Astro.props as { lab: CollectionEntry<"labs"> };
   .main-row {
     display: flex;
     align-items: center;
-    gap: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
 
     background-color: var(--background-two);
+  }
+
+  @media (max-width: 540px) {
+    .main-row {
+      width: min-content;
+    }
   }
 
   header h1,
@@ -173,6 +180,8 @@ const { lab } = Astro.props as { lab: CollectionEntry<"labs"> };
     display: flex;
     align-items: center;
     justify-content: center;
+
+    margin-right: 12px;
     gap: 8px;
   }
 
