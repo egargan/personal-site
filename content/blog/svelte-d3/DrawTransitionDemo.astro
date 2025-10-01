@@ -1,22 +1,39 @@
 ---
 import Pre from "$components/blog/Pre.astro";
 import Code from "$components/blog/Code.astro";
-import DrawTransitionRaw from "./DrawTransition.svelte?raw";
 import DrawTransition from "./DrawTransition.svelte";
 import { format } from "./format-code";
 import { iconMask } from "$lib/components/icons/iconoir-embeds";
+import Tabs from "$lib/components/blog/Tabs.astro";
 
+import DrawTransitionRaw from "./DrawTransition.svelte?raw";
 const code = format(DrawTransitionRaw, 0);
+
+import WhenVisibleRaw from "./when-visible.svelte.js?raw";
+const whenVisibleCode = format(WhenVisibleRaw, 0);
 ---
 
 <div class="feature-group-x">
-  <Pre data-language="svelte">
-    <Code
-      meta="purple:/{#if showLines}/ orange:/in:draw={{ delay: (i + 1) * 150 }}/"
-      lang="svelte"
-      {code}
-    />
-  </Pre>
+  <Tabs
+    tabs={[
+      { id: "trans-svelte", lang: "svelte" },
+      {
+        id: "trans-when-visible",
+        title: "when-visible.js",
+        lang: "javascript",
+      },
+    ]}>
+    <Pre data-language="svelte" data-meta="tab='trans-svelte'">
+      <Code
+        meta="purple:/{#if showLines}/ orange:/in:draw={{ delay: (i + 1) * 150 }}/"
+        lang="svelte"
+        {code}
+      />
+    </Pre>
+    <Pre data-language="javascript" data-meta="tab='trans-when-visible'">
+      <Code lang="javascript" code={whenVisibleCode} />
+    </Pre>
+  </Tabs>
   <div class="feature" style="--flex-n: 0.7">
     <div class="feature-title-bar">
       <span>Result</span>
