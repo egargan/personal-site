@@ -33,6 +33,8 @@ const { post } = Astro.props as {
   }
 
   h2 {
+    display: inline;
+
     font-weight: normal;
     font-size: 20px;
 
@@ -56,15 +58,8 @@ const { post } = Astro.props as {
     text-decoration-color: var(--blue);
   }
 
-  .type-and-title {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    width: fit-content;
-  }
-
   .type-and-title :global(span) {
-    margin-right: 2px;
+    margin-right: 4px;
   }
 
   .date,
