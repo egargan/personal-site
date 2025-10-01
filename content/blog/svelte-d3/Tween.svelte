@@ -5,7 +5,7 @@
   import transfers from "./transfers-top-spenders.json";
 
   const margin = { right: 20, top: 10, left: 40, bottom: 20 };
-  const width = 420 - margin.left - margin.right;
+  const width = 400 - margin.left - margin.right;
   const height = 280 - margin.top - margin.bottom;
 
   const seasons = [...new Set(transfers.map((d) => d.season))];

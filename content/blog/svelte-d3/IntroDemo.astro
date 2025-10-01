@@ -46,7 +46,7 @@ import transfersData from "./transfers-top-spenders.json?raw";
         Transfer window spend (in millions of £)<wbr /> by top 5 UK football clubs,
         by season
       </p>
-      <svg id="transfer-window"></svg>
+      <svg preserveAspectRatio="xMidYMid meet" id="transfer-window"></svg>
       <TransferChartLegend />
     </div>
   </div>
@@ -84,6 +84,7 @@ import transfersData from "./transfers-top-spenders.json?raw";
     }
 
     svg {
+      max-width: 420px;
       grid-area: chart;
     }
 
@@ -99,7 +100,7 @@ import transfersData from "./transfers-top-spenders.json?raw";
   import transfers from "./transfers-top-spenders.json";
 
   const margin = { right: 20, top: 10, left: 40, bottom: 20 };
-  const width = 420 - margin.left - margin.right;
+  const width = 400 - margin.left - margin.right;
   const height = 280 - margin.top - margin.bottom;
 
   // ["15/16", "16/17", "17/18", ... ]
