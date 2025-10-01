@@ -81,7 +81,7 @@ Error: something bad happened!
     at Object.<anonymous> (/Users/edward.gargan/personal/ts-errors/index.ts:8:9)
     at Module._compile (node:internal/modules/cjs/loader:1165:14)
     ...
-  // [!code highlight:grey:4]
+  // [!code highlight:grey:0+4]
   [cause]: Error: ENOENT: no such file or directory, open 'doesnt-exist.txt'
       at Object.openSync (node:fs:590:3)
       at readFileSync (node:fs:458:35)
@@ -103,7 +103,7 @@ export class ExtError extends Error {
     Object.setPrototypeOf(this, new.target.prototype);
   }
 
-  // [!code highlight:green:4]
+  // [!code highlight:green:0+4]
   from(cause: unknown): ExtError {
     this.cause = cause;
     return this;
@@ -181,7 +181,7 @@ As with `instanceof` checks, these functions will narrow `err` according to the 
 
 ## Throwing vs. Returning Error States
 
-Having spent a bit of time with Rust, I quickly fell in love with its `Result` type, a container for either **an error type or a “successful” value type.
+Having spent a bit of time with Rust, I quickly fell in love with its `Result` type, a container for either an error type or a “successful” value type.
 
 In either case, this `Result` is returned from the function. Errors are never *thrown* and *caught* as they are in Javascript.
 
