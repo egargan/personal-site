@@ -34,7 +34,7 @@ const { lab } = Astro.props as { lab: CollectionEntry<"labs"> };
             </button>
           </li>
           <li>
-            <a href="/labs">More labs</a>
+            <a href="/posts">More labs</a>
           </li>
         </ul>
       </nav>
@@ -70,6 +70,8 @@ const { lab } = Astro.props as { lab: CollectionEntry<"labs"> };
     position: absolute;
     bottom: 0;
     left: 0;
+
+    max-width: 600px;
 
     margin: 16px;
 
@@ -109,7 +111,6 @@ const { lab } = Astro.props as { lab: CollectionEntry<"labs"> };
   }
 
   #whats-this-content > div:first-child {
-    width: min(600px, 100%);
     margin-bottom: 18px;
   }
 
@@ -188,6 +189,8 @@ const { lab } = Astro.props as { lab: CollectionEntry<"labs"> };
   h1 {
     font-size: 22px;
     font-weight: 500;
+
+    margin-right: 4px;
   }
 
   .controls {

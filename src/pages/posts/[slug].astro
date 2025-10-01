@@ -300,13 +300,19 @@ const { Content } = await render(post);
     margin-bottom: 28px;
   }
 
-  :global(.feature-group .feature:not(:last-of-type)) {
+  :global(
+      .feature-group .feature:not(:last-of-type),
+      .feature-group .feature-tabs:not(:last-of-type)
+    ) {
     margin-bottom: -1px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
 
-  :global(.feature-group .feature:not(:first-of-type)) {
+  :global(
+      .feature-group .feature:not(:first-of-type),
+      .feature-group .feature-tabs:not(:first-of-type)
+    ) {
     margin-top: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -325,7 +331,10 @@ const { Content } = await render(post);
       flex: var(--flex-n, 1);
     }
 
-    :global(.feature-group-x .feature:not(:last-of-type)) {
+    :global(
+        .feature-group-x .feature:not(:last-of-type),
+        .feature-group-x .feature-tabs:not(:last-of-type)
+      ) {
       margin-right: 0;
       margin-left: 0;
 
@@ -333,7 +342,10 @@ const { Content } = await render(post);
       border-bottom-right-radius: 0;
     }
 
-    :global(.feature-group-x .feature:not(:first-of-type)) {
+    :global(
+        .feature-group-x .feature:not(:first-of-type),
+        .feature-group-x .feature-tabs:not(:first-of-type)
+      ) {
       margin-left: -1px;
       margin-right: 0;
 
@@ -359,13 +371,19 @@ const { Content } = await render(post);
   }
 
   @media (max-width: 1080px) {
-    :global(.feature-group-x .feature:not(:first-of-type)) {
+    :global(
+        .feature-group-x .feature:not(:first-of-type),
+        .feature-group-x .feature-tabs:not(:first-of-type)
+      ) {
       margin-top: 0;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
     }
 
-    :global(.feature-group-x .feature:not(:last-of-type)) {
+    :global(
+        .feature-group-x .feature:not(:last-of-type),
+        .feature-group-x .feature-tabs:not(:last-of-type)
+      ) {
       margin-bottom: -1px;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
@@ -373,8 +391,8 @@ const { Content } = await render(post);
   }
 
   @media (max-width: 820px) {
-    :global(.feature) {
-      border-radius: 0;
+    :global(.feature, .feature-tabs) {
+      border-radius: 0 !important;
 
       border-top: 1px solid var(--outline);
       border-bottom: 1px solid var(--outline);
@@ -383,7 +401,7 @@ const { Content } = await render(post);
       border-right: none;
     }
 
-    :global(.feature, aside) {
+    :global(.feature, .feature-tabs, aside) {
       margin-left: -32px;
       margin-right: -32px;
     }
@@ -405,7 +423,7 @@ const { Content } = await render(post);
       border: 1px solid var(--outline);
     }
 
-    :global(.feature, aside) {
+    :global(.feature, .feature-tabs, aside) {
       margin-left: -24px;
       margin-right: -24px;
     }
@@ -423,7 +441,7 @@ const { Content } = await render(post);
   }
 
   @media (max-width: 640px) {
-    :global(.feature, aside) {
+    :global(.feature, .feature-tabs, aside) {
       margin-left: -20px;
       margin-right: -20px;
     }
