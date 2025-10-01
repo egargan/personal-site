@@ -11,8 +11,8 @@ const { post } = Astro.props as {
 <article>
   <a class="ignore-link-style" href={`/posts/${post.id}`}>
     <div class="title-row">
-      <h2>{post.data.title}</h2>
       <PostChip type="blog" />
+      <h2>{post.data.title}</h2>
     </div>
 
     <p>{post.data.intro}</p>
@@ -29,7 +29,11 @@ const { post } = Astro.props as {
 
   .title-row {
     white-space: nowrap;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
+  }
+
+  .title-row :global(span) {
+    margin-right: 4px;
   }
 
   h2 {

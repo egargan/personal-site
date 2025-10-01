@@ -32,15 +32,15 @@ const { post } = Astro.props as {
     container-type: inline-size;
   }
 
-  .chip-wrapper {
-    width: 50px;
-    display: flex;
-    justify-content: center;
-  }
-
   h2 {
     font-weight: normal;
     font-size: 20px;
+
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 2px;
+
+    transition: text-decoration-color var(--transition-blink);
   }
 
   a {
@@ -49,14 +49,6 @@ const { post } = Astro.props as {
     align-items: center;
 
     column-gap: 8px;
-  }
-
-  a h2 {
-    text-decoration: underline;
-    text-decoration-color: transparent;
-    text-decoration-thickness: 2px;
-
-    transition: text-decoration-color var(--transition-blink);
   }
 
   a:hover h2 {
@@ -68,6 +60,10 @@ const { post } = Astro.props as {
     align-items: center;
     gap: 9px;
     width: fit-content;
+  }
+
+  .type-and-title :global(span) {
+    margin-right: 2px;
   }
 
   .date,
@@ -83,10 +79,6 @@ const { post } = Astro.props as {
     a {
       grid-template-columns: 1fr;
       grid-template-rows: auto auto;
-    }
-
-    .type-and-title {
-      flex-direction: row-reverse;
     }
 
     li {
