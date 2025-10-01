@@ -1,0 +1,16 @@
+---
+const { tabId, selected } = {
+  ...Astro.props,
+} as {
+  tabId: string;
+  selected: boolean;
+};
+---
+
+<div
+  role="tabpanel"
+  id={`panel-${tabId}`}
+  aria-labelledby={`tab-${tabId}`}
+  hidden={selected}>
+  <slot />
+</div>

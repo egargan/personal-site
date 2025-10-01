@@ -1,11 +1,12 @@
 ---
-title: How to use D3 with Svelte
+title: Chart-building D3 and Svelte 5
 created: "2025-08-24"
 updated: "2025-08-24"
 tags: ["svelte", "info vis"]
-readTimeMins: 3
+readTimeMins: 10
 status: draft
-intro: D3
+intro: Svelte 5's rendering and reactivity features combine beautifully with D3's data tools. In this post, you'll see how.
+
 ---
 import IntroDemo from "./IntroDemo.astro";
 import SvelteChartCodeBlock from "./SvelteChartCodeBlock.astro";
@@ -16,10 +17,6 @@ import TweenData from "./TweenData.astro";
 import Code from "$components/blog/Code.astro";
 import "./transfer-chart.css"
 
-<aside>
-TODO: add tab to initial demo with data?<br/>
-</aside>
-
 14 years after its release in 2011, [D3](https://d3js.org/) is still a foundational tool for data
 visualisation on the web.
 
@@ -28,9 +25,9 @@ one](https://www.theguardian.com/us-news/ng-interactive/2024/nov/06/us-election-
 and everything in between: D3's doing most of the complicated work for you.
 
 Part of D3's appeal is its DOM manipulation API ([d3-selection](https://d3js.org/d3-selection)),
-which makes it easy to build SVG visualisations from the data you're working with.
+which gives us the tools to transform data into SVG visualisations.
 
-Here's a simple example. This code imports data from a JSON file, then populates an empty `<svg>` element with `<path>`, `<line>`, etc. elements mapped from the data.
+Here's a simple example. This code imports data from a JSON file, then populates an empty `<svg>` element with `<path>`, `<line>`, etc. elements mapped from the data (I've left out the code for the title and legend to keep things short).
 
 <IntroDemo/>
 
@@ -90,7 +87,7 @@ But really, we should be asking Svelte to render our elements, not D3. That's Sv
 
 And not just because it's _cleaner_ or _more consistent_ &mdash; there are tangible benefits: better performance, easier reactivity, easier animations.
 
-I'll talk more about the benefits further down, but first, let's have a look it looks like to do things _properly_.
+I'll talk more about the benefits further down, but first, let's see how it looks to do things _properly_.
 
 <SvelteChartCodeBlock/>
 

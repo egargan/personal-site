@@ -1,6 +1,7 @@
 ---
 import Pre from "$components/blog/Pre.astro";
 import Code from "$components/blog/Code.astro";
+import Tabs from "$components/blog/Tabs.astro";
 import TransferChartLegend from "./TransferChartLegend.svelte";
 import { format } from "./format-code";
 
@@ -8,22 +9,92 @@ import { format } from "./format-code";
 import thisFile from "./IntroDemo.astro?raw";
 let code = thisFile!.match(/^<script>([\s\S]*)<\/script>/m)![1];
 code = format(code);
+
+import transfersData from "./transfers-top-spenders.json?raw";
 ---
 
+<!-- 
+* TODO: fix double-<pre> 
+* TODO: implicit <Pre> tab meta? some kind of context? 
+* TODO: fix post preview mobile layout on index 
+* TODO: add whenVisible attachment tab on that feature
+* TODO: cut down massive CSS in blog/[slug].astro
+* TODO: move to cloudflare pages
+-->
 <div class="feature-group-x">
-  <Pre data-language="javascript">
-    <Code lang="js" code={code} />
-  </Pre>
+  <Tabs
+    tabs={[
+      { id: "intro-svelte", lang: "svelte" },
+      {
+        id: "intro-transfers",
+        title: "transfers-top-spenders.json",
+        lang: "json",
+      },
+    ]}>
+    <Pre data-language="javascript" data-meta="tab='intro-svelte'">
+      <!-- TODO: stop double wrapping in pre! <Code/> just needs all of <Pre>'s gubbins -->
+      <Code lang="js" code={code} />
+    </Pre>
+    <Pre data-language="json" data-meta="tab='intro-transfers'">
+      <Code lang="json" code={transfersData} />
+    </Pre>
+  </Tabs>
   <div class="feature" style="--flex-n: 0.7">
     <div class="feature-title-bar">
       <span>Result</span>
     </div>
     <div class="result">
+      <p>
+        Transfer window spend (in millions of £)<wbr /> by top 5 UK football clubs,
+        by season
+      </p>
       <svg id="transfer-window"></svg>
       <TransferChartLegend />
     </div>
   </div>
 </div>
+
+<style>
+  p {
+    place-self: center;
+    font-size: 15px;
+    color: var(--text);
+
+    max-width: 300px;
+    text-align: center;
+    margin: 0;
+
+    margin-bottom: -32px;
+  }
+
+  @media (max-width: 1120px) and (min-width: 580px) {
+    .result {
+      display: grid;
+      grid-template-areas:
+        "chart title"
+        "chart legend";
+
+      grid-template-rows: 1fr 2.5fr;
+
+      grid-row-gap: 0;
+      grid-column-gap: 4px;
+    }
+
+    .result :global(.team-legend) {
+      justify-self: start;
+      padding-left: 4px;
+    }
+
+    svg {
+      grid-area: chart;
+    }
+
+    p {
+      max-width: 200px;
+      text-align: left;
+    }
+  }
+</style>
 
 <script>
   import * as d3 from "d3";

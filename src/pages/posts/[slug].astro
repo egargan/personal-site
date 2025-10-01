@@ -283,11 +283,10 @@ const { Content } = await render(post);
     font-size: 13px;
   }
 
-  :global(.feature-title-bar) {
+  :global(.feature-title-bar, .feature-tablist) {
     padding-top: 4px;
-    padding-bottom: 2px;
 
-    height: 33px;
+    height: 34px;
 
     background-color: var(--background-three);
     border-bottom: 1px solid var(--outline);
@@ -296,7 +295,7 @@ const { Content } = await render(post);
     color: var(--text-two);
   }
 
-  :global(.feature) {
+  :global(.feature, .feature-tabs) {
     margin-top: 28px;
     margin-bottom: 28px;
   }
@@ -322,7 +321,7 @@ const { Content } = await render(post);
       flex-direction: row;
     }
 
-    :global(.feature-group-x .feature) {
+    :global(.feature-group-x :is(.feature, .feature-tabs)) {
       flex: var(--flex-n, 1);
     }
 
@@ -345,7 +344,7 @@ const { Content } = await render(post);
     :global(
         .feature-group-x
           .feature:not(:first-of-type)
-          :is(.feature-title-bar, .feature-pad, pre .line)
+          :is(.feature-title-bar, .feature-tablist, .feature-pad, pre .line)
       ) {
       padding-left: 16px;
     }
@@ -353,7 +352,7 @@ const { Content } = await render(post);
     :global(
         .feature-group-x
           .feature:not(:last-of-type)
-          :is(.feature-title-bar, .feature-pad, pre .line)
+          :is(.feature-title-bar, .feature-tablist, .feature-pad, pre .line)
       ) {
       padding-right: 16px;
     }
@@ -389,14 +388,20 @@ const { Content } = await render(post);
       margin-right: -32px;
     }
 
-    :global(.feature-title-bar, .feature-pad, pre .line, aside) {
+    :global(
+        .feature-title-bar,
+        .feature-tablist,
+        .feature-pad,
+        pre .line,
+        aside
+      ) {
       padding-left: 32px;
       padding-right: 32px;
     }
   }
 
   @media (min-width: 820px) {
-    :global(.feature) {
+    :global(.feature, .feature-tabs) {
       border: 1px solid var(--outline);
     }
 
@@ -405,7 +410,13 @@ const { Content } = await render(post);
       margin-right: -24px;
     }
 
-    :global(.feature-title-bar, .feature-pad, pre .line, aside) {
+    :global(
+        .feature-title-bar,
+        .feature-tablist,
+        .feature-pad,
+        pre .line,
+        aside
+      ) {
       padding-left: 24px;
       padding-right: 24px;
     }
@@ -417,7 +428,13 @@ const { Content } = await render(post);
       margin-right: -20px;
     }
 
-    :global(.feature-title-bar, .feature-pad, pre .line, aside) {
+    :global(
+        .feature-title-bar,
+        .feature-tablist,
+        .feature-pad,
+        pre .line,
+        aside
+      ) {
       padding-left: 20px;
       padding-right: 20px;
     }
