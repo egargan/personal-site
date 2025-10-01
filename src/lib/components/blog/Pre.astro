@@ -149,6 +149,32 @@ const blockId = randomId("code-block");
     padding-top: 0.175em;
   }
 
+  pre .indent {
+    display: inline-block;
+    position: relative;
+    left: var(--indent-offset);
+  }
+
+  pre .indent:empty {
+    height: 1lh;
+    vertical-align: bottom;
+  }
+
+  pre .indent::before {
+    content: "";
+    position: absolute;
+
+    top: calc(50% - 1px);
+    left: 1px;
+
+    width: 2px;
+    height: 2px;
+    border-radius: 100%;
+
+    opacity: 0.15;
+    background-color: currentColor;
+  }
+
   /* Code folding */
 
   details {

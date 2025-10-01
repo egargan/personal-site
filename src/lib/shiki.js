@@ -1,4 +1,7 @@
-import { createCommentNotationTransformer } from "@shikijs/transformers";
+import {
+  createCommentNotationTransformer,
+  transformerRenderIndentGuides,
+} from "@shikijs/transformers";
 
 export function getShikiConfig() {
   return {
@@ -15,6 +18,7 @@ export function getShikiConfig() {
         },
         transformerNamedHighlight(),
         transformerNamedMetaHighlight(),
+        transformerRenderIndentGuides(),
         removeTransformer,
         foldTransformer,
       ]),
