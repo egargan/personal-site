@@ -4,7 +4,6 @@ import Code from "$components/blog/Code.astro";
 import ReactivityRaw from "./Reactivity.svelte?raw";
 import Reactivity from "./Reactivity.svelte";
 import { format } from "./format-code";
-import { iconMask } from "$lib/components/icons/iconoir-embeds";
 
 const code = format(ReactivityRaw, 0);
 ---
@@ -27,11 +26,7 @@ const code = format(ReactivityRaw, 0);
   </div>
 </div>
 
-<style
-  define:vars={{
-    "restart-icon": iconMask("restart"),
-  }}
->
+<style>
   .legend-and-controls {
     place-self: center;
     display: flex;

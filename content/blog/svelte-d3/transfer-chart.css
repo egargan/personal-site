@@ -5,6 +5,9 @@
   --man-city-color: #6cabdd;
   --man-united-color: #fbe122;
 
+  /* HACK: this came from src/lib/components/icons/iconoir-embeds.ts, but it should *actually* come from there */
+  --restart-icon: url("data:image/svg+xml;utf8,%3Csvg%20width%3D'20px'%20height%3D'20px'%20stroke-width%3D'1.5px'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20color%3D'%23000000'%3E%3Cpath%20d%3D'M6.67742%2020.5673C2.53141%2018.0212%200.758026%2012.7584%202.71678%208.1439C4.87472%203.0601%2010.7453%200.68822%2015.8291%202.84617C20.9129%205.00412%2023.2848%2010.8747%2021.1269%2015.9585C20.2837%2017.945%2018.8736%2019.5174%2017.1651%2020.5673'%20stroke%3D'%23000000'%20stroke-width%3D'1.5px'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3C%2Fpath%3E%3Cpath%20d%3D'M17%2016V20.4C17%2020.7314%2017.2686%2021%2017.6%2021H22'%20stroke%3D'%23000000'%20stroke-width%3D'1.5px'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3C%2Fpath%3E%3Cpath%20d%3D'M12%2022.01L12.01%2021.9989'%20stroke%3D'%23000000'%20stroke-width%3D'1.5px'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3C%2Fpath%3E%3C%2Fsvg%3E");
+
   overflow: visible;
 }
 

@@ -3,7 +3,6 @@ import Pre from "$components/blog/Pre.astro";
 import Code from "$components/blog/Code.astro";
 import DrawTransition from "./DrawTransition.svelte";
 import { format } from "./format-code";
-import { iconMask } from "$lib/components/icons/iconoir-embeds";
 import Tabs from "$lib/components/blog/Tabs.astro";
 
 import DrawTransitionRaw from "./DrawTransition.svelte?raw";
@@ -47,11 +46,7 @@ const whenVisibleCode = format(WhenVisibleRaw, 0);
   </div>
 </div>
 
-<style
-  define:vars={{
-    "restart-icon": iconMask("restart"),
-  }}
->
+<style>
   button {
     display: inline-flex;
     align-items: center;

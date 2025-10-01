@@ -3,6 +3,11 @@ import { randomId } from "$lib/utils/randomId";
 import CodeBlockTitle from "./CodeBlockTitle.astro";
 import CopyCodeButton from "./CopyCodeButton.astro";
 
+import {
+  expandLines,
+  compressLines,
+} from "$lib/components/icons/iconoir-embeds";
+
 let props = Astro.props as {
   "data-language": string;
   "data-meta": string;
@@ -77,6 +82,12 @@ const blockId = randomId("code-block");
 </script>
 
 <style is:global>
+  /* HACK: These came from src/lib/components/icons/iconoir-embeds.ts */
+  :root {
+    --expand-lines-icon: url("data:image/svg+xml;utf8,%3Csvg%20width%3D'20px'%20height%3D'20px'%20stroke-width%3D'1.5px'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20color%3D'%23000000'%3E%3Cpath%20d%3D'M18%202L6%202'%20stroke%3D'%23000000'%20stroke-width%3D'1.5px'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3C%2Fpath%3E%3Cpath%20d%3D'M18%2022L6%2022'%20stroke%3D'%23000000'%20stroke-width%3D'1.5px'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3C%2Fpath%3E%3Cpath%20d%3D'M12%2014V19M12%2019L15%2016M12%2019L9%2016'%20stroke%3D'%23000000'%20stroke-width%3D'1.5px'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3C%2Fpath%3E%3Cpath%20d%3D'M12%2010V5M12%205L15%208M12%205L9%208'%20stroke%3D'%23000000'%20stroke-width%3D'1.5px'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3C%2Fpath%3E%3C%2Fsvg%3E");
+    --compress-lines-icon: url("data:image/svg+xml;utf8,%3Csvg%20width%3D'20px'%20height%3D'20px'%20stroke-width%3D'1.5px'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20color%3D'%23000000'%3E%3Cpath%20d%3D'M18%202L6%202'%20stroke%3D'%23000000'%20stroke-width%3D'1.5px'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3C%2Fpath%3E%3Cpath%20d%3D'M18%2022L6%2022'%20stroke%3D'%23000000'%20stroke-width%3D'1.5px'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3C%2Fpath%3E%3Cpath%20d%3D'M12%205V10M12%2010L15%207M12%2010L9%207'%20stroke%3D'%23000000'%20stroke-width%3D'1.5px'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3C%2Fpath%3E%3Cpath%20d%3D'M12%2019V14M12%2014L15%2017M12%2014L9%2017'%20stroke%3D'%23000000'%20stroke-width%3D'1.5px'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3C%2Fpath%3E%3C%2Fsvg%3E");
+  }
+
   .code-block-title-bar {
     display: grid;
     grid-template-columns: 1fr max-content max-content;
