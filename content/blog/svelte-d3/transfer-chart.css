@@ -149,7 +149,7 @@ svg path[data-team] {
 }
 
 svg .tick text {
-  font-size: 12px;
+  font-size: 11px;
   fill: var(--text);
 }
 
