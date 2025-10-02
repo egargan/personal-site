@@ -35,7 +35,7 @@ But things have changed a bit since D3 was released. These days we're usually bu
 websites with React, Vue, or Svelte (if you're cool enough).
 
 To make the code above work inside these frameworks, we wait for our components to be
-mounted to the DOM before asking D3 to do its thing.
+rendered in the DOM before asking D3 to do its thing.
 
 In Svelte, we do this with <mark class="purple">`onMount`</mark> (equivalent to React's `useEffect`).
 
@@ -183,18 +183,21 @@ Let's see what this can do for our chart.
 
 There's a lot going on here: let's step through.
 
-Whenever `stat` changes, `transfers.map((d) => ({ ...d, stat: d[stat] }))` is re-evaluated, returning the new dataset.
+Whenever <mark class="purple">`stat`</mark> changes, <mark class="cyan">`transfers.map((d) => ({ ...d, stat: d[stat] }))`</mark> is re-evaluated, returning the new dataset.
 
-`Tween.of` takes this new dataset, and generates _a sequence of datasets_ that smoothly transition from the last value to the current.
+<mark class="red">`Tween.of`</mark> takes this new dataset, and generates _a sequence of datasets_ that smoothly transition from the last value to the current.
 
 <TweenData/>
 
 <aside>
   `Tween` will only do this magic interpolation if it detects identical properties between the before and after structures.
 
-  That's why we have to transform the transfers data to add a new `stat` property (`transfers.map((d) => ({ ...d, stat: d[stat] }))`), containing the data point we care about in each record.
+  That's why we have to transform the transfers data to add a new `stat` property (<mark class="cyan">`transfers.map((d) => ({ ...d, stat: d[stat] }))`</mark>), containing the data point we care about in each record.
 </aside>
 
-Over a period of 400 milliseconds (a default value), the tween rapidly steps through this sequence, setting `statData.current` with every step. `statData.current` is a reactive value, so whenever it changes, the `<path>`s are redrawn for the current dataset.
+Over a period of 400 milliseconds (a default value), the tween rapidly steps through this sequence, setting <mark class="green">`statData.current`</mark> with every step. <mark class="green">`statData.current`</mark> is a reactive value, so whenever it changes, the `<path>`s are redrawn for the current dataset.
 
 These steps happen very quickly. So quickly that all we see is a smooth morph animation between two charts.
+
+<mark class="orange">`maxStat`</mark> becomes a reactive tween as well, but this one's just a number that changes between the maximum value of the selected dataset.
+

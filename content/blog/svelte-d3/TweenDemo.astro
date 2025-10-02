@@ -10,7 +10,11 @@ const code = format(TweenRaw, 0);
 
 <div class="feature-group-x">
   <Pre data-language="svelte">
-    <Code lang="svelte" {code} />
+    <Code
+      lang="svelte"
+      {code}
+      meta="purple:/stat/1 cyan:/transfers.map((d) => ({ ...d, stat: d[stat] }))/ red:/Tween.of/1 green:/statData.current/ orange:/maxStat/"
+    />
   </Pre>
   <div class="feature" style="--flex-n: 0.7">
     <div class="feature-title-bar">

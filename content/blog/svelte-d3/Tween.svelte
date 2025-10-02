@@ -14,10 +14,11 @@
 
   let stat = $state("spend");
 
-  let maxStat = Tween.of(() => Math.max(...transfers.map((d) => d[stat])));
   let statData = Tween.of(() =>
     transfers.map((d) => ({ ...d, stat: d[stat] })),
   );
+
+  let maxStat = Tween.of(() => Math.max(...transfers.map((d) => d[stat])));
 
   // prettier-ignore
   let line = $derived(
