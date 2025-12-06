@@ -14,27 +14,27 @@ html {
   --blue: hsl(202deg 79 49);
   --blue-strong: hsl(202deg 82 33);
   --blue-weak: hsl(202deg 93 78);
-  --blue-background: hsl(202deg 93 78 / 35%);
+  --blue-background: hsl(202deg 93 78 / 32%);
 
   --pink: hsl(355deg 96 69);
-  --pink-background: hsl(355deg 96 69 / 19%);
+  --pink-background: hsl(355deg 96 69 / 16%);
 
   --green: hsl(162deg 73 49);
-  --green-background: hsl(162deg 73 49 / 15%);
+  --green-background: hsl(162deg 73 49 / 14%);
 
   --yellow: hsl(47deg 100 68);
-  --yellow-background: hsl(47deg 100 68 / 19%);
+  --yellow-background: hsl(47deg 100 68 / 16%);
 
   --purple: hsl(302deg 68 60);
-  --purple-background: hsl(302deg 68 60 / 16%);
+  --purple-background: hsl(302deg 68 60 / 13%);
 
   --cyan: hsl(176deg 77 48);
-  --cyan-background: hsl(176deg 77 48 / 19%);
+  --cyan-background: hsl(176deg 77 48 / 17%);
 
   --orange: hsl(24deg 91 58);
-  --orange-background: hsl(24deg 91 58 / 17%);
+  --orange-background: hsl(24deg 91 58 / 14%);
 
-  --grey-background: hsl(240deg 36 78 / 19%);
+  --grey-background: hsl(240deg 36 78 / 18%);
 
   --transition-blink: 70ms;
   --transition-short: 120ms;
@@ -44,8 +44,8 @@ html {
 
 html[data-theme="dark"] {
   --background: hsl(244deg 17 17);
-  --background-two: hsl(246deg 18 22);
-  --background-three: hsl(250deg 18 25);
+  --background-two: hsl(246deg 18 21);
+  --background-three: hsl(250deg 18 24);
 
   --background-hsl: 244deg 17 17;
 
@@ -59,18 +59,18 @@ html[data-theme="dark"] {
   --blue: hsl(202deg 79 54);
   --blue-strong: hsl(202deg 93 78);
   --blue-weak: hsl(202deg 65 45);
-  --blue-background: hsl(202deg 65 45 / 25%);
+  --blue-background: hsl(202deg 65 45 / 23%);
 
   --green: hsl(162deg 80 32);
-  --green-background: hsl(162deg 90 41 / 12%);
+  --green-background: hsl(162deg 90 41 / 11%);
 
   --cyan: hsl(176deg 70 38);
-  --cyan-background: hsl(176deg 79 46 / 19%);
+  --cyan-background: hsl(176deg 79 46 / 15%);
 
   --purple: hsl(302deg 64 60);
-  --purple-background: hsl(302deg 68 60 / 23%);
+  --purple-background: hsl(302deg 68 60 / 19%);
 
-  --grey-background: hsl(249deg 18 35 / 60%);
+  --grey-background: hsl(249deg 18 35 / 55%);
 
   .astro-code code span {
     color: var(--shiki-dark) !important;

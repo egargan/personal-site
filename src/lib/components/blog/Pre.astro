@@ -3,11 +3,6 @@ import { randomId } from "$lib/utils/randomId";
 import CodeBlockTitle from "./CodeBlockTitle.astro";
 import CopyCodeButton from "./CopyCodeButton.astro";
 
-import {
-  expandLines,
-  compressLines,
-} from "$lib/components/icons/iconoir-embeds";
-
 let props = Astro.props as {
   "data-language": string;
   "data-meta": string;
@@ -139,6 +134,14 @@ const blockId = randomId("code-block");
     margin-bottom: 1px;
   }
 
+  pre .code-highlight:not(.line) > span {
+    filter: contrast(1.1) brightness(0.8);
+  }
+
+  html[data-theme="dark"] pre .code-highlight:not(.line) > span {
+    filter: contrast(1.1) brightness(1.2);
+  }
+
   pre .code-highlight.line {
     border-left-width: 1.5px;
     border-left-style: solid;
@@ -221,7 +224,7 @@ const blockId = randomId("code-block");
   }
 
   details summary span {
-    filter: grayscale(0.4) brightness(0.8);
+    filter: grayscale(0.2) brightness(0.9);
     transition: filter var(--transition-blink);
   }
 
