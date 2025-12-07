@@ -11,7 +11,7 @@ let previewObjectPosition;
 
 switch (post.id) {
   case "handshake":
-    previewObjectPosition = "center 40%";
+    previewObjectPosition = "center 20%";
     break;
   case "parliament-chart":
     previewObjectPosition = "center 30%";
@@ -64,19 +64,20 @@ switch (post.id) {
 
 <style>
   article {
-    margin-bottom: 40px;
+    margin-bottom: 46px;
 
     border-radius: 6px;
     overflow: clip;
 
-    margin-left: -6px;
-    margin-right: -6px;
+    margin-left: -8px;
+    margin-right: -8px;
+    margin-top: -10px;
   }
 
   a {
     display: grid;
     grid-template-columns: 1fr;
-    align-items: end;
+    align-items: start;
   }
 
   a > * {
@@ -91,22 +92,12 @@ switch (post.id) {
 
     z-index: 1;
 
-    /* background: linear-gradient( */
-    /*   to bottom, */
-    /*   hsla(var(--background-hsl) / 10%) 50%, */
-    /*   hsla(var(--background-hsl) / 85%) 90% */
-    /* ); */
-    /* background: linear-gradient( */
-    /*   to bottom, */
-    /*   hsla(244deg 17 17 / 10%) 50%, */
-    /*   hsla(244deg 17 17 / 85%) 90% */
-    /* ); */
     background: linear-gradient(
       to bottom,
-      hsla(244deg 17 17 / 5%) 45%,
-      hsla(244deg 17 17 / 72%) 85%,
-      hsla(244deg 17 17 / 75%) 90%,
-      hsla(244deg 17 17 / 70%) 100%
+      hsla(244deg 17 17 / 64%) 0%,
+      hsla(244deg 17 17 / 72%) 16%,
+      hsla(244deg 17 17 / 67%) 28%,
+      hsla(244deg 17 17 / 2%) 58%
     );
   }
 
@@ -125,14 +116,11 @@ switch (post.id) {
   video {
     border-radius: 4px;
 
-    height: 200px;
+    height: 180px;
     width: 100%;
 
     object-fit: cover;
-    /* object-position: center; */
     transition: opacity var(--transition-short);
-
-    /* opacity: 90%; */
   }
 
   a:hover video {
@@ -141,7 +129,6 @@ switch (post.id) {
 
   .title-row {
     white-space: nowrap;
-    margin-bottom: 6px;
   }
 
   h2 {
@@ -161,10 +148,7 @@ switch (post.id) {
     transition: text-decoration-color var(--transition-blink);
 
     color: white;
-    /* color: hsl(240deg 100 99); */
-
-    text-shadow: 0px 0px 2px hsla(244deg 17 17 / 60%);
-    /* text-shadow: 0px 0px 2px hsla(var(--background-hsl) / 70%); */
+    text-shadow: 0px 0px 2px hsla(244deg 17 17 / 80%);
   }
 
   a:hover h2 {
@@ -175,11 +159,8 @@ switch (post.id) {
 
   p {
     margin-bottom: 12px;
-    color: hsl(240deg 19 75);
-
-    /* color: var(--text-two); */
-    text-shadow: 0px 0px 2px hsla(244deg 17 17 / 80%);
-    /* text-shadow: 0px 0px 2px hsla(var(--background-hsl) / 70%); */
+    color: hsl(240deg 19 82);
+    text-shadow: 0px 0px 2px hsla(244deg 17 17 / 90%);
   }
 
   p.metadata {
