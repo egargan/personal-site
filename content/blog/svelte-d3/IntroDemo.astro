@@ -1,6 +1,5 @@
 ---
-import Pre from "$components/blog/Pre.astro";
-import Code from "$components/blog/Code.astro";
+import CodeBlock from "$components/blog/CodeBlock.astro";
 import Tabs from "$components/blog/Tabs.astro";
 import TransferChartLegend from "./TransferChartLegend.svelte";
 import { format } from "./format-code";
@@ -29,13 +28,8 @@ import transfersData from "./transfers-top-spenders.json?raw";
         lang: "json",
       },
     ]}>
-    <Pre data-language="javascript" data-meta="tab='intro-svelte'">
-      <!-- TODO: stop double wrapping in pre! <Code/> just needs all of <Pre>'s gubbins -->
-      <Code lang="js" code={code} />
-    </Pre>
-    <Pre data-language="json" data-meta="tab='intro-transfers'">
-      <Code lang="json" code={transfersData} />
-    </Pre>
+    <CodeBlock tab="intro-svelte" lang="js" code={code} />
+    <CodeBlock tab="intro-transfers" lang="json" code={transfersData} />
   </Tabs>
   <div class="feature" style="--flex-n: 0.7">
     <div class="feature-title-bar">

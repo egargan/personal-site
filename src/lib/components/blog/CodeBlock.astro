@@ -1,0 +1,269 @@
+---
+import { Code as AstroCode } from "astro:components";
+import { getShikiConfig } from "$lib/shiki";
+import CodeBlockTitle from "./CodeBlockTitle.astro";
+import { randomId } from "$lib/utils/randomId";
+import CopyCodeButton from "./CopyCodeButton.astro";
+
+const { transformers, themes } = getShikiConfig();
+const { code, lang, meta, tab, title, noCopy } = Astro.props;
+
+const blockId = randomId("code-block");
+---
+
+<!-- @ts-ignore -->
+<div
+  class:list={{
+    "feature-code-block": true,
+    feature: !tab,
+    "feature-tabpanel": tab,
+  }}
+  data-block-id={blockId}
+  role={tab ? "tabpanel" : undefined}
+  id={tab ? `panel-${tab}` : undefined}
+  aria-labelledby={tab ? `tab-${tab}` : undefined}>
+  {
+    !tab && ((lang && lang !== "plaintext") || title) && (
+      <div class="feature-title-bar">
+        <CodeBlockTitle slot="title" {lang} {title} />
+      </div>
+    )
+  }
+
+  {
+    (code && (
+      <AstroCode
+        lang={lang}
+        code={code}
+        themes={themes}
+        transformers={transformers}
+        meta={meta}
+        defaultColor={false}
+      />
+    )) || (
+      /* When this component is used as an mdx component override for `pre`, code is provided as slot content, and cannot be received as a prop */
+      <pre>
+        <slot />
+      </pre>
+    )
+  }
+
+  {!noCopy && <CopyCodeButton blockId={blockId} />}
+</div>
+
+<script>
+  const containers = document.querySelectorAll("div[data-block-id]");
+
+  containers.forEach((container) => {
+    let timeout: ReturnType<typeof setTimeout>;
+
+    container.addEventListener("mouseover", () => {
+      container.classList.add("hover");
+      clearTimeout(timeout);
+    });
+
+    container.addEventListener("mouseout", () => {
+      timeout = setTimeout(() => {
+        container.classList.remove("hover");
+      }, 1000);
+    });
+  });
+</script>
+
+<style is:global>
+  /* HACK: These came from src/lib/components/icons/iconoir-embeds.ts */
+  :root {
+    --expand-lines-icon: url("data:image/svg+xml;utf8,%3Csvg%20width%3D'20px'%20height%3D'20px'%20stroke-width%3D'1.5px'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20color%3D'%23000000'%3E%3Cpath%20d%3D'M18%202L6%202'%20stroke%3D'%23000000'%20stroke-width%3D'1.5px'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3C%2Fpath%3E%3Cpath%20d%3D'M18%2022L6%2022'%20stroke%3D'%23000000'%20stroke-width%3D'1.5px'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3C%2Fpath%3E%3Cpath%20d%3D'M12%2014V19M12%2019L15%2016M12%2019L9%2016'%20stroke%3D'%23000000'%20stroke-width%3D'1.5px'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3C%2Fpath%3E%3Cpath%20d%3D'M12%2010V5M12%205L15%208M12%205L9%208'%20stroke%3D'%23000000'%20stroke-width%3D'1.5px'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3C%2Fpath%3E%3C%2Fsvg%3E");
+    --compress-lines-icon: url("data:image/svg+xml;utf8,%3Csvg%20width%3D'20px'%20height%3D'20px'%20stroke-width%3D'1.5px'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20color%3D'%23000000'%3E%3Cpath%20d%3D'M18%202L6%202'%20stroke%3D'%23000000'%20stroke-width%3D'1.5px'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3C%2Fpath%3E%3Cpath%20d%3D'M18%2022L6%2022'%20stroke%3D'%23000000'%20stroke-width%3D'1.5px'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3C%2Fpath%3E%3Cpath%20d%3D'M12%205V10M12%2010L15%207M12%2010L9%207'%20stroke%3D'%23000000'%20stroke-width%3D'1.5px'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3C%2Fpath%3E%3Cpath%20d%3D'M12%2019V14M12%2014L15%2017M12%2014L9%2017'%20stroke%3D'%23000000'%20stroke-width%3D'1.5px'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3C%2Fpath%3E%3C%2Fsvg%3E");
+  }
+
+  .feature-code-block {
+    position: relative;
+  }
+
+  .filetype-icon {
+    width: 16px;
+    height: 16px;
+
+    margin-top: -1px;
+  }
+
+  pre {
+    background-color: unset !important;
+    display: grid;
+    position: relative;
+  }
+
+  pre code {
+    /* Use grid as it's the only thing that lets us do full-width highlights */
+    display: grid;
+    overflow-x: auto;
+    overflow-y: clip;
+
+    padding-bottom: 16px;
+    padding-top: 16px;
+  }
+
+  pre code span {
+    /* Disable italic styles in shiki themes */
+    font-style: normal !important;
+    display: inline-block;
+    min-height: 1.25em;
+
+    color: var(--shiki-light) !important;
+  }
+
+  html[data-theme="dark"] pre code span {
+    color: var(--shiki-dark) !important;
+  }
+
+  pre .code-highlight:not(.line) {
+    margin-left: -4px;
+    margin-right: -4px;
+
+    padding: 1px 4px;
+
+    margin-top: 1px;
+    margin-bottom: 1px;
+  }
+
+  pre .code-highlight:not(.line) > span {
+    filter: contrast(1.1) brightness(0.8);
+  }
+
+  html[data-theme="dark"] pre .code-highlight:not(.line) > span {
+    filter: contrast(1.1) brightness(1.2);
+  }
+
+  pre .code-highlight.line {
+    border-left-width: 1.5px;
+    border-left-style: solid;
+  }
+
+  pre .code-highlight:not(.line) {
+    border-radius: 3px;
+
+    border-bottom-width: 1.5px;
+    border-bottom-style: solid;
+  }
+
+  .code-highlight:not(:has(+ .code-highlight)) {
+    padding-bottom: 0.175em;
+  }
+
+  .line:not(.code-highlight) + .code-highlight,
+  line.code-highlight:first-of-type {
+    padding-top: 0.175em;
+  }
+
+  pre .indent {
+    display: inline-block;
+    position: relative;
+    left: var(--indent-offset);
+  }
+
+  pre .indent:empty {
+    height: 1lh;
+    vertical-align: bottom;
+  }
+
+  pre .indent::before {
+    content: "";
+    position: absolute;
+
+    top: calc(50% - 1px);
+    left: 1px;
+
+    width: 2px;
+    height: 2px;
+    border-radius: 100%;
+
+    opacity: 0.15;
+    background-color: currentColor;
+  }
+
+  /* Code folding */
+
+  details {
+    border-top: 1px solid var(--shadow);
+    border-bottom: 1px solid var(--shadow);
+
+    position: relative;
+    overflow: hidden;
+  }
+
+  details::details-content {
+    display: block;
+    block-size: 0;
+    overflow: hidden;
+
+    transition-property: block-size, content-visibility;
+    transition-duration: var(--transition-med);
+    transition-behavior: allow-discrete;
+  }
+
+  details[open]::details-content {
+    block-size: auto;
+    block-size: calc-size(auto);
+  }
+
+  details summary {
+    list-style: none;
+
+    cursor: pointer;
+
+    padding-top: 3px;
+    padding-bottom: 1px;
+  }
+
+  details summary span {
+    filter: grayscale(0.2) brightness(0.9);
+    transition: filter var(--transition-blink);
+  }
+
+  details[open] summary {
+    border-bottom: 1px solid var(--shadow);
+  }
+
+  details[open] summary span {
+    filter: none;
+  }
+
+  summary::before {
+    content: "";
+
+    position: absolute;
+    align-self: center;
+
+    top: 1px;
+    left: 0;
+
+    width: 21px;
+    height: 21px;
+
+    background-color: var(--text-two);
+    mask-image: var(--expand-lines-icon);
+    mask-repeat: no-repeat;
+    mask-position: 50%;
+  }
+
+  summary::after {
+    content: "+ " attr(data-lines-folded) " more lines";
+
+    color: var(--text-three);
+    margin-left: 16px;
+    font-style: italic;
+
+    transition-property: opacity, content-visibility;
+    transition-duration: var(--transition-blink);
+  }
+
+  details[open] summary::after {
+    opacity: 0;
+    content-visibility: hidden;
+  }
+
+  details[open] summary::before {
+    mask-image: var(--compress-lines-icon);
+  }
+</style>

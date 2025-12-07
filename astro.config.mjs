@@ -8,6 +8,9 @@ import rehypeSlug from "rehype-slug";
 import { FontaineTransform } from "fontaine";
 
 export default defineConfig({
+  markdown: {
+    shikiConfig: getShikiConfig(),
+  },
   integrations: [
     svelte(),
     mdx({

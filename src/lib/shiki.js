@@ -9,6 +9,7 @@ export function getShikiConfig() {
       dark: /** @type {const} */ ("github-dark"),
       light: /** @type {const} */ ("github-light"),
     },
+    defaultColor: false,
     transformers:
       /** @type {Array<import("@shikijs/types").ShikiTransformer>} */ ([
         {

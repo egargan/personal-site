@@ -71,8 +71,4 @@ html[data-theme="dark"] {
   --purple-background: hsl(302deg 68 60 / 19%);
 
   --grey-background: hsl(249deg 18 35 / 55%);
-
-  .astro-code code span {
-    color: var(--shiki-dark) !important;
-  }
 }

@@ -1,6 +1,5 @@
 ---
-import Pre from "$components/blog/Pre.astro";
-import Code from "$components/blog/Code.astro";
+import CodeBlock from "$components/blog/CodeBlock.astro";
 
 import SvelteChart from "./SvelteChart.svelte?raw";
 import { format } from "./format-code";
@@ -9,6 +8,4 @@ const code = format(SvelteChart, 0);
 const meta = "purple:/line(series)/ orange:/y.ticks()/ cyan:/x.domain()/";
 ---
 
-<Pre data-language="svelte" data-meta={meta}>
-  <Code lang="svelte" code={code} meta={meta} />
-</Pre>
+<CodeBlock lang="svelte" code={code} meta={meta} />

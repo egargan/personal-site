@@ -1,6 +1,5 @@
 ---
-import Pre from "$components/blog/Pre.astro";
-import Code from "$components/blog/Code.astro";
+import CodeBlock from "$components/blog/CodeBlock.astro";
 import TweenRaw from "./Tween.svelte?raw";
 import Tween from "./Tween.svelte";
 import { format } from "./format-code";
@@ -9,13 +8,11 @@ const code = format(TweenRaw, 0);
 ---
 
 <div class="feature-group-x">
-  <Pre data-language="svelte">
-    <Code
-      lang="svelte"
-      {code}
-      meta="purple:/stat/1 cyan:/transfers.map((d) => ({ ...d, stat: d[stat] }))/ red:/Tween.of/1 green:/statData.current/ orange:/maxStat/"
-    />
-  </Pre>
+  <CodeBlock
+    lang="svelte"
+    {code}
+    meta="purple:/stat/1 cyan:/transfers.map((d) => ({ ...d, stat: d[stat] }))/ red:/Tween.of/1 green:/statData.current/ orange:/maxStat/"
+  />
   <div class="feature" style="--flex-n: 0.7">
     <div class="feature-title-bar">
       <span>Result</span>

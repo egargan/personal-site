@@ -1,6 +1,6 @@
 ---
 import Pre from "$components/blog/Pre.astro";
-import Code from "$components/blog/Code.astro";
+import CodeBlock from "$components/blog/CodeBlock.astro";
 import ReactivityRaw from "./Reactivity.svelte?raw";
 import Reactivity from "./Reactivity.svelte";
 import { format } from "./format-code";
@@ -9,13 +9,11 @@ const code = format(ReactivityRaw, 0);
 ---
 
 <div class="feature-group-x">
-  <Pre data-language="svelte">
-    <Code
-      lang="svelte"
-      meta='purple:/stat/ orange:/maxStat/ cyan:/["spend", "income", "arrivals"]/ green:/line/ red:/y/3'
-      {code}
-    />
-  </Pre>
+  <CodeBlock
+    lang="svelte"
+    meta='purple:/stat/ orange:/maxStat/ cyan:/["spend", "income", "arrivals"]/ green:/line/ red:/y/3'
+    {code}
+  />
   <div class="feature" style="--flex-n: 0.7">
     <div class="feature-title-bar">
       <span>Result</span>

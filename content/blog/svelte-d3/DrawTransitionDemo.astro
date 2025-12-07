@@ -1,6 +1,6 @@
 ---
 import Pre from "$components/blog/Pre.astro";
-import Code from "$components/blog/Code.astro";
+import CodeBlock from "$components/blog/CodeBlock.astro";
 import DrawTransition from "./DrawTransition.svelte";
 import { format } from "./format-code";
 import Tabs from "$lib/components/blog/Tabs.astro";
@@ -22,16 +22,17 @@ const whenVisibleCode = format(WhenVisibleRaw, 0);
         lang: "javascript",
       },
     ]}>
-    <Pre data-language="svelte" data-meta="tab='trans-svelte'">
-      <Code
-        meta="purple:/{#if showLines}/ orange:/in:draw={{ delay: (i + 1) * 150 }}/"
-        lang="svelte"
-        {code}
-      />
-    </Pre>
-    <Pre data-language="javascript" data-meta="tab='trans-when-visible'">
-      <Code lang="javascript" code={whenVisibleCode} />
-    </Pre>
+    <CodeBlock
+      meta="purple:/{#if showLines}/ orange:/in:draw={{ delay: (i + 1) * 150 }}/"
+      lang="svelte"
+      tab="trans-svelte"
+      {code}
+    />
+    <CodeBlock
+      tab="trans-when-visible"
+      lang="javascript"
+      code={whenVisibleCode}
+    />
   </Tabs>
   <div class="feature" style="--flex-n: 0.7">
     <div class="feature-title-bar">

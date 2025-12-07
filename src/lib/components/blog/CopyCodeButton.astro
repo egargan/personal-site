@@ -107,6 +107,11 @@ const { blockId } = Astro.props as {
       border-color var(--transition-short);
   }
 
+  .feature-title-bar ~ button.code-copy {
+    /* Height of title bar (defined in [slug].astro) */
+    top: 34px;
+  }
+
   button.code-copy:hover {
     border-color: var(--text-three);
   }
@@ -115,7 +120,7 @@ const { blockId } = Astro.props as {
     border-color: var(--blue);
   }
 
-  pre.hover button.code-copy,
+  div[data-block-id].hover button.code-copy,
   button.code-copy:focus-visible {
     opacity: 1;
   }
