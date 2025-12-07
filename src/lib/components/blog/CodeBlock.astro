@@ -110,11 +110,25 @@ const blockId = randomId("code-block");
     display: inline-block;
     min-height: 1.25em;
 
-    color: var(--shiki-light) !important;
+    color: var(--shiki-light);
   }
 
   html[data-theme="dark"] pre code span {
-    color: var(--shiki-dark) !important;
+    color: var(--shiki-dark);
+  }
+
+  pre code span.code-highlight:not(.line),
+  pre code span.code-highlight:not(.line) > span {
+    /* Knock down lightness and chroma for syntax colors on top of highlight blocks */
+    color: oklch(from var(--shiki-light) calc(l - 0.15) calc(c - 0.025) h);
+  }
+
+  html[data-theme="dark"]
+    :is(
+      pre code span.code-highlight:not(.line),
+      pre code span.code-highlight:not(.line) > span
+    ) {
+    color: oklch(from var(--shiki-dark) calc(l + 0.175) calc(c + 0.025) h);
   }
 
   pre .code-highlight:not(.line) {
@@ -125,14 +139,6 @@ const blockId = randomId("code-block");
 
     margin-top: 1px;
     margin-bottom: 1px;
-  }
-
-  pre .code-highlight:not(.line) > span {
-    filter: contrast(1.1) brightness(0.8);
-  }
-
-  html[data-theme="dark"] pre .code-highlight:not(.line) > span {
-    filter: contrast(1.1) brightness(1.2);
   }
 
   pre .code-highlight.line {
