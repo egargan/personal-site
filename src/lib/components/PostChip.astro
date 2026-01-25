@@ -1,10 +1,13 @@
 ---
-const { type } = Astro.props as {
-  type: "lab" | "blog";
+import type { CollectionKey } from "astro:content";
+
+const { type, className } = Astro.props as {
+  type: CollectionKey;
+  className: string;
 };
 ---
 
-<span class={`type-${type}`}>{type}</span>
+<span class:list={[`type-${type}`, className && className]}>{type}</span>
 
 <style>
   span {
@@ -29,7 +32,7 @@ const { type } = Astro.props as {
     text-shadow: none;
   }
 
-  span.type-lab {
+  span.type-labs {
     background-color: var(--purple);
     color: white;
   }

@@ -11,14 +11,7 @@ const { post } = Astro.props as {
 <li>
   <a class="ignore-link-style" href={`/posts/${post.id}`}>
     <div class="type-and-title">
-      {
-        (() => {
-          if (post.collection === "blog") {
-            return <PostChip type="blog" />;
-          }
-          return <PostChip type="lab" />;
-        })()
-      }
+      <PostChip type={post.collection} />
       <h2>{post.data.title}</h2>
     </div>
     <span class="dot-separator">·</span>
@@ -28,7 +21,7 @@ const { post } = Astro.props as {
 
 <style>
   li {
-    margin-bottom: 14px;
+    margin-bottom: 16px;
     container-type: inline-size;
   }
 
@@ -58,8 +51,13 @@ const { post } = Astro.props as {
     text-decoration-color: var(--blue);
   }
 
+  .type-and-title {
+    text-wrap: pretty;
+  }
+
   .type-and-title :global(span) {
-    margin-right: 4px;
+    margin-right: 3px;
+    margin-bottom: -1px;
   }
 
   .date,
@@ -67,7 +65,7 @@ const { post } = Astro.props as {
     color: var(--text-two);
   }
 
-  @container (width < 640px) {
+  @container (width < 560px) {
     .dot-separator {
       display: none;
     }
@@ -75,10 +73,7 @@ const { post } = Astro.props as {
     a {
       grid-template-columns: 1fr;
       grid-template-rows: auto auto;
-    }
-
-    li {
-      margin-bottom: 18px;
+      margin-bottom: 4px;
     }
   }
 </style>
